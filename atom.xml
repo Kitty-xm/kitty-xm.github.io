@@ -3,11 +3,246 @@
   <id>https://kitty-xm.github.io/</id>
   <title type="text">kitty&apos;s blog</title>
   <subtitle type="text">喵喵喵</subtitle>
-  <updated>2026-10-21T00:00:00.000Z</updated>
+  <updated>2026-10-25T00:00:00.000Z</updated>
   <author><name>kitty</name></author>
   <link rel="alternate" href="https://kitty-xm.github.io/"/>
   <link rel="self" href="https://kitty-xm.github.io/atom.xml"/>
   <generator uri="https://github.com/CuteLeaf/Firefly">Firefly v6.16.8</generator>
+    <entry>
+      <id>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/</id>
+      <title type="text">周报1</title>
+      <published>2026-10-25T00:00:00.000Z</published>
+      <updated>2026-10-25T00:00:00.000Z</updated>
+      <author><name>kitty</name></author>
+      <link rel="alternate" href="https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/"/>
+      <summary type="text"></summary>
+      <content type="html"><![CDATA[<section><h1>概述<a href="#概述"><span>#</span></a></h1><p>上周以及这周开周都在ctfplus和NSSCTF这两个靶场打题，题目都是Web方向的，但涉及的知识点还是比较杂，在这周周中开始只在ctfshow上打题（有会员了，就开始从头做“WEB入门”了）目前的进度是把这个板块的信息搜集和爆破做完了。</p><p>我首先是先去看了C语言的网课，快速过了一遍了解了个大概（都是些很基础的东西，变量、for循坏、while循环、数组、函数什么的，但是指针还是不太懂）。然后就一直是边打题边学习的状态了，所以在做题过程中还是比较依靠WP和对话式AI的。</p><p>我在ctfplus上主要是在打探姬的题，都是教学加题目式的，属于是现学现做的那种了，像这样：
+</p><figure><img alt="&gt;.&lt;" loading="lazy" width="8192" height="3242" src="/_astro/example1.CCjHf0Yb_vvyHc.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+上周主要是在做PHP那一块，结果好像因为WP数量太少而且也没啥质量从而转战NSSCTF了。<p></p><p>然后这周开周是在刷NSSCTF上的各种新生赛Web题。
+</p><figure><img alt="&gt;.&lt;" loading="lazy" width="1702" height="1249" src="/_astro/example2.acyGKLcm_m4dWt.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+还是比较依赖WP了。我直接筛选Web题做的，所以知识点也不是很集中，但是根据WP更加了解了sql联合注入的原理和操作，PHP的弱类型比较，md5，以及各类请求头对应的作用（功能？）等等。<p></p><p>后来就去打ctf.show的Web入门了，题目难度基本也是循序渐进，（感觉差不多是从查看源码、按F12开始教的？），但是也有在看WP不过主要是在做爆破那里。现在是把信息搜集和爆破给做完了。（感觉这个就是专项训练了）</p><hr /></section>
+<section><h1>知识点<a href="#知识点"><span>#</span></a></h1><section><h2>信息搜集<a href="#信息搜集"><span>#</span></a></h2><ul>
+<li>
+<section><h4>robots协议<a href="#robots协议"><span>#</span></a></h4></section>
+</li>
+</ul><p>主流的搜索引擎都会遵守robots协议。并且robots协议是爬虫爬取网站第一个需要爬取的文件。爬虫爬取robots文件后，会读取上面的协议，并准守协议爬取网站，收录网站。robots文件是一个纯文本文件，也就是常见的.txt文件。robots文件必须要存放在网站的根目录下。也就是 域名/robots.txt 是可以访问文件的。</p><ul>
+<li>
+<section><h4>phps源码泄露<a href="#phps源码泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>phps文件就是php的源代码文件，通常用于提供给用户（访问者）直接通过Web浏览器查看php代码的内容。因为用户无法直接通过Web浏览器“看到”php文件的内容，所以需要用phps文件代替。并不是所有的php文件都存在.phps后缀，不是默认带有，只会在特殊情况下存在。利用目录扫描工具，扫描出靶场目录下的php文件（一般是index.php），将index.php改为index.phps访问，就会自动下载index.php的源码，这时候就可以在这里面找找。</p><ul>
+<li>
+<section><h4>www源码泄露<a href="#www源码泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p><a href="http://www.zip%E6%98%AF%E6%8A%8A%E6%95%B4%E7%AB%99%E6%BA%90%E7%A0%81%E6%89%93%E5%8C%85%E5%A4%87%E4%BB%BD%E6%88%90" target="_blank">www.zip是把整站源码打包备份成</a> <a href="http://www.zip" target="_blank">www.zip</a> 放在网站根目录，却没做好访问控制，结果可以直接通过 URL 把它下回来（域名/<a href="http://www.zip%EF%BC%89%E3%80%82%E5%85%88%E6%89%AB%E6%8F%8F%EF%BC%8C%E5%90%8E%E8%AE%BF%E9%97%AE%EF%BC%8C%E5%B0%B1%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E6%BA%90%E7%A0%81%E4%BA%86%E3%80%82" target="_blank">www.zip）。先扫描，后访问，就可以查看源码了。</a></p><ul>
+<li>
+<section><h4>git源码泄露<a href="#git源码泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>Git是一个开源的分布式版本控制系统，在执行git init初始化目录的时候，会在当前目录下自动创建一个.git目录，用来记录代码的变更记录等。发布代码的时候，如果没有把.git这个目录删除，就直接发布到了服务器上，攻击者就可以通过它来恢复源代码。即扫描目录发现/.git后访问 域名/.git 。</p><ul>
+<li>
+<section><h4>svn源码泄露<a href="#svn源码泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>SVN是一个开放源代码的版本控制系统。在使用SVN管理本地代码过程中，会自动生成一个名为.svn的隐藏文件夹，其中包含重要的源代码信息。网站管理员在发布代码时，没有使用‘导出’功能，而是直接复制代码文件夹到WEB服务器上，这就使.svn隐藏文件夹被暴露于外网环境，可以利用 域名/.svn，获取到服务器源码。</p><ul>
+<li>
+<section><h4>vim信息泄露/swp文件泄露<a href="#vim信息泄露swp文件泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>Vim 是 Linux 系统下的命令行文本编辑器，用于在服务器上编辑代码 / 配置文件，vim 缓存信息泄露本质就是出题人 / 开发在服务器上用 vim 编辑源码 ，留下了各种 编辑器缓存 / 备份文件 （.swp、~、.bak 等），结果这些文件也被 Web 服务器当成普通文件对外开放了，导致 源代码泄露 。不过呢Vim 编辑文件时会生成 .swp 临时文件，正常退出删除，异常退出（死机 / 断电）会保留。</p><ul>
+<li>
+<section><h4>cookie信息泄露<a href="#cookie信息泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>cookie一般用于在身份认证的过程中保存一些信息，用于服务器来验证身份,所以相当于身份证，在测试中可以尝试注入等方式。可以使用burp/yakit/F12中的网络来查看</p><ul>
+<li>
+<section><h4>DNS信息泄露（域名泄露）<a href="#dns信息泄露域名泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>DNS不仅可以储存域名还可以储存这些：
+• A记录：存IP地址
+• TXT记录：存任意文本
+• CNAME记录：域名别名。
+而我们使用一般的信息收集工具并不可以解决，所以要使用nslookup,dig(cmd中)使用nslookup可以查看域名的解析，使用nslookup -query=any 域名 来查询所有解析历史。</p><ul>
+<li>
+<section><h4>公开信息泄露<a href="#公开信息泄露"><span>#</span></a></h4></section>
+</li>
+</ul><ol>
+<li>有时候网站上的公开信息，就是管理员常用密码。</li>
+<li>公开的信息比如邮箱，可能造成信息泄露，产生严重后果</li>
+</ol><ul>
+<li>
+<section><h4>技术文档泄露<a href="#技术文档泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>很多的文章有许多的文档，可以在这些文档中发现很多信息，例如文件中有许多的信息泄露的地方。一般就是先扫描然后访问文档就好了。</p><ul>
+<li>
+<section><h4>源码信息泄露（/editor）<a href="#源码信息泄露editor"><span>#</span></a></h4></section>
+</li>
+</ul><p>有时候源码里面就能不经意间泄露重要(editor)的信息，而editor文件编辑器，使用文件编辑器时可以上传文件和xss储存攻击，本题可以发现是服务器文件，然后可以发现很多目录，在目录下挨个查看即可。</p><ul>
+<li>
+<section><h4>探针泄露(tz.php)<a href="#探针泄露tzphp"><span>#</span></a></h4></section>
+</li>
+</ul><p>PHP探针实际上是一种Web脚本程序，主要是用来探测虚拟空间、服务器的运行状况，而本质上是通过PHP语言实现探测PHP服务器敏感信息的脚本文件，通常用于探测网站目录、服务器操作系统、PHP版本、数据库版本、CPU、内存、组件支持等，基本能够很全面的了解服务器的各项信息，当开发者测试网站忘记把探针删掉以后，就会造成验证的信息泄露。一般是访问/tz.php,在phpinfo、环境变量中发现flag。</p><ul>
+<li>
+<section><h4>sql文件泄露<a href="#sql文件泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>有时备份的sql文件会泄露敏感信息，一般采用扫描目录后访问文件的方式。</p><ul>
+<li>
+<section><h4>分析/调试js代码（javascript游戏）<a href="#分析调试js代码javascript游戏"><span>#</span></a></h4></section>
+</li>
+</ul><p>使用F12查看js代码发现判断条件，在控制台中赋值即可</p><ul>
+<li>
+<section><h4>各种编码转换/加密<a href="#各种编码转换加密"><span>#</span></a></h4></section>
+</li>
+</ul><p>常见的有：</p><ol>
+<li>
+<p>Base64编码</p>
+</li>
+<li>
+<p>URL编码</p>
+</li>
+<li>
+<p>十六进制（Hex）编码</p>
+</li>
+<li>
+<p>unicode编码（格式差不多长这样\u4f60\u8d62\u4e86\uff0c\u53bb\）</p>
+</li>
+</ol><p>当然也有不常见的，比如：
+Base100编码（emoji编码）</p><p>加密的话有AES加密（差不多长这样a599ac85a73384ee32）</p><ul>
+<li>
+<section><h4>mdb文件泄露<a href="#mdb文件泄露"><span>#</span></a></h4></section>
+</li>
+</ul><p>mdb文件是早期asp+access构架的数据库文件，文件泄露相当于数据库被脱裤了。可以用dirsearch的递归扫描把文件路径扫出来，然后回浏览器访问就好了。</p><ul>
+<li>
+<section><h4>魔术哈希绕过<a href="#魔术哈希绕过"><span>#</span></a></h4></section>
+</li>
+</ul><p>正常情况下，MD5的结果是一个 长度为 32位 的 16进制 的 字符串。也有一些地方会用到 16 位的 MD5的结果，它实际上是从 32位 字符串 中取中间的第9位到第24位的部分，即长度是 16位。
+“魔术哈希”（Magic Hash）绕过，本质上是利用了PHP弱类型比较（==）中的一个特性：当一个字符串以 0e 开头，且后面全部是数字时，PHP会将其解释为科学计数法 0 * 10^n，结果恒等于 0。因此，两个不同的字符串，只要它们的MD5值都符合 ^0e\d+$ 的模式，在 == 比较时就会被判定为相等，从而实现绕过.MD5不可逆，相同的数据的MD5值肯定一样，不同数据的MD5值不一样（理论上可能会有相同的)。例如：
+240610708的MD5值为0e462097431906509019562988736854
+QNKCDZO的MD5值为0e830400451993494058024219903391
+两串明文的MD5值都会被读取为0，所以可以说这俩的MD5值是相等的。</p></section><section><h2>爆破<a href="#爆破"><span>#</span></a></h2><p>（其实主要就是学会使用BP的intruder）</p><ul>
+<li>
+<section><h4>攻击类型<a href="#攻击类型"><span>#</span></a></h4></section>
+</li>
+</ul>
+
+<table><thead><tr><th>攻击类型</th><th>核心逻辑</th><th>适用场景</th><th>请求总数公式</th></tr></thead><tbody><tr><td>Sniper（狙击手）</td><td>单字典，轮流打：使用一个Payload 字典，依次、单独地替换每一个标记好的注入点。</td><td>已知用户名，只爆破密码；或对单个参数进行 Fuzzing 测试。</td><td>注入点数 × 字典大小</td></tr><tr><td>Battering ram（攻城锤）</td><td>单字典，同时打：使用一个Payload 字典，将同一个 Payload 同时放入所有标记的注入点。</td><td>请求中多个位置需要相同的输入，例如 Cookie 和 Body 中的参数值需要保持一致。</td><td>字典大小</td></tr><tr><td>Pitchfork（音叉）</td><td>多字典，齐步走：为每个注入点分配独立的字典，然后并行地逐行取用（第1个请求用各字典的第1行，第2个请求用第2行…）。</td><td>需要相关联的输入，例如已知“用户名&lt;密码&gt;”的配对列表；或需要同时处理 username 和动态 token。</td><td>最小的那个字典的大小</td></tr><tr><td>Cluster bomb（集束炸弹）</td><td>多字典，全组合：为每个注入点分配独立字典，然后测试所有可能的组合（笛卡尔积）。</td><td>完全未知用户名和密码，需要穷举所有配对进行登录爆破。</td><td>字典1大小 × 字典2大小 × …</td></tr></tbody></table><ul>
+<li>
+<section><h4>爆破类型<a href="#爆破类型"><span>#</span></a></h4></section>
+</li>
+</ul><ol>
+<li>字典爆破（Simple list，Load…添加字典）</li>
+<li>日期爆破/生日爆破/身份证爆破（Date）</li>
+<li>代码爆破（写脚本：OnlinePHP或Python）【记得先抓个包确认php版本】</li>
+<li>伪随机数种子爆破（工具php_mt_seed）【记得先抓个包确认php版本】</li>
+<li>爆破目录</li>
+</ol><p>（补：processing用于添加规则，比如添加爆破位置的前缀（admin、url等）、对爆破位置进行编码（encode-Base64这种）等等。）</p></section><section><h2>请求报文<a href="#请求报文"><span>#</span></a></h2><ul>
+<li>
+<section><h4>请求行<a href="#请求行"><span>#</span></a></h4></section>
+</li>
+</ul><p>请求的第一行叫 请求行（Request Line），由三部分组成，空格分隔：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>POST /login.php HTTP/1.1</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>• POST：请求方法（Method），告诉服务器 ” 我要提交数据”。
+• /login.php：请求路径（Request-URI），即 URL 去掉协议和域名后的部分。CTF 中改路径是基本功 —— 目录穿越、任意文件读取  等章节里的 payload 都是在这里做文章。
+• HTTP/1.1：协议版本。做题时几乎不需要关心，知道有 1.1 和 2 即可；Burp Repeater 里改包一般用 1.1。</p><ul>
+<li>
+<section><h4>请求头（Header）<a href="#请求头header"><span>#</span></a></h4></section>
+</li>
+</ul><p>从第二行开始，到第一个空行为止，是 请求头。每行一个<code>字段名: 值</code>，顺序无关。Header 是 CTF 出题的重灾区，上面抓包里加粗关注的几个：
+• Host：目标域名。虚拟主机靠它区分站点，SSRF 和一些越权题会考 Host 头伪造。
+• User-Agent：客户端身份。经典考点：题目要求 ” 请使用 xxx 浏览器访问”，改它就行。
+• Referer：从哪个页面跳转过来的。经典考点：“只能从某页面访问”，直接改 Referer 绕过。
+• Cookie：携带会话凭证，单独在后面的 Cookie 小节讲。
+• Content-Type：告诉服务器 Body 的格式。改它可以绕过部分校验（如文件上传时改成 image/png），也能触发 XXE（改成 application/xml）等漏洞。
+空行 是请求头与请求体的分界，千万不能丢 ——Burp Repeater 里如果删了空行，服务器会把 Body 当成畸形的 Header 处理。</p><ul>
+<li>
+<section><h4>请求体（Body）<a href="#请求体body"><span>#</span></a></h4></section>
+</li>
+</ul><p>空行之后的部分是 请求体，只有 POST/PUT 等方法才有。最常见的是表单格式：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>username</span><span><span>=</span><span>admin&amp;</span></span><span>password</span><span><span>=</span><span>123456</span></span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>即 <code>键=值&amp;键=值</code>，与 Content-Type: application/x-www-form-urlencoded 对应。其他常见格式：
+• application/json：{“username”:“admin”}，注意 PHP 里 json 格式不走 $_POST，要读 php://input。
+• multipart/form-data：文件上传用的格式，Body 被 boundary 分成多段，细节见 文件上传 章节。</p><ul>
+<li>
+<section><h4>响应行与状态码<a href="#响应行与状态码"><span>#</span></a></h4></section>
+</li>
+</ul><p>响应的第一行是 状态行：<code>协议版本 状态码 状态短语</code>。状态码三位数字，第一位是类别，CTF 里常见的就这几个：</p>
+
+<table><thead><tr><th>状态码</th><th>含义</th><th>CTF 中的意义</th></tr></thead><tbody><tr><td>200</td><td>成功</td><td>正常返回，flag 常常就藏在页面里</td></tr><tr><td>301/302</td><td>重定向</td><td>跳转到新地址，Location 头指向的页面可能没做权限校验，在 Burp 里别跟着跳转，直接看本次响应体</td></tr><tr><td>401</td><td>未认证</td><td>需要登录，常见于 HTTP Basic Auth</td></tr><tr><td>403</td><td>禁止访问</td><td>有东西但不让看，试试目录穿越、改 UA/IP 头等绕过</td></tr><tr><td>404</td><td>不存在</td><td>扫目录时的 ” 基准值”，区别 403 和 404 很重要</td></tr><tr><td>500</td><td>服务器错误</td><td>参数可能打进了危险函数，配合报错信息往往有戏（如 SQL 注入 的报错注入）</td></tr></tbody></table><p>响应头里值得关注的有 Set-Cookie（服务器下发 Cookie）、Location（302 跳转目标）、Server（泄露中间件版本，属于 敏感信息泄露 的范畴）。</p><ul>
+<li>
+<section><h4>自己动手：用 curl 复现这个包<a href="#自己动手用-curl-复现这个包"><span>#</span></a></h4></section>
+</li>
+</ul><p>不依赖 Burp，命令行也能构造同样的请求：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>curl -v -X POST </span><span>'http://challenge.example.com/login.php'</span><span> \</span></div></div><div><div><div>2</div></div><div><span><span>  </span></span><span>-H </span><span>'Referer: http://challenge.example.com/admin'</span><span> \</span></div></div><div><div><div>3</div></div><div><span><span>  </span></span><span>-H </span><span>'Cookie: PHPSESSID=a1b2c3d4e5f6; role=admin'</span><span> \</span></div></div><div><div><div>4</div></div><div><span><span>  </span></span><span>-d </span><span>'username=admin&amp;password=123456'</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>• -v：打印完整的请求和响应头，相当于 ” 抓包”。
+• -X POST：指定方法；-d 携带 Body 时默认就是 POST。
+• -H：自定义任意 Header，做题时 90% 的操作就是用它改头。</p><ul>
+<li>
+<section><h4>常见请求方法<a href="#常见请求方法"><span>#</span></a></h4></section>
+</li>
+</ul>
+
+<table><thead><tr><th>方法</th><th>语义</th><th>CTF 考点</th></tr></thead><tbody><tr><td>GET</td><td>获取资源，参数放在 URL query 里</td><td>参数直接可见可改，是注入题的主战场</td></tr><tr><td>POST</td><td>提交数据，参数放在 Body</td><td>表单登录、文件上传；注意 Body 格式由 Content-Type 决定</td></tr></tbody></table><p>一个典型考法：题目对 GET/POST 做了过滤，但代码里用了 $_REQUEST 或允许其他方法，换成 PUT 或 X-HTTP-Method-Override 头就能绕过。遇到 ” 方法被拦 ” 的 405 响应，先 OPTIONS 一下看看还支持什么。</p></section><section><h2>PHP、文件包含<a href="#php文件包含"><span>#</span></a></h2><ul>
+<li>
+<p>文件包含会无视文件扩展名，只要其中包含符合php语法规范的php代码就能够执行。</p>
+</li>
+<li>
+<section><h4>file协议<a href="#file协议"><span>#</span></a></h4></section>
+</li>
+</ul><p>file://：本地文件系统访问
+file:// 是 PHP 默认的本地文件系统访问包装器，在文件路径中通常可以被隐式省略。它允许 PHP 函数直接读取、写入、创建或操作服务器上的本地文件 。
+file:// 用于访问服务器上的本地文件系统。例如，可以使用 file_get_contents() 函数读取文件的全部内容到字符串变量中 。fopen() 函数结合循环可以逐行读取文件 。</p><ul>
+<li>
+<section><h4>data协议<a href="#data协议"><span>#</span></a></h4></section>
+</li>
+</ul><p>data 协议 是一种允许在 URL 中包含数据的协议，常用于在网页中嵌入小型数据或进行简单的数据传输。data://：数据嵌入
+data:// 包装器允许将小文件或数据直接以 Base64 编码或 URL 编码的形式嵌入到 URL 字符串中 。这常用于在 HTML 或 CSS 中嵌入图片、字体等小型资源，从而减少 HTTP 请求的数量，提高页面加载效率 。
+操作过程
+• 数据编码：将需要传输的数据按照特定的格式进行编码。例如，如果要传输一段文本 “Hello, World!”，可以使用 Base64 编码将其转换为相应的编码字符串。
+• 构建 URL：在 URL 中使用data&lt;协议头&gt;，后面跟上数据的 MIME 类型、编码方式以及编码后的数据。例如，data/plain;base64,SGVsbG8sIFdvcmxkIQ==表示传输一段纯文本数据，采用 Base64 编码，编码后的内容为 “SGVsbG8sIFdvcmxkIQ==”。
+• 在网页中使用：可以将包含 data 协议的 URL 作为图片的源地址（如<img />来直接在网页中显示一张图片，而无需从服务器获取图片文件），或者在 JavaScript 中通过fetch等函数获取 data 协议中的数据进行处理。</p><ul>
+<li>
+<section><h4>data伪协议<a href="#data伪协议"><span>#</span></a></h4></section>
+</li>
+</ul><p>data 伪协议 是 PHP 中的一个特殊协议，它允许将原始数据嵌入到 URL 中。通过文件包含漏洞，我们可以利用这个伪协议，将恶意 PHP 代码作为数据嵌入，并让服务器解释执行。该方法适用于无法直接上传文件或插入代码的情况下，非常适合在 Local File Inclusion (LFI) 漏洞中执行任意命令。
+有些服务器 可能不直接执行原始的 PHP 代码，需要将数据进行 URL 编码。
+data伪协议不需要上传文件，秩序通过URL注入代码即可，还能绕过WAF（Web应用防火墙，可以直接执行PHP代码或系统命令。</p><p>功能与用例：
+data:// 用于将数据直接嵌入到 URL 字符串中，常用于在 HTML 或 CSS 中嵌入小型资源 。</p><ul>
+<li>
+<section><h4>远程文件包含<a href="#远程文件包含"><span>#</span></a></h4></section>
+</li>
+</ul><p>http:// 和 https://：远程 URL 访问
+http:// 和 https:// 包装器允许 PHP 应用程序发起 HTTP 或 HTTPS 请求，用于获取远程资源 。这在现代 Web 应用中非常普遍，例如调用外部 API、获取远程图片、加载远程脚本或数据等 。</p><ol>
+<li>无限制远程文件包含是指包含文件的位置并不是在本地服务器，而是通过URL的形式包含其他服务器上的文件，执行文件中的恶意代码。</li>
+</ol><p>漏洞利用条件：</p><p>allow_url_fopen=on</p><p>allow_url_include=on</p><ol>
+<li>有限制远程文件包含漏洞
+绕过方法：</li>
+</ol><p>1）问号绕过
+可以在问好(?)后面添加HTML字符串，问号后面的扩展名.html会被当成查询，从而绕或扩展名过滤</p><p>2）井号绕过
+可以在井号(#)后面添加HTML字符串，#号会截断后面的扩展名.html，从而逃过扩展名过滤。#号的URL编码为%23</p><p>3）空格绕过
+在payload的最后对空格进行URL编码  %20</p><ul>
+<li>
+<section><h4>php://伪协议<a href="#php伪协议"><span>#</span></a></h4></section>
+</li>
+</ul><p>php://伪协议是php提供的一些输入输出流访问功能，允许访问php的输入输出流，标准输入输出和错误描述符，内存中，磁盘备份的临时文件流，以及可以操作其他读取和写入文件的过滤器。
+(补充：include_once函数；
+include_once()：在脚本执行期间包含并运行指定文件。该函数和include 函数类似，两者唯一的区别是 使用该函数的时候，php会加检查指定文件是否已经被包含过，如果是，则不会再被包含。)</p><ul>
+<li>
+<section><h4>php://filter<a href="#phpfilter"><span>#</span></a></h4></section>
+</li>
+</ul><p>php://filter是元封装器，设计用于了数据流打开时的筛选过滤应用，对本地磁盘文件进行读写。现在常用于读取源代码并进行base64 输出，如果不进行编码则会直接执行就看不到源代码，
+用法格式差不多为?filename=php://filter/convert.base64-encode/resource=XXX.php</p><ul>
+<li>
+<section><h4>php://input<a href="#phpinput"><span>#</span></a></h4></section>
+</li>
+</ul><p>php://input 可以访问请求的原始数据流的只读流，将post请求中的数据作为php代码执行
+就像一个水管一样，php://input作为将post中的请求体，当作参数传递给get 请求的参数
+使用条件：
+allow_url_fopen: off/on
+allow_url_include: on
+php://input 允许读取 HTTP 请求体中的原始 POST 数据，而无需依赖 <span><span>POST超全局变量（_POST 超全局变量（</span><span><span><span></span><span><span></span><span><span><span><span><span><span></span><span><span>P</span></span></span></span><span>​</span></span><span><span><span></span></span></span></span></span></span><span>O</span><span>S</span><span>T</span><span>超全局变量（</span></span></span></span>_POST 仅处理 application/x-www-form-urlencoded 或 multipart/form-data 格式的数据）。这对于处理非标准格式的 POST 数据，如 JSON 或 XML  请求体，非常有用。</p><ul>
+<li>
+<section><h4>phpinfo()<a href="#phpinfo"><span>#</span></a></h4></section>
+</li>
+</ul><p>phpinfo()查看PHP配置环境，在里面找flag。</p></section><section><h2>字符串绕过<a href="#字符串绕过"><span>#</span></a></h2><p>在CTF Web题中，针对 preg_match 的字符串绕过技巧非常多，将这些绕过方式分为四大类基本上为：</p><p>一、 利用 Linux Shell 特性（通配符）
+这是最直接、最常用的方式。由于 eval 执行的是系统命令，Shell 会帮我们解析通配符。</p><ul>
+<li>星号：匹配任意字符。</li>
+</ul><p>Payload: ?c=system(‘cat /fla*’);</p><p>? 问号：匹配单个字符。</p><p>Payload: ?c=system(‘cat /????’); （假设文件名是四个字母的flag）</p><p>[] 中括号：匹配括号内的任意一个字符。</p><p>Payload: ?c=system(‘cat /fl[a]g’);</p><p>\ 反斜杠转义：</p><p>Payload: ?c=system(‘cat /fl\ag’);</p><p>二、 PHP 字符串拼接与反转
+如果环境在 eval 层面直接拦截了完整的 flag 字符串，我们可以用 PHP 语法将其拆分。</p><p>. 拼接符：</p><p>Payload: ?c=system(‘cat /fl’.‘ag’);</p><p>Payload: ?c=<span><span>a=′fl′;a='fl';</span><span><span><span></span><span>a</span><span></span><span><span>=</span><span><span><span><span><span><span></span><span><span><span>′</span></span></span></span></span></span></span></span></span><span></span></span><span><span></span><span>f</span><span><span>l</span><span><span><span><span><span><span></span><span><span><span>′</span></span></span></span></span></span></span></span></span><span>;</span></span></span></span>b=‘ag’;system(“cat /<span><span>aa</span><span><span><span></span><span>a</span></span></span></span>b”);</p><p>strrev() 反转函数：</p><p>Payload: ?c=system(‘cat /‘.strrev(‘galf’));</p><p>chr() ASCII码拼接：</p><p>Payload: ?c=system(‘cat /‘.chr(102).chr(108).chr(97).chr(103)); （102是f, 108是l, 97是a, 103是g）</p><p>三、 利用 HTTP 传参（极常用的巧解）
+通过其他 GET 或 POST 参数将敏感词传进去，这样 $c 变量本身的内容里就不包含 flag 了。</p><p>假设 URL 传入：?c=system(“cat /”.$_GET[1]);&amp;1=flag</p><p>假设 URL 传入：?c=system(“cat /”.$_POST[x]); (同时用 POST 传 x=flag)</p><p>四、 编码绕过
+通过 PHP 的解码函数，将敏感词还原。</p><p>Base64 编码：flag 的 Base64 是 ZmxhZw==</p><p>Payload: ?c=system(‘cat /‘.base64_decode(‘ZmxhZw==’));</p><p>Hex 十六进制编码：flag 的 Hex 是 666c6167</p><p>Payload: ?c=system(‘cat /‘.hex2bin(‘666c6167’));</p><p>URL 编码：如果你直接传参，URL编码通常会被 PHP 自动解码，但有时也能绕过 WAF 层。</p></section><section><h2>SQL联合查询<a href="#sql联合查询"><span>#</span></a></h2><p>SQL联合查询（UNION ）是用于从一个或多个表中检索数据的高级特性。通过联合查询，我们可以将多个SELECT语句的结果组合成一个查询结果集并返回给用户。但是，请注意，为了联接，每个查询都必须具有相同的列数和数据类型。
+下面是一个简单的联合查询的语法：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>SELECT column1, column2, ... columnn FROM table1</span></div></div><div><div><div>2</div></div><div><span>UNION</span></div></div><div><div><div>3</div></div><div><span>SELECT column1, column2, ... columnn FROM table2;</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>和这个是一样的：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>SELECT 字段列表 FROM 表A ...</span></div></div><div><div><div>2</div></div><div><span>UNION [ALL]</span></div></div><div><div><div>3</div></div><div><span>SELECT 字段列表 FROM 表B ...</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p><strong>一般是先查字段，再确认回显位置，接下来依次查数据库名、表名、表里有哪些列（列名）</strong></p></section><section><h2>反序列化<a href="#反序列化"><span>#</span></a></h2><p>反序列化构造，类似这种：
+O:4:“wllm”:2:{s:5:“admin”;s:5:“admin”;s:6:“passwd”;s:3:“ctf”;}
+类型&lt;字节数&gt;：“内容”，后面重复前半段修改后半段是在进行覆盖，这样就算admin和paasword这种被固定了，也可以登入或查询。（应该是）</p></section><section><h2>中国蚁剑的使用<a href="#中国蚁剑的使用"><span>#</span></a></h2><p>连接域名可以在里面查目录，找flag。</p><hr /><p>这周差不多是这些东西了，我说真的ctfplus里的题那些WP写了跟没写没差。。。感觉还是比较杂，也没有多熟练，仅仅算个了解的程度吧，之后再多打打题练一下熟练度。</p></section></section>]]></content>
+    </entry>
     <entry>
       <id>https://kitty-xm.github.io/posts/hello/</id>
       <title type="text">你好</title>

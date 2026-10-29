@@ -14,4 +14,5 @@
 - [打赏](https://kitty-xm.github.io/sponsor/): 如果我的内容对你有帮助，欢迎通过以下方式打赏我，你的支持是我持续创作的动力！
 
 ## Recent Posts
+- [周报1](https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/)
 - [你好](https://kitty-xm.github.io/posts/hello/)
