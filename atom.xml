@@ -18,10 +18,11 @@
       <summary type="text"></summary>
       <content type="html"><![CDATA[<section><h1>概述<a href="#概述"><span>#</span></a></h1><p>这周开始再打极客的比赛题，后来极客的Web一直不更新题库就又去ctf.show打WEB入门了，这周主要是在打php、命令执行这方面。总体来说学会了理解比较简单的php代码和一点代码审计以及比较常见的绕过过滤。</p></section>
 <section><h1>WP<a href="#wp"><span>#</span></a></h1><ul>
-<li><strong>Web 29</strong>(ctf.show WEB入门)
-好，先是这道题。
-<figure><img alt="&gt;.&lt;" loading="lazy" width="427" height="235" src="/_astro/e3.C4fvH6OA_Z1p29m7.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
-</ul><ol>
+<li>
+<section><h4>Web 29(ctf.show WEB入门)<a href="#web-29ctfshow-web入门"><span>#</span></a></h4></section>
+</li>
+</ul><p>好，先是这道题。
+</p><figure><img alt="&gt;.&lt;" loading="lazy" width="427" height="235" src="/_astro/e3.C4fvH6OA_Z1p29m7.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
 <li>有两行看不懂(大概能知道过滤了什么，但具体的每行每个字符不知道意思)，查一下。
 <figure><img alt="&gt;.&lt;" loading="lazy" width="961" height="805" src="/_astro/e4.DKiMNcU8_tbpSK.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 大致意思是让我们用GET方式传一个参数c，且这个c的内容里flag这个字符串被过滤了，不论大小写，然后就是这个eval函数会直接执行参数c里的内容，只要满足绕过flag这个字符串基本就能出flag。
@@ -34,9 +35,10 @@
 <strong>另：题目WP里还有一些别的解法：</strong>
 <figure><img alt="&gt;.&lt;" loading="lazy" width="1075" height="1170" src="/_astro/image.DhtM5kQE_Z177YHV.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
 </ol><ul>
-<li><strong>玉米厨房</strong>
-<figure><img alt="&gt;.&lt;" loading="lazy" width="2554" height="1533" src="/_astro/image2.CFKtTbgG_Z1LVI0J.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
-</ul><ol>
+<li>
+<section><h4>玉米厨房<a href="#玉米厨房"><span>#</span></a></h4></section>
+</li>
+</ul><p></p><figure><img alt="&gt;.&lt;" loading="lazy" width="2554" height="1533" src="/_astro/image2.CFKtTbgG_Z1LVI0J.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
 <li>来，这道题。图中明示使用GET方式以及name为cornguard
 <figure><img alt="&gt;.&lt;" loading="lazy" width="2529" height="1459" src="/_astro/e6.Bxj4tv9k_1PoS.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
 <li>如图示POST传入action=join
@@ -50,10 +52,11 @@
 <li>接着就是点击再次接管再回车控制台里面的内容就可以了。
 <figure><img alt="&gt;.&lt;" loading="lazy" width="2557" height="1462" src="/_astro/e8.8QIBp7Mj_1jWsN3.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
 </ol><ul>
-<li><strong>ezphp</strong>
-<figure><img alt="&gt;.&lt;" loading="lazy" width="532" height="886" src="/_astro/e9.mfFKqcc1_eVnpu.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
-题目中有个这个</li>
-</ul><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>}</span></div></div><div><div><div>2</div></div><div>
+<li>
+<section><h4>ezphp<a href="#ezphp"><span>#</span></a></h4></section>
+</li>
+</ul><p></p><figure><img alt="&gt;.&lt;" loading="lazy" width="532" height="886" src="/_astro/e9.mfFKqcc1_eVnpu.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+题目中有个这个<p></p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>}</span></div></div><div><div><div>2</div></div><div>
 </div></div><div><div><div>3</div></div><div><span>if (intval($num, 0) === 411413) {</span></div></div><div><div><div>4</div></div><div><span><span>    </span></span><span>$_SESSION[</span><span>'ezphp_level1'</span><span>] = true</span><span>;</span></div></div><div><div><div>5</div></div><div><span><span>    </span></span><span>header(</span><span>"Location: death.php"</span><span>)</span><span>;</span></div></div><div><div><div>6</div></div><div><span><span>    </span></span><span>exit</span><span>;</span></div></div><div><div><div>7</div></div><div><span>}</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>结合去前面的可以得出题目限制：</p><ol>
 <li>必须是字符串</li>
 <li>不能 == 411413（松散不等）</li>
@@ -72,9 +75,10 @@ curl.exe “<a href="http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.challenge.ct
 <li>然后就是验证木马活性，成功之后查目录文件，发现有flag.php，读取它就拿到flag了。
 <figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1324" src="/_astro/image-1.CcfnhlfL_Z1Bdhuw.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
 </ol><ul>
-<li><strong>术之尽头</strong>
-<figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1527" src="/_astro/e0.DZW7Wfx4_3h3cc.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
-</ul><ol>
+<li>
+<section><h4>术之尽头<a href="#术之尽头"><span>#</span></a></h4></section>
+</li>
+</ul><p></p><figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1527" src="/_astro/e0.DZW7Wfx4_3h3cc.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
 <li>打开题目映入眼帘的只有四张漫画图片，其余啥也没有了。那就打开源码看一下，结果发现还是干净得只有图片。</li>
 <li>返回题目页面扫一下常见路径发现只有robots.txt返回200，读robots.txt出来个这个
 <figure><img alt="&gt;.&lt;" loading="lazy" width="2088" height="1102" src="/_astro/e10.Dqh7kH0C_1bRP7y.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
@@ -101,11 +105,12 @@ curl.exe “<a href="http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.challenge.ct
 发现是一个以 root 身份跑的后台死循环，且<code>/var/www/html/primary</code> 权限是 777，于是就可以 www-data 随便写文件、随便建符号链接。
 但是符号链接失败了，原因是<code>cp -P</code> 里的 <code>-P</code> 是 GNU cp 的 <code>--no-dereference</code>（不跟随符号链接）选项。它把 “符号链接本身” 复制过去了，没读目标文件内容。然后 <code>chmod 755 -R</code> 默认也不跟随符号链接，所以 <code>/tmp/flag</code> 的权限根本没被改。
 6. 于是尝试通配符注入（*），循环命令为：<p></p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>cp -P * /var/www/html/marstream/</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>在 primary 目录里放一个<strong>名字叫 <code>-L</code> 的空文件</strong>，于是 <code>*</code> 展开后命令变成：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>cp -P -L x /var/www/html/marstream/</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>输入构造的完整payload后回显就是flag。</p><ul>
-<li><strong>ez_pop</strong>
-<figure><img alt="&gt;.&lt;" loading="lazy" width="2536" height="1359" src="/_astro/e15.CTwA5_aW_Z287sXh.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+<li>
+<section><h4>ez_pop<a href="#ez_pop"><span>#</span></a></h4></section>
+</li>
+</ul><p></p><figure><img alt="&gt;.&lt;" loading="lazy" width="2536" height="1359" src="/_astro/e15.CTwA5_aW_Z287sXh.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 <figure><img alt="&gt;.&lt;" loading="lazy" width="2544" height="1347" src="/_astro/e16.DnwVSeND_Z2w1eWD.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
-<figure><img alt="&gt;.&lt;" loading="lazy" width="2539" height="460" src="/_astro/e17.D7BPF6Mv_Z2w8sHz.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
-</ul><ol>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2539" height="460" src="/_astro/e17.D7BPF6Mv_Z2w8sHz.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
 <li>先看源码
 在<code>filter()</code>：<code>str_replace("admin","hacker",$data)</code>可以看出<strong>admin 是 5 个字符，hacker 是 6 个字符</strong>—— 替换后字符串变长了 1 个字符，但序列化格式里声明的字符串长度（<code>s:数字:"内容"</code>）还是原来的数字。长度对不上了，所以就能做 “字符逃逸”。</li>
 <li>然后是找POP链
@@ -122,15 +127,17 @@ curl.exe “<a href="http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.challenge.ct
 5. 最后就是发请求，打开Powershell把 <code>user</code> 做 URL 编码后拼成请求发出去。</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>$</span><span>u</span><span><span> </span><span>=</span><span> wsl php /mnt/c/Users/1/gen_payload.php</span></span></div></div><div><div><div>2</div></div><div><span>$</span><span>url</span><span><span> </span><span>=</span><span> </span></span><span>"http://80-20b8eb23-...challenge.ctfplus.cn/?user=$u&amp;sign=a"</span></div></div><div><div><div>3</div></div><div><span>Invoke-WebRequest -Uri $url -UseBasicParsing</span></div></div></code></pre><div><div></div><div></div></div></figure></div><ol>
 <li>响应里按顺序打出链上每一步的提示语（”？！强强？！""666，还有第二关 ""马上就到了"" 还有一步 ”），所以继续：</li>
 </ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>RCE:</span></div></div><div><div><div>2</div></div><div><span>SYC{c04d6dc6-3739-4166-bfac-0087c91ee48c}</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>这样就拿到了。</p><ul>
-<li><strong>丹特丽安の書架</strong>
-<figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1528" src="/_astro/e18.Ce6j6sXz_1c4AHo.webp" /><figcaption>&gt;.&lt;</figcaption></figure></li>
-</ul><ol>
+<li>
+<section><h4>丹特丽安の書架<a href="#丹特丽安の書架"><span>#</span></a></h4></section>
+</li>
+</ul><p></p><figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1528" src="/_astro/e18.Ce6j6sXz_1c4AHo.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
 <li>页面和源码里都没什么东西，就5本书和书的内容简介。
 看到检索栏，条件反射SQL注入布尔盲注，先试试吧。</li>
 <li>先找注入点，示例说输入1，回显说“该书存在于书架之上”，那有5本书应该1~5都正常，输入6，发现6也回显存在，输入7则是“未查询到本书相关信息”，那注入点多半是6了。
 测试AND这些发现都没过滤，但AND’1’=‘1能回显存在，AND’1’=‘2不行，所以应该是单引号字符型注入：后端 SQL 形如 SELECT … FROM security WHERE id=‘&lt;输入&gt;‘，输入里的 ’ 可以闭合字符串。但是用---注释后段拼接不行，被过滤了，所以用#
 <strong>绕过规则</strong> 裸写关键字会被 WAF 替换/删除导致 SQL 语法错误（返回 MISS）。MySQL 版本注释 /<em>!50000关键字</em>/ 在版本 ≥ 5.00.00 时会被当作正常 SQL 执行，而普通 WAF 往往只匹配裸关键字，从而绕过。
-| 	词 |	裸写	 | 绕过写法 |
+| 词 |	裸写	 | 绕过写法 |
+| --- | --- | --- |
 | 连接/子句关键字 | and	| ✗ 被删  | /<em>!50000and</em>/ |
 |       | select |	✗	 | /<em>!50000select</em>/ |
 |       | from |	✗	| /<em>!50000from</em>/ |
@@ -151,6 +158,7 @@ curl.exe “<a href="http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.challenge.ct
 </ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>(/*!50000select*/column_name/*!50000from*/information_schema.columns</span></div></div><div><div><div>2</div></div><div><span><span> </span></span><span>/*!50000where*/ table_schema=database() /*!50000and*/ table_name='security')</span></div></div></code></pre><div><div></div><div></div></div></figure></div><ol>
 <li>读数据：
 | 行 |	syc_flag |
+| --- | --- | --- |
 | 0 |	syc1 |
 | 1	| syc2 |
 | 2	| syc3 |
@@ -160,7 +168,14 @@ curl.exe “<a href="http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.challenge.ct
 取值子查询：
 <code>(/*!50000select*/syc_flag/*!50000from*/security /*!50000limit*/ 5,1)</code>
 然后就有了。</li>
-</ol></section>]]></content>
+</ol><ul>
+<li>
+<section><h4>Web30<a href="#web30"><span>#</span></a></h4></section>
+</li>
+</ul><p></p><figure><img alt="&gt;.&lt;" loading="lazy" width="624" height="567" src="/_astro/e19.ymfI7RaB_Z1Nh22I.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+这道题的过滤又增加了，不能再出现system和php。
+<figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="228" src="/_astro/e20.D-unlKRU_WpW8N.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
+命令除system以外还有passthru可以使用，passthru() 会执行传入的系统命令，并且将命令的原始输出（Raw Output）直接输出到浏览器/页面上。<em>可以代替几个字节,不像?只能占一个字节,所以这里的flag点PHP可以直接用Fla</em>代替。<p></p></section>]]></content>
     </entry>
     <entry>
       <id>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/</id>
