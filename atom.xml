@@ -166,6 +166,7 @@ highlight_file() 是 PHP 内置的语法高亮函数。它的作用就是：读�
 <li>
 <section><h4>总结<a href="#总结-2"><span>#</span></a></h4></section>
 </li>
+</ol><p>这是一道PHP文件上传+phar反序列化+条件竞争题，把恶意 phar 伪装成 GIF 传上去，抢在它被删前的 0.5 秒用 <code>?file=phar://...</code> 触发反序列化，借 <code>Cache→FileDriver</code> 的 POP 链把 <code>shell.php</code> 写进网站根目录，然后 <code>cat /flag</code>。</p><ol>
 <li>
 <section><h4>完整链路<a href="#完整链路-1"><span>#</span></a></h4></section>
 </li>
@@ -212,7 +213,7 @@ serialize() 把对象变成字符串；unserialize() 把字符串还原成对象
 </li>
 </ol>
 
-<table><thead><tr><th>操作</th><th>结果</th><th>原因</th></tr></thead><tbody><tr><td>HxD打开GIF文件在2.gif末尾加 <code>&lt;?php eval(...)?&gt;</code></td><td>上传成功，但是连不上</td><td>文件被改名成随机md5.gif，Apache按 image/gif 原样吐字节，PHP 引擎根本没机会执行</td></tr><tr><td>改名 2.php.gif 再传</td><td>还是连不上</td><td>服务端 $newName = md5(uniqid()).‘.gif’，你提交的名字被丢弃，最后还是 .gif</td></tr><tr><td>蚁剑连接</td><td>返回为空」</td><td>蚁剑发的是 POST，服务器返回的是一堆二进制图片字节 / 空；马从未执行，自然没有回显</td></tr><tr><td>用<code>?file=</code>读源码</td><td>只回读取成功</td><td>代码只回布尔值，不回内容</td></tr></tbody></table><blockquote><p>.gif 在 Apache 里是静态文件，永远走「读文件就返回」的分支，PHP 模块不会接管。想让它执行，要么改成 .php，要么用文件包含 /phar 这类「让 PHP 主动去读这个文件」的方式—— 这里给的就是 file_get_contents。</p></blockquote><ul>
+<table><thead><tr><th>操作</th><th>结果</th><th>原因</th></tr></thead><tbody><tr><td>HxD打开GIF文件在2.gif末尾加 <code>&lt;?php eval(...)?&gt;</code></td><td>上传成功，但是连不上</td><td>文件被改名成随机md5.gif，Apache按 image/gif 原样吐字节，PHP 引擎根本没机会执行</td></tr><tr><td>改名 2.php.gif 再传</td><td>还是连不上</td><td>服务端 $newName = md5(uniqid()).‘.gif’，提交的名字被丢弃，最后还是 .gif</td></tr><tr><td>蚁剑连接</td><td>返回为空」</td><td>蚁剑发的是 POST，服务器返回的是一堆二进制图片字节 / 空；马从未执行，自然没有回显</td></tr><tr><td>用<code>?file=</code>读源码</td><td>只回读取成功</td><td>代码只回布尔值，不回内容</td></tr></tbody></table><blockquote><p>.gif 在 Apache 里是静态文件，永远走「读文件就返回」的分支，PHP 模块不会接管。想让它执行，要么改成 .php，要么用文件包含 /phar 这类「让 PHP 主动去读这个文件」的方式—— 这里给的就是 file_get_contents。</p></blockquote><ul>
 <li>
 <section><h3>导师发的一道自己做的题（PHP）<a href="#导师发的一道自己做的题php"><span>#</span></a></h3></section>
 </li>
