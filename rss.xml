@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>kitty&apos;s blog</title><description>喵喵喵</description><link>https://kitty-xm.github.io/</link><templateTheme>Firefly</templateTheme><templateThemeVersion>6.16.8</templateThemeVersion><templateThemeUrl>https://github.com/CuteLeaf/Firefly</templateThemeUrl><lastBuildDate>2026年11月8日 20:06:32</lastBuildDate><item><title>周报3</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</guid><pubDate>Sun, 08 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;这周依然是一边打极客比赛题一边在ctf.show打专题，先补一个上周打的ctf.show的题：
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>kitty&apos;s blog</title><description>喵喵喵</description><link>https://kitty-xm.github.io/</link><templateTheme>Firefly</templateTheme><templateThemeVersion>6.16.8</templateThemeVersion><templateThemeUrl>https://github.com/CuteLeaf/Firefly</templateThemeUrl><lastBuildDate>2026年11月8日 20:35:27</lastBuildDate><item><title>周报3</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</guid><pubDate>Sun, 08 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;这周依然是一边打极客比赛题一边在ctf.show打专题，先补一个上周打的ctf.show的题：
 &lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2538&quot; height=&quot;1348&quot; src=&quot;/_astro/e24.C98bpBX-_Z2oSb84.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;/section&gt;
 &lt;section&gt;&lt;h1&gt;知识点（上周ctf.show的）&lt;a href=&quot;#知识点上周ctfshow的&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;section&gt;&lt;h4&gt;过滤绕过&lt;a href=&quot;#过滤绕过&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;过滤了&lt;strong&gt;空格&lt;/strong&gt;：可以使用 &lt;code&gt;${IFS}&lt;/code&gt;、&lt;code&gt;%09&lt;/code&gt; (Tab)、&lt;code&gt;&amp;lt;&lt;/code&gt; 或 &lt;code&gt;$IFS$9&lt;/code&gt; 等代替空格。&lt;/li&gt;
@@ -176,7 +176,18 @@ highlight_file() 是 PHP 内置的语法高亮函数。它的作用就是：读�
 &lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1060&quot; height=&quot;559&quot; src=&quot;/_astro/e34.DqeJRXw2_rBUOC.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
 说明Cache 对象被销毁时会自动调用 $this-&amp;gt;driver-&amp;gt;save()，并且有FileDriver::save()，能把任意内容写到任意路径。这时就形成了一条标准的POP链。（用对象的属性 + 魔术方法串起来的利用链）&lt;/li&gt;
 &lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;只要能够反序列化出一个Cache对象，且它的driver是一个path=shell.php、data = 木马的 FileDriver，马就被写进去了。
-&lt;strong&gt;注&lt;/strong&gt;：PHP 脚本执行结束会自动销毁所有对象。&lt;/p&gt;&lt;/blockquote&gt;&lt;ol&gt;
+&lt;strong&gt;注&lt;/strong&gt;：PHP 脚本执行结束会自动销毁所有对象。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;li&gt;先准备一张真GIF文件，然后生成生成恶意phar并运行（在wsl）里运行。&lt;/li&gt;
+&lt;li&gt;在准备一份条件竞争的脚本（我这里是用AI生成的）并运行。&lt;/li&gt;
+&lt;li&gt;马生成后是 shell.php，参数名是 0（因为 payload 写的是 $_GET[0]）。&lt;/li&gt;
+&lt;li&gt;验证执行：在题目网址后加/shell.php?0=id，回显uid=33(www-data) gid=33(www-data)&lt;/li&gt;
+&lt;li&gt;看根目录（加…/shell.php?0=ls&lt;span&gt;&lt;span&gt;IFS−la{IFS}-la&lt;/span&gt;&lt;span&gt;&lt;span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;span&gt;I&lt;/span&gt;&lt;span&gt;F&lt;/span&gt;&lt;span&gt;S&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;−&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;l&lt;/span&gt;&lt;span&gt;a&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;{IFS}/）：
+回显为&lt;code&gt;lrwxrwxrwx 1 root root 13 Oct 30 08:08 flag -&amp;gt; /dev/shm/flag&lt;/code&gt;
+发现 flag 是个软链&lt;/li&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;动态环境把 flag 放在内存盘 /dev/shm，根目录只留个软链&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;li&gt;读 flag
+网址后加&lt;code&gt;/shell.php?0=cat${IFS}/flag&lt;/code&gt;就有了。&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;section&gt;&lt;h4&gt;原理&lt;a href=&quot;#原理-1&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
 &lt;/li&gt;
@@ -186,16 +197,28 @@ highlight_file() 是 PHP 内置的语法高亮函数。它的作用就是：读�
 （1）stub： 一段 PHP 代码，必须以&lt;code&gt;__HALT_COMPILER();&lt;/code&gt;结尾
 （2） manifest： 里面有一段 metadata，内容是序列化后的字符串
 （3）文件内容（a.txt 之类）
-&lt;strong&gt;注&lt;/strong&gt;：phar:// 不看文件的扩展名，只认内容结构。所以叫 xxx.gif 也能被当 phar 解析。另外，文件必须是真 phar（有合法 stub + manifest），否则 phar:// 打不开；stub 里必须有 __HALT_COMPILER();&lt;/li&gt;
+&lt;strong&gt;注&lt;/strong&gt;：phar:// 不看文件的扩展名，只认内容结构。所以叫 xxx.gif 也能被当 phar 解析。另外，文件必须是真 phar（有合法 stub + manifest），否则 phar:// 打不开；stub 里必须有 __HALT_COMPILER();
+&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;反序列化是什么？&lt;/strong&gt;
 serialize() 把对象变成字符串；unserialize() 把字符串还原成对象。还原时，PHP 会根据字符串里的类名去找同名类，然后自动调用这个类的魔术方法（__wakeup / __destruct 等）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;为什么必须有 require_once ‘class.php’？&lt;/strong&gt;
+反序列化时如果找不到对应的类定义，会变成 __PHP_Incomplete_Class，魔术方法一个都不会触发，链就断了。出题人 index.php 第一行就 require_once ‘class.php’，等于把「子弹」摆在面前。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;为什么是 __destruct 而不是 __wakeup？&lt;/strong&gt;
+__destruct 在对象被回收时触发（脚本结束必触发），更稳当；__wakeup 在 unserialize 当下就触发。本题只有 __destruct。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;文件名是随机md5但是事先不可能知道怎么办？&lt;/strong&gt;
+首页 glob(‘uploads/*’) 每次都会把目录列出来 —— 这 500ms 里，首页会短暂出现这个「待删文件」的名字。所以：
+后台疯狂上传 → 前台疯狂刷新首页抓新文件名 → 一抓到立刻请求
+phar://
+触发 → 只要成功一次，shell.php 就永久留下&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;section&gt;&lt;h4&gt;踩坑与排查&lt;a href=&quot;#踩坑与排查-1&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;操作&lt;/th&gt;&lt;th&gt;结果&lt;/th&gt;&lt;th&gt;原因&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;HxD打开GIF文件在2.gif末尾加 &lt;code&gt;&amp;lt;?php eval(...)?&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;上传成功，但是连不上&lt;/td&gt;&lt;td&gt;文件被改名成随机md5.gif，Apache按 image/gif 原样吐字节，PHP 引擎根本没机会执行&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;改名 2.php.gif 再传&lt;/td&gt;&lt;td&gt;还是连不上&lt;/td&gt;&lt;td&gt;服务端 $newName = md5(uniqid()).‘.gif’，提交的名字被丢弃，最后还是 .gif&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;蚁剑连接&lt;/td&gt;&lt;td&gt;返回为空」&lt;/td&gt;&lt;td&gt;蚁剑发的是 POST，服务器返回的是一堆二进制图片字节 / 空；马从未执行，自然没有回显&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;用&lt;code&gt;?file=&lt;/code&gt;读源码&lt;/td&gt;&lt;td&gt;只回读取成功&lt;/td&gt;&lt;td&gt;代码只回布尔值，不回内容&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;blockquote&gt;&lt;p&gt;.gif 在 Apache 里是静态文件，永远走「读文件就返回」的分支，PHP 模块不会接管。想让它执行，要么改成 .php，要么用文件包含 /phar 这类「让 PHP 主动去读这个文件」的方式—— 这里给的就是 file_get_contents。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;操作&lt;/th&gt;&lt;th&gt;结果&lt;/th&gt;&lt;th&gt;原因&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;HxD打开GIF文件在2.gif末尾加 &lt;code&gt;&amp;lt;?php eval(...)?&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;上传成功，但是连不上&lt;/td&gt;&lt;td&gt;文件被改名成随机md5.gif，Apache按 image/gif 原样吐字节，PHP 引擎根本没机会执行&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;改名 2.php.gif 再传&lt;/td&gt;&lt;td&gt;还是连不上&lt;/td&gt;&lt;td&gt;服务端 $newName = md5(uniqid()).‘.gif’，提交的名字被丢弃，最后还是 .gif&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;蚁剑连接&lt;/td&gt;&lt;td&gt;返回为空」&lt;/td&gt;&lt;td&gt;蚁剑发的是 POST，服务器返回的是一堆二进制图片字节 / 空；马从未执行，自然没有回显&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;用&lt;code&gt;?file=&lt;/code&gt;读源码&lt;/td&gt;&lt;td&gt;只回读取成功&lt;/td&gt;&lt;td&gt;代码只回布尔值，不回内容&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;传一次文件尝试&lt;/td&gt;&lt;td&gt;回显不是合法图片，已删除&lt;/td&gt;&lt;td&gt;phar 过不了 getimagesize，一定会被删，所以只能靠窗口。&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;blockquote&gt;&lt;p&gt;.gif 在 Apache 里是静态文件，永远走「读文件就返回」的分支，PHP 模块不会接管。想让它执行，要么改成 .php，要么用文件包含 /phar 这类「让 PHP 主动去读这个文件」的方式—— 这里给的就是 file_get_contents。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;section&gt;&lt;h3&gt;导师发的一道自己做的题（PHP）&lt;a href=&quot;#导师发的一道自己做的题php&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;/section&gt;
 &lt;/li&gt;
@@ -232,8 +255,7 @@ serialize() 把对象变成字符串；unserialize() 把字符串还原成对象
 &lt;p&gt;&lt;strong&gt;取反是什么?&lt;/strong&gt;
 在计算机中，所有的字符（字母、数字、符号）本质上都是一串二进制数字（0 和 1）。“按位取反”就是把所有的 0 变成 1，所有的 1 变成 0。在传输时，若将字母或字符串进行十六进制转换，这时候得到的是不可见字符，我们在浏览器的 URL 里是没法直接打出这个字符的。&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;拿s举例：字母 s 的 ASCII 码是 115。转换成 8 位二进制是：0111 0011。我们对它进行取反（）操作：0 变 1，1 变 0。结果变成：1000 1100。这个二进制 1000 1100 转换成十六进制是 0x8C 。而在 URL 中，不可见字符用 % 加上十六进制表示。所以，0x8C 在 URL 里写成 %8C。
-PHP 接收参数时的顺序:（1）浏览器发送请求：?cmd=(%8C);（2）PHP 接收到底层数据，自动进行一次 URL 解码。%8C 被还原成了真正的不可见字符 \x8C。（3）此时，变量 &lt;span&gt;code 的值实际上是：(~&amp;lt;不可见字符&amp;gt;)。（4）正则检查开始：preg_match(&quot;/[a-z0-9_&apos;\&quot;\s]/i&quot;, &lt;/span&gt;code)。正则引擎看到的是一堆 ~ 和括号，以及一个不可见字符。它不知道这个不可见字符是什么，只知道它不在拦截黑名单里！完美绕过！（5）执行 eval($code)：PHP 开始执行代码。它看到 ~ 符号，于是对那个不可见字符进行取反，瞬间就把它变成了字母 s。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;拿s举例：字母 s 的 ASCII 码是 115。转换成 8 位二进制是：0111 0011。我们对它进行取反（）操作：0 变 1，1 变 0。结果变成：1000 1100。这个二进制 1000 1100 转换成十六进制是 0x8C 。而在 URL 中，不可见字符用 % 加上十六进制表示。所以，0x8C 在 URL 里写成 %8C。另： PHP 接收参数时的顺序:（1）浏览器发送请求：?cmd=(%8C);（2）PHP 接收到底层数据，自动进行一次 URL 解码。%8C 被还原成了真正的不可见字符 \x8C。（3）此时，变量 &lt;span&gt;code 的值实际上是：(~&amp;lt;不可见字符&amp;gt;)。（4）正则检查开始：preg_match(&quot;/[a-z0-9_&apos;\&quot;\s]/i&quot;, &lt;/span&gt;code)。正则引擎看到的是一堆 ~ 和括号，以及一个不可见字符。它不知道这个不可见字符是什么，只知道它不在拦截黑名单里！完美绕过！（5）执行 eval($code)：PHP 开始执行代码。它看到 ~ 符号，于是对那个不可见字符进行取反，瞬间就把它变成了字母 s。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;为什么不直接对system(“cat&amp;lt;/flag”)取反？&lt;/strong&gt;
 在 PHP 中，取反操作符 ~ 的优先级比较高。如果你直接写 &lt;code&gt;~%8C%86%8C%8B%9A%92&lt;/code&gt;，PHP 会把它当作一个整体取反，变成一个不可见字符串。但我们需要的是执行&lt;code&gt;system&lt;/code&gt;这个函数。所以，必须先让取反操作执行完毕，得到一个字符串 “system”，然后再把它当成函数名去调用。&lt;/li&gt;
 &lt;/ul&gt;&lt;ol&gt;

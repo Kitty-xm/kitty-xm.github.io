@@ -194,7 +194,18 @@ highlight_file() 是 PHP 内置的语法高亮函数。它的作用就是：读�
 <figure><img alt="&gt;.&lt;" loading="lazy" width="1060" height="559" src="/_astro/e34.DqeJRXw2_rBUOC.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 说明Cache 对象被销毁时会自动调用 $this-&gt;driver-&gt;save()，并且有FileDriver::save()，能把任意内容写到任意路径。这时就形成了一条标准的POP链。（用对象的属性 + 魔术方法串起来的利用链）</li>
 </ul><blockquote><p>只要能够反序列化出一个Cache对象，且它的driver是一个path=shell.php、data = 木马的 FileDriver，马就被写进去了。
-<strong>注</strong>：PHP 脚本执行结束会自动销毁所有对象。</p></blockquote><ol>
+<strong>注</strong>：PHP 脚本执行结束会自动销毁所有对象。</p></blockquote><ul>
+<li>先准备一张真GIF文件，然后生成生成恶意phar并运行（在wsl）里运行。</li>
+<li>在准备一份条件竞争的脚本（我这里是用AI生成的）并运行。</li>
+<li>马生成后是 shell.php，参数名是 0（因为 payload 写的是 $_GET[0]）。</li>
+<li>验证执行：在题目网址后加/shell.php?0=id，回显uid=33(www-data) gid=33(www-data)</li>
+<li>看根目录（加…/shell.php?0=ls<span><span>IFS−la{IFS}-la</span><span><span><span></span><span><span>I</span><span>F</span><span>S</span></span><span></span><span>−</span><span></span></span><span><span></span><span>l</span><span>a</span></span></span></span>{IFS}/）：
+回显为<code>lrwxrwxrwx 1 root root 13 Oct 30 08:08 flag -&gt; /dev/shm/flag</code>
+发现 flag 是个软链</li>
+</ul><blockquote><p>动态环境把 flag 放在内存盘 /dev/shm，根目录只留个软链</p></blockquote><ul>
+<li>读 flag
+网址后加<code>/shell.php?0=cat${IFS}/flag</code>就有了。</li>
+</ul><ol>
 <li>
 <section><h4>原理<a href="#原理-1"><span>#</span></a></h4></section>
 </li>
@@ -204,16 +215,28 @@ highlight_file() 是 PHP 内置的语法高亮函数。它的作用就是：读�
 （1）stub： 一段 PHP 代码，必须以<code>__HALT_COMPILER();</code>结尾
 （2） manifest： 里面有一段 metadata，内容是序列化后的字符串
 （3）文件内容（a.txt 之类）
-<strong>注</strong>：phar:// 不看文件的扩展名，只认内容结构。所以叫 xxx.gif 也能被当 phar 解析。另外，文件必须是真 phar（有合法 stub + manifest），否则 phar:// 打不开；stub 里必须有 __HALT_COMPILER();</li>
+<strong>注</strong>：phar:// 不看文件的扩展名，只认内容结构。所以叫 xxx.gif 也能被当 phar 解析。另外，文件必须是真 phar（有合法 stub + manifest），否则 phar:// 打不开；stub 里必须有 __HALT_COMPILER();
+<ul>
 <li><strong>反序列化是什么？</strong>
 serialize() 把对象变成字符串；unserialize() 把字符串还原成对象。还原时，PHP 会根据字符串里的类名去找同名类，然后自动调用这个类的魔术方法（__wakeup / __destruct 等）。</li>
+<li><strong>为什么必须有 require_once ‘class.php’？</strong>
+反序列化时如果找不到对应的类定义，会变成 __PHP_Incomplete_Class，魔术方法一个都不会触发，链就断了。出题人 index.php 第一行就 require_once ‘class.php’，等于把「子弹」摆在面前。</li>
+<li><strong>为什么是 __destruct 而不是 __wakeup？</strong>
+__destruct 在对象被回收时触发（脚本结束必触发），更稳当；__wakeup 在 unserialize 当下就触发。本题只有 __destruct。</li>
+<li><strong>文件名是随机md5但是事先不可能知道怎么办？</strong>
+首页 glob(‘uploads/*’) 每次都会把目录列出来 —— 这 500ms 里，首页会短暂出现这个「待删文件」的名字。所以：
+后台疯狂上传 → 前台疯狂刷新首页抓新文件名 → 一抓到立刻请求
+phar://
+触发 → 只要成功一次，shell.php 就永久留下</li>
+</ul>
+</li>
 </ul><ol>
 <li>
 <section><h4>踩坑与排查<a href="#踩坑与排查-1"><span>#</span></a></h4></section>
 </li>
 </ol>
 
-<table><thead><tr><th>操作</th><th>结果</th><th>原因</th></tr></thead><tbody><tr><td>HxD打开GIF文件在2.gif末尾加 <code>&lt;?php eval(...)?&gt;</code></td><td>上传成功，但是连不上</td><td>文件被改名成随机md5.gif，Apache按 image/gif 原样吐字节，PHP 引擎根本没机会执行</td></tr><tr><td>改名 2.php.gif 再传</td><td>还是连不上</td><td>服务端 $newName = md5(uniqid()).‘.gif’，提交的名字被丢弃，最后还是 .gif</td></tr><tr><td>蚁剑连接</td><td>返回为空」</td><td>蚁剑发的是 POST，服务器返回的是一堆二进制图片字节 / 空；马从未执行，自然没有回显</td></tr><tr><td>用<code>?file=</code>读源码</td><td>只回读取成功</td><td>代码只回布尔值，不回内容</td></tr></tbody></table><blockquote><p>.gif 在 Apache 里是静态文件，永远走「读文件就返回」的分支，PHP 模块不会接管。想让它执行，要么改成 .php，要么用文件包含 /phar 这类「让 PHP 主动去读这个文件」的方式—— 这里给的就是 file_get_contents。</p></blockquote><ul>
+<table><thead><tr><th>操作</th><th>结果</th><th>原因</th></tr></thead><tbody><tr><td>HxD打开GIF文件在2.gif末尾加 <code>&lt;?php eval(...)?&gt;</code></td><td>上传成功，但是连不上</td><td>文件被改名成随机md5.gif，Apache按 image/gif 原样吐字节，PHP 引擎根本没机会执行</td></tr><tr><td>改名 2.php.gif 再传</td><td>还是连不上</td><td>服务端 $newName = md5(uniqid()).‘.gif’，提交的名字被丢弃，最后还是 .gif</td></tr><tr><td>蚁剑连接</td><td>返回为空」</td><td>蚁剑发的是 POST，服务器返回的是一堆二进制图片字节 / 空；马从未执行，自然没有回显</td></tr><tr><td>用<code>?file=</code>读源码</td><td>只回读取成功</td><td>代码只回布尔值，不回内容</td></tr><tr><td>传一次文件尝试</td><td>回显不是合法图片，已删除</td><td>phar 过不了 getimagesize，一定会被删，所以只能靠窗口。</td></tr></tbody></table><blockquote><p>.gif 在 Apache 里是静态文件，永远走「读文件就返回」的分支，PHP 模块不会接管。想让它执行，要么改成 .php，要么用文件包含 /phar 这类「让 PHP 主动去读这个文件」的方式—— 这里给的就是 file_get_contents。</p></blockquote><ul>
 <li>
 <section><h3>导师发的一道自己做的题（PHP）<a href="#导师发的一道自己做的题php"><span>#</span></a></h3></section>
 </li>
@@ -250,8 +273,7 @@ serialize() 把对象变成字符串；unserialize() 把字符串还原成对象
 <p><strong>取反是什么?</strong>
 在计算机中，所有的字符（字母、数字、符号）本质上都是一串二进制数字（0 和 1）。“按位取反”就是把所有的 0 变成 1，所有的 1 变成 0。在传输时，若将字母或字符串进行十六进制转换，这时候得到的是不可见字符，我们在浏览器的 URL 里是没法直接打出这个字符的。</p>
 </li>
-</ul><blockquote><p>拿s举例：字母 s 的 ASCII 码是 115。转换成 8 位二进制是：0111 0011。我们对它进行取反（）操作：0 变 1，1 变 0。结果变成：1000 1100。这个二进制 1000 1100 转换成十六进制是 0x8C 。而在 URL 中，不可见字符用 % 加上十六进制表示。所以，0x8C 在 URL 里写成 %8C。
-PHP 接收参数时的顺序:（1）浏览器发送请求：?cmd=(%8C);（2）PHP 接收到底层数据，自动进行一次 URL 解码。%8C 被还原成了真正的不可见字符 \x8C。（3）此时，变量 <span>code 的值实际上是：(~&lt;不可见字符&gt;)。（4）正则检查开始：preg_match("/[a-z0-9_'\"\s]/i", </span>code)。正则引擎看到的是一堆 ~ 和括号，以及一个不可见字符。它不知道这个不可见字符是什么，只知道它不在拦截黑名单里！完美绕过！（5）执行 eval($code)：PHP 开始执行代码。它看到 ~ 符号，于是对那个不可见字符进行取反，瞬间就把它变成了字母 s。</p></blockquote><ul>
+</ul><blockquote><p>拿s举例：字母 s 的 ASCII 码是 115。转换成 8 位二进制是：0111 0011。我们对它进行取反（）操作：0 变 1，1 变 0。结果变成：1000 1100。这个二进制 1000 1100 转换成十六进制是 0x8C 。而在 URL 中，不可见字符用 % 加上十六进制表示。所以，0x8C 在 URL 里写成 %8C。另： PHP 接收参数时的顺序:（1）浏览器发送请求：?cmd=(%8C);（2）PHP 接收到底层数据，自动进行一次 URL 解码。%8C 被还原成了真正的不可见字符 \x8C。（3）此时，变量 <span>code 的值实际上是：(~&lt;不可见字符&gt;)。（4）正则检查开始：preg_match("/[a-z0-9_'\"\s]/i", </span>code)。正则引擎看到的是一堆 ~ 和括号，以及一个不可见字符。它不知道这个不可见字符是什么，只知道它不在拦截黑名单里！完美绕过！（5）执行 eval($code)：PHP 开始执行代码。它看到 ~ 符号，于是对那个不可见字符进行取反，瞬间就把它变成了字母 s。</p></blockquote><ul>
 <li><strong>为什么不直接对system(“cat&lt;/flag”)取反？</strong>
 在 PHP 中，取反操作符 ~ 的优先级比较高。如果你直接写 <code>~%8C%86%8C%8B%9A%92</code>，PHP 会把它当作一个整体取反，变成一个不可见字符串。但我们需要的是执行<code>system</code>这个函数。所以，必须先让取反操作执行完毕，得到一个字符串 “system”，然后再把它当成函数名去调用。</li>
 </ul><ol>
