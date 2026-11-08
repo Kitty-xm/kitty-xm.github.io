@@ -1,4 +1,254 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>kitty&apos;s blog</title><description>喵喵喵</description><link>https://kitty-xm.github.io/</link><templateTheme>Firefly</templateTheme><templateThemeVersion>6.16.8</templateThemeVersion><templateThemeUrl>https://github.com/CuteLeaf/Firefly</templateThemeUrl><lastBuildDate>2026年11月1日 20:16:50</lastBuildDate><item><title>周报2</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A52/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A52/</guid><pubDate>Sat, 31 Oct 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;这周开始再打极客的比赛题，后来极客的Web一直不更新题库就又去ctf.show打WEB入门了，这周主要是在打php、命令执行这方面。总体来说学会了理解比较简单的php代码和一点代码审计以及比较常见的绕过过滤。&lt;/p&gt;&lt;/section&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>kitty&apos;s blog</title><description>喵喵喵</description><link>https://kitty-xm.github.io/</link><templateTheme>Firefly</templateTheme><templateThemeVersion>6.16.8</templateThemeVersion><templateThemeUrl>https://github.com/CuteLeaf/Firefly</templateThemeUrl><lastBuildDate>2026年11月8日 19:52:39</lastBuildDate><item><title>周报3</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</guid><pubDate>Sun, 08 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;这周依然是一边打极客比赛题一边在ctf.show打专题，先补一个上周打的ctf.show的题：
+&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2538&quot; height=&quot;1348&quot; src=&quot;/_astro/e24.C98bpBX-_Z2oSb84.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;/section&gt;
+&lt;section&gt;&lt;h1&gt;知识点（上周ctf.show的）&lt;a href=&quot;#知识点上周ctfshow的&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;section&gt;&lt;h4&gt;过滤绕过&lt;a href=&quot;#过滤绕过&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;过滤了&lt;strong&gt;空格&lt;/strong&gt;：可以使用 &lt;code&gt;${IFS}&lt;/code&gt;、&lt;code&gt;%09&lt;/code&gt; (Tab)、&lt;code&gt;&amp;lt;&lt;/code&gt; 或 &lt;code&gt;$IFS$9&lt;/code&gt; 等代替空格。&lt;/li&gt;
+&lt;li&gt;过滤了 &lt;strong&gt;flag 关键字&lt;/strong&gt;&amp;lt;可以使用通配符&amp;gt; ? 或 *，或者用空字符串拼接来绕过。例如：&lt;code&gt;c=system(&apos;cat fla?.php&apos;);&lt;/code&gt; 或 &lt;code&gt;c=system(&apos;cat fla&quot;&quot;g&apos;);&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;过滤了 &lt;strong&gt;system 函数名&lt;/strong&gt;：可以尝试用 &lt;code&gt;passthru&lt;/code&gt;或反引号代替。&lt;/li&gt;
+&lt;li&gt;过滤了 &lt;strong&gt;cat 命令&lt;/strong&gt;&amp;lt;可以使用&amp;gt; tac（反向输出）代替。&lt;/li&gt;
+&lt;li&gt;过滤了 &lt;strong&gt;;&lt;/strong&gt;&amp;lt;可以用&amp;gt;&lt;code&gt;?&amp;gt;&lt;/code&gt;或者&lt;code&gt;%0a&lt;/code&gt;代替。&lt;/li&gt;
+&lt;/ul&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section&gt;&lt;h1&gt;WP&lt;a href=&quot;#wp&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h3&gt;Web58&lt;a href=&quot;#web58&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;题目信息&lt;a href=&quot;#题目信息&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;内容&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;靶场&lt;/td&gt;&lt;td&gt;ctf.show&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;Web-命令执行，突破禁用函数&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;题面&lt;/td&gt;&lt;td&gt;一段PHP源码，内容只说明了需要POST传参和会直接把c当PHP代码执行&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;环境&lt;/td&gt;&lt;td&gt;动态容器&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;目标&lt;/td&gt;&lt;td&gt;拿到&lt;code&gt;ctfshow{...}&lt;/code&gt;格式的flag&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;549&quot; height=&quot;469&quot; src=&quot;/_astro/e25.BMMawEyA_2jeiRq.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;总结&lt;a href=&quot;#总结&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;这道题的本质就是利用phpinfo()里面disable_function里面没过滤掉的函数进行文件读取。&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;四种解法&lt;a href=&quot;#四种解法&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2580&quot; height=&quot;6144&quot; src=&quot;/_astro/e26.YLyNN8Va_1oL2aj.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;详细过程&lt;a href=&quot;#详细过程&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;show_source()读取&lt;/strong&gt;（法一）
+在题目页面F12后打开Hackbar，URL填题目地址，打开POST，在body中输入&lt;code&gt;print_r(scandir(&apos;.&apos;));&lt;/code&gt;列出当前服务器文件夹下的所有文件。发现falg文件名为flag.php，然后就可以用&lt;code&gt;c=show_source(&apos;flag.php&apos;);&lt;/code&gt;直接读取了。EXECUTE执行后页面就会出现flag。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;include包含伪协议&lt;/strong&gt;（法二）
+在题目页面F12后打开Hackbar，URL填题目地址，打开POST，在body中输入&lt;code&gt;c=include($_POST[&apos;w&apos;]);&amp;amp;w=php://filter/convert.base64-encode/resource=flag.php&lt;/code&gt;,EXECUTE执行后页面出现一段Base64编码，丢进CyberChef解码后就有flag了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;highlight_file()读取&lt;/strong&gt;（法三）
+原理和&lt;strong&gt;show_source()读取&lt;/strong&gt;一样，其实就是一个东西：&lt;em&gt;读取指定文件的源代码，并以 HTML 高亮（带颜色）的形式输出到浏览器上。&lt;/em&gt;
+在题目页面F12后打开Hackbar，URL填题目地址，打开POST，在body中输入&lt;code&gt;c=highlight_file(&quot;flag.php&quot;);&lt;/code&gt;就好了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;蚁剑连接&lt;/strong&gt;（法四）
+在蚁剑里添加数据，正常输入URL，密码为c，连接后打开的页面有flag.php和index.php两个文件，点开flag.php就有了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;原理说明&lt;a href=&quot;#原理说明&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;法二&lt;/strong&gt;
+后端代码实际执行的是&lt;code&gt;eval(&quot;include($_POST[&apos;w&apos;]);&quot;);&lt;/code&gt;，&lt;code&gt;include()&lt;/code&gt;是 PHP 包含文件的函数。它把 w 参数的值&lt;code&gt;php://filter/convert.base64-encode/resource=flag.php&lt;/code&gt;当作文件路径去读取。
+然而flag.php 里面通常写的是&lt;code&gt;&amp;lt;?php $flag = &quot;xxx&quot;; ?&amp;gt;&lt;/code&gt;如果直接&lt;code&gt;include&lt;/code&gt;，PHP会把它当作代码去执行，页面上不会回显变量内容。用了Base64编码后PHP就不会去解析里面的PHP标签了，而是直接把编码后的文本输出到网页上。
+php://filter是 PHP 的一个伪协议，它的作用是在读取文件时对文件内容进行过滤/转换。
+convert.base64-encode 告诉PHP：请在读取flag.php的时候，把里面的内容进行Base64编码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;法一/法三&lt;/strong&gt;
+highlight_file() 是 PHP 内置的语法高亮函数。它的作用就是：读取指定的文件（这里自然是指flag.php），并将文件内容（即源码）按照HTML的语法高亮格式打印输出到页面上。show_source()同理。
+但是在法一中，&lt;code&gt;scandir(&apos;.&apos;)&lt;/code&gt;是 PHP 的一个内置函数。它的作用是扫描指定目录下的所有文件和文件夹，并返回一个数组。括号里的&lt;code&gt;.&lt;/code&gt;代表当前目录。如果是&lt;code&gt;scandir(&apos;/&apos;)&lt;/code&gt;，那就是扫描根目录。
+&lt;code&gt;print_r(...)&lt;/code&gt;也是 PHP 的内置函数。它的作用是把变量（比如数组）以人类可读的方式打印出来。
+&lt;code&gt;print_r(scandir(&apos;.&apos;));&lt;/code&gt;的作用就是列出当前服务器文件夹下的所有文件。在 CTF 中，这叫作“目录遍历”或“文件探测”，目的是为了找 flag 文件在哪。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;法四&lt;/strong&gt;
+因为源码里的 eval($_POST[‘c’]); 本身就是一个无过滤的一句话木马。而蚁剑的内置函数特别多，虽然有过滤但是应该还是有能用的，所以尝试用蚁剑连接，密码自然为c，连上打开就有flag.php,点开就有flag。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;踩坑记录与排查&lt;a href=&quot;#踩坑记录与排查&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;题目要POST传参，在Hackbar里先自己尝试了system、passthru、eval，readfile等等，结果发现要么被过滤要么语法错了。&lt;/li&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;严格来说，eval 不是函数，而是一种语言结构。eval() 用于执行 PHP 代码：它会把传入的字符串当作 PHP 语法来解析。cat fla? 在 PHP 中不是合法的语法（PHP 没有 cat 这个函数或关键字），所以会直接报语法错误。而system() 等函数用于执行系统命令：它们才是调用操作系统 Shell 来执行 cat、ls 等指令的函数。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;li&gt;不理解伪协议前面加个include函数干嘛，为什么非要包含一遍，直接过过滤器却不行。另外，为什么偏偏加include包含函数，而不可以用执行函数+PHP伪协议。&lt;/li&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;system()、exec()、shell_exec() 这些“执行函数”调用的是操作系统的底层命令（Linux Shell），而 php:// 是 PHP 语言专属的内部虚拟协议。Linux 系统根本不认识 php://。然而，PHP 内部函数（如 include()、file_get_contents()、fopen()）：当 PHP 引擎遇到这些函数时，PHP 自己会去解析后面的路径。PHP 引擎看到路径以 php:// 开头，就会触发它内置的“包装器（Wrapper）”机制，启动过滤器。系统执行函数（如 system()、exec()）：PHP 引擎自己不解析路径，而是把整段字符串直接打包丢给 Linux 系统。Linux 不知道什么是 PHP 伪协议。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h3&gt;ez_upload&lt;a href=&quot;#ez_upload&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;题目信息&lt;a href=&quot;#题目信息-1&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;内容&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;比赛&lt;/td&gt;&lt;td&gt;2026极客大挑战&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;Web-文件上传&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;题面&lt;/td&gt;&lt;td&gt;一个很简洁的朴素的文件上传界面，题目简介为“防御真的无懈可击吗？来试一下”&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;环境&lt;/td&gt;&lt;td&gt;动态容器&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;目标&lt;/td&gt;&lt;td&gt;拿到&lt;code&gt;SYC{...}&lt;/code&gt;格式的flag&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1123&quot; height=&quot;589&quot; src=&quot;/_astro/e27.CnpJQJKp_Z1kFaM2.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;总结&lt;a href=&quot;#总结-1&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;这道题是一道文件上传绕过题，WAF拦截了&lt;code&gt;&amp;lt;&lt;/code&gt;, &lt;code&gt;php_value&lt;/code&gt;,&lt;code&gt;auto_prepend_file&lt;/code&gt; 等关键词，这里可以用 &lt;code&gt;.htaccess&lt;/code&gt; 配置文件代替 Webshell，并用 Apache 续行符绕过拦截让 PHP 自动包含 &lt;code&gt;/flag&lt;/code&gt; 拿 flag。&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;完整链路&lt;a href=&quot;#完整链路&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;传.htaccess文件；———— 上传成功&lt;/li&gt;
+&lt;li&gt;传内容为一句话木马的shell.php文件；———— 上传成功&lt;/li&gt;
+&lt;li&gt;浏览器访问&lt;code&gt;http://80-d9bd5907-d5f1-4d7b-8006-af30ee7de217.challenge.ctfplus.cn/uploads/shell.php&lt;/code&gt;(题目网址/uploads/shell.php)；————出flag&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;详细过程&lt;a href=&quot;#详细过程-1&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;打开题目是一个很简洁的朴素的文件上传界面，没什么特别的。打开源码看一下。发现&lt;code&gt;action=&quot;&quot;&lt;/code&gt;和&lt;code&gt; method=&quot;post&quot;&lt;/code&gt;，要求表单用POST提交到当前页面（题目页面）没什么别的了，返回题目页面用F12看一下，在Network界面发现服务器是Apache（响应头里有 &lt;code&gt;Server: Apache/2.4.54&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;管他拦不拦，先传一个掺了一句话木马的php文件试试。发现”&amp;lt;“被拦截了，修改文件内部为正常内容后再上传一次试试php有没有被拦，发现.php没有被拦截！&amp;gt;&amp;lt;&lt;/li&gt;
+&lt;li&gt;先新建一个文件命名为&lt;code&gt;.htaccess&lt;/code&gt;，内容先写&lt;code&gt;ErrorDocument 404 &quot;HelloHacked&quot;&lt;/code&gt;试一下.htaccess能不能上传并生效。&lt;/li&gt;
+&lt;li&gt;上传成功，用浏览器访问 &lt;code&gt;题目地址/uploads/不存在的页面123&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;页面显示HelloHacked，说明上传的.htaccess文件能生效。&lt;/li&gt;
+&lt;li&gt;在.htaccess文件里把内容改成&lt;code&gt;php_value auto_prepend_file &quot;php://input&quot;&lt;/code&gt;,保存，上传。&lt;/li&gt;
+&lt;li&gt;发现&lt;code&gt;auto_prepend_file&lt;/code&gt;被拦了（&lt;code&gt;[WAF 拦截] 检测到php_value敏感配置指令&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;再把内容改成&lt;code&gt;auto_prepend_file = /etc/passwd&lt;/code&gt;试试&lt;/li&gt;
+&lt;li&gt;又被拦了TT，（&lt;code&gt;[WAF 拦截] 检测到 auto_prepend_file 敏感配置指令&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;因为服务器是Apache，所以试试Apache 续行符能不能断开进行绕过。&lt;/li&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;Apache 的配置文件里，&lt;strong&gt;一行末尾写一个反斜杠 &lt;code&gt;\&lt;/code&gt;，下一行会被当作这一行的延续&lt;/strong&gt;。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在 &lt;code&gt;.htaccess&lt;/code&gt; 里写：&lt;/p&gt;
+&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;php_val\&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;ue hello&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;保存，上传，上传成功。&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;（1） &lt;strong&gt;WAF 看到的&lt;/strong&gt;：第一行是 &lt;code&gt;php_val&lt;/code&gt;，第二行是 &lt;code&gt;ue hello&lt;/code&gt;。它找连续的 &lt;code&gt;php_value&lt;/code&gt; 这个词是找不到的（因为中间被换行了），就放行。 （2）&lt;strong&gt;Apache 解析时&lt;/strong&gt;：看到第一行末尾的 &lt;code&gt;\&lt;/code&gt;，自动把两行拼起来，变成 &lt;code&gt;php_value hello&lt;/code&gt;，完全正常执行。
+所以同理auto_prepend_file 也可以，写成如下格式就行：&lt;/p&gt;&lt;/blockquote&gt;&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;auto_prepend_fi\&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;le&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;WAF 找不到连续的 &lt;code&gt;auto_prepend_file&lt;/code&gt;，放行；Apache 拼起来就是 &lt;code&gt;auto_prepend_file&lt;/code&gt;。&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.htaccess&lt;/code&gt;文件上传成功后再上传shell.php文件（新建文本文档写入&lt;code&gt;&amp;lt;?php @eval($_POST[&apos;cmd&apos;]);?&amp;gt;&lt;/code&gt;,保存后重命名就行）&lt;/li&gt;
+&lt;li&gt;上传shell.php文件然后访问路径(题目网址/uploads/shell.php)就有flag了。&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1047&quot; height=&quot;190&quot; src=&quot;/_astro/e30.DCjnFGTw_ZzS1yC.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;原理&lt;a href=&quot;#原理&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;服务器是Apache，为了绕过拦截所以直接把指令断开，这样WAF检查时就是一段一段的，但是Apache服务器解析时会把不同行拼接起来，就变成完整的命令了，所以这时候就能够成功执行了。&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;踩坑与排查&lt;a href=&quot;#踩坑与排查&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;尝试用其他编码形式替代&lt;code&gt;&amp;lt;&lt;/code&gt;,但是查了之后发现PHP 代码里的 &lt;code&gt;&amp;lt;&lt;/code&gt; 没有替代品。&lt;/li&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;因为这PHP开始标签必须是真实的字节 &lt;code&gt;&amp;lt;&lt;/code&gt;，&lt;strong&gt;没有任何符号能 “代替”PHP 代码里的 &lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/strong&gt;，因为这是语法规定，不是编码问题。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h3&gt;ez_phar&lt;a href=&quot;#ez_phar&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;题目信息&lt;a href=&quot;#题目信息-2&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;内容&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;比赛&lt;/td&gt;&lt;td&gt;2026极客大挑战&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;Web-文件上传&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;题面&lt;/td&gt;&lt;td&gt;一个很简洁的文件上传界面，题目简介为“你跑不过我你信吗(“等一下镜像，可能要几分钟)”&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;环境&lt;/td&gt;&lt;td&gt;动态容器&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;目标&lt;/td&gt;&lt;td&gt;拿到&lt;code&gt;SYC{...}&lt;/code&gt;格式的flag&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;总结&lt;a href=&quot;#总结-2&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;完整链路&lt;a href=&quot;#完整链路-1&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;把恶意phar伪装成GIF上传 ———— 上传脚本会把文件先写进 uploads/再校验，校验不过 → 文件在服务器停留0.5 秒 → 删除。&lt;/li&gt;
+&lt;li&gt;趁这0.5秒，请求index.php?file=phar://uploads/xxx.gif/a.txt ———— file_get_contents 打开 phar:// → phar 扩展解析归档 → 反序列化 metadata。&lt;/li&gt;
+&lt;li&gt;反序列化出 Cache 对象 → 脚本结束触发 __destruct → 调 $driver-&amp;gt;save() ————  FileDriver::save() 执行 file_put_contents(‘shell.php’, &apos;&apos;)。&lt;/li&gt;
+&lt;li&gt;网站根目录出现 shell.php ———— 借 POP 链把一句话马写进网站根目录。&lt;/li&gt;
+&lt;li&gt;读 /flag ———— 拿到flag。&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;详细过程&lt;a href=&quot;#详细过程-2&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;打开题目先看源码，Ctrl+U 没什么东西，扫一下
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1135&quot; height=&quot;267&quot; src=&quot;/_astro/e31.BClZzcKN_V7VT5.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;有一个www.zip文件，读取它。———— 浏览器自动下载了一份文件（&lt;a href=&quot;http://www.zip%EF%BC%89&quot; target=&quot;_blank&quot;&gt;www.zip）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;打开upload.php可以看到：
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1035&quot; height=&quot;1246&quot; src=&quot;/_astro/e32.CgRogeFW_Z1dNvQ1.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+由此可以知道服务器只看文件头 3 个字节是不是GIF —— 所以可以把木马塞进gif尾部，此时原文件名会作废，而服务端自己生成一个 md5(uniqid()).gif文件。&lt;/li&gt;
+&lt;li&gt;再打开index.php文件看看：
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1039&quot; height=&quot;985&quot; src=&quot;/_astro/e33.CNf9Mi61_ZP0DKV.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+可以看出有个&lt;code&gt;?file=&lt;/code&gt;参数，可以读任意文件,但只回读取成功/失败，不回内容，而且源码用的是 file_get_contents，而这个函数支持 phar:// 协议，应该可以用。另外，首页每次刷新都会 glob(‘uploads/*’) 把目录里所有文件列出来 —— 所以那0.5秒内能在首页看到那个马上要被删的文件名，从而拿到随机md5文件名。&lt;/li&gt;
+&lt;li&gt;然后看第三个（class.php）
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1060&quot; height=&quot;559&quot; src=&quot;/_astro/e34.DqeJRXw2_rBUOC.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+说明Cache 对象被销毁时会自动调用 $this-&amp;gt;driver-&amp;gt;save()，并且有FileDriver::save()，能把任意内容写到任意路径。这时就形成了一条标准的POP链。（用对象的属性 + 魔术方法串起来的利用链）&lt;/li&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;只要能够反序列化出一个Cache对象，且它的driver是一个path=shell.php、data = 木马的 FileDriver，马就被写进去了。
+&lt;strong&gt;注&lt;/strong&gt;：PHP 脚本执行结束会自动销毁所有对象。&lt;/p&gt;&lt;/blockquote&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;原理&lt;a href=&quot;#原理-1&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;phar 到底是什么？&lt;/strong&gt;
+把phar想成一个PHP 专用的压缩包（类似 zip）。一个 phar 文件里有三部分：
+（1）stub： 一段 PHP 代码，必须以&lt;code&gt;__HALT_COMPILER();&lt;/code&gt;结尾
+（2） manifest： 里面有一段 metadata，内容是序列化后的字符串
+（3）文件内容（a.txt 之类）
+&lt;strong&gt;注&lt;/strong&gt;：phar:// 不看文件的扩展名，只认内容结构。所以叫 xxx.gif 也能被当 phar 解析。另外，文件必须是真 phar（有合法 stub + manifest），否则 phar:// 打不开；stub 里必须有 __HALT_COMPILER();&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;反序列化是什么？&lt;/strong&gt;
+serialize() 把对象变成字符串；unserialize() 把字符串还原成对象。还原时，PHP 会根据字符串里的类名去找同名类，然后自动调用这个类的魔术方法（__wakeup / __destruct 等）。&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;踩坑与排查&lt;a href=&quot;#踩坑与排查-1&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;操作&lt;/th&gt;&lt;th&gt;结果&lt;/th&gt;&lt;th&gt;原因&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;HxD打开GIF文件在2.gif末尾加 &lt;code&gt;&amp;lt;?php eval(...)?&amp;gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;上传成功，但是连不上&lt;/td&gt;&lt;td&gt;文件被改名成随机md5.gif，Apache按 image/gif 原样吐字节，PHP 引擎根本没机会执行&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;改名 2.php.gif 再传&lt;/td&gt;&lt;td&gt;还是连不上&lt;/td&gt;&lt;td&gt;服务端 $newName = md5(uniqid()).‘.gif’，你提交的名字被丢弃，最后还是 .gif&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;蚁剑连接&lt;/td&gt;&lt;td&gt;返回为空」&lt;/td&gt;&lt;td&gt;蚁剑发的是 POST，服务器返回的是一堆二进制图片字节 / 空；马从未执行，自然没有回显&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;用&lt;code&gt;?file=&lt;/code&gt;读源码&lt;/td&gt;&lt;td&gt;只回读取成功&lt;/td&gt;&lt;td&gt;代码只回布尔值，不回内容&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;blockquote&gt;&lt;p&gt;.gif 在 Apache 里是静态文件，永远走「读文件就返回」的分支，PHP 模块不会接管。想让它执行，要么改成 .php，要么用文件包含 /phar 这类「让 PHP 主动去读这个文件」的方式—— 这里给的就是 file_get_contents。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h3&gt;导师发的一道自己做的题（PHP）&lt;a href=&quot;#导师发的一道自己做的题php&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;题目信息&lt;a href=&quot;#题目信息-3&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;内容&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;题目地址&lt;/td&gt;&lt;td&gt;&lt;a href=&quot;http://47.119.117.175/&quot; target=&quot;_blank&quot;&gt;http://47.119.117.175/&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;类型&lt;/td&gt;&lt;td&gt;Web-PHP&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;题面&lt;/td&gt;&lt;td&gt;就一段PHP源码，但是无字母数字&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;环境&lt;/td&gt;&lt;td&gt;静态容器&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;目标&lt;/td&gt;&lt;td&gt;拿到flag，格式未知但多半为&lt;code&gt;...{...}&lt;/code&gt;格式&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;690&quot; height=&quot;628&quot; src=&quot;/_astro/e28.D6EKMiTS_15TFRW.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;总结&lt;a href=&quot;#总结-3&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;这是一道无字母数字下划线的传参题，要传一个名为cmd的参数，但是过滤很严，不过这里可以通过取反拿到flag。&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;完整链路&lt;a href=&quot;#完整链路-2&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;确认过滤等要求后采用取反&lt;/li&gt;
+&lt;li&gt;用python脚本跑system和cat&amp;lt;/flag的取反payload&lt;/li&gt;
+&lt;li&gt;按正常取反格式传参&lt;code&gt;?cmd=(~...)(~...);&lt;/code&gt;，这里是&lt;code&gt;http://47.119.117.175/?cmd=(~%8C%86%8C%8B%9A%92)(~%9C%9E%8B%C3%D0%99%93%9E%98);&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;回车出flag
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2364&quot; height=&quot;1306&quot; src=&quot;/_astro/e29.BA_-nXZD_2vyHw6.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;原理&lt;a href=&quot;#原理-2&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;为什么用取反？&lt;/strong&gt;
+首先，因为题目过滤很严，要求无字母数字，所以大部分直接的命令都没法用。这时候大概率会想到异或和取反，又因为这里还限制了下划线和长度，引号也用不了，所以没法用异或，只能取反。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;取反是什么?&lt;/strong&gt;
+在计算机中，所有的字符（字母、数字、符号）本质上都是一串二进制数字（0 和 1）。“按位取反”就是把所有的 0 变成 1，所有的 1 变成 0。在传输时，若将字母或字符串进行十六进制转换，这时候得到的是不可见字符，我们在浏览器的 URL 里是没法直接打出这个字符的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;拿s举例：字母 s 的 ASCII 码是 115。转换成 8 位二进制是：0111 0011。我们对它进行取反（）操作：0 变 1，1 变 0。结果变成：1000 1100。这个二进制 1000 1100 转换成十六进制是 0x8C 。而在 URL 中，不可见字符用 % 加上十六进制表示。所以，0x8C 在 URL 里写成 %8C。
+PHP 接收参数时的顺序:（1）浏览器发送请求：?cmd=(%8C);（2）PHP 接收到底层数据，自动进行一次 URL 解码。%8C 被还原成了真正的不可见字符 \x8C。（3）此时，变量 &lt;span&gt;code 的值实际上是：(~&amp;lt;不可见字符&amp;gt;)。（4）正则检查开始：preg_match(&quot;/[a-z0-9_&apos;\&quot;\s]/i&quot;, &lt;/span&gt;code)。正则引擎看到的是一堆 ~ 和括号，以及一个不可见字符。它不知道这个不可见字符是什么，只知道它不在拦截黑名单里！完美绕过！（5）执行 eval($code)：PHP 开始执行代码。它看到 ~ 符号，于是对那个不可见字符进行取反，瞬间就把它变成了字母 s。&lt;/p&gt;&lt;/blockquote&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;为什么不直接对system(“cat&amp;lt;/flag”)取反？&lt;/strong&gt;
+在 PHP 中，取反操作符 ~ 的优先级比较高。如果你直接写 &lt;code&gt;~%8C%86%8C%8B%9A%92&lt;/code&gt;，PHP 会把它当作一个整体取反，变成一个不可见字符串。但我们需要的是执行&lt;code&gt;system&lt;/code&gt;这个函数。所以，必须先让取反操作执行完毕，得到一个字符串 “system”，然后再把它当成函数名去调用。&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;踩坑与排查&lt;a href=&quot;#踩坑与排查-2&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;不知道加载器是什么&lt;/strong&gt;
+在这里，注释里提到的“加载器”，指的不是操作系统或 Java 里的那种底层程序，而是在这种极端严格的限制下，一种用于突破限制、动态读取并执行其他代码的“微型引导程序”（Payload），本质上是一种PHP代码的免杀/绕过技巧。在 PHP CTF 中，最常见的思路是利用 异或运算（^） 或 取反运算（~） 来绕过字母数字限制，在不触碰任何违禁字符的前提下，把存放在外部的真正代码“拉取”（加载）进来并执行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;为什么不用按位或？&lt;/strong&gt;
+当时做这道题的近期做了一道按位或的题，存了一个转换按位或的脚本，于是看到无字母数字就跃跃欲试地使用了，结果发现不行。原因是这题有长度限制，payload不能超过60个字符，相比之下，取反（~）更短，字符数要少得多。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;blockquote&gt;&lt;p&gt;异或（^） 和 按位或（|） 的核心原理是：寻找两个非字母数字的字符，让它们的 ASCII 码进行位运算，结果等于你想要的字母。区分：假设有两个二进制位 A 和 B：（1）按位或（|）：“只要有一个是1，结果就是1”；（2）异或（^）：“相同为0，不同为1”&lt;/p&gt;&lt;/blockquote&gt;&lt;/section&gt;</content:encoded></item><item><title>周报2</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A52/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A52/</guid><pubDate>Sat, 31 Oct 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;这周开始再打极客的比赛题，后来极客的Web一直不更新题库就又去ctf.show打WEB入门了，这周主要是在打php、命令执行这方面，打了WWeb29-Web56。总体来说学会了理解比较简单的php代码和一点代码审计以及比较常见的绕过过滤。&lt;/p&gt;&lt;/section&gt;
 &lt;section&gt;&lt;h1&gt;WP&lt;a href=&quot;#wp&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;section&gt;&lt;h4&gt;Web 29(ctf.show WEB入门)&lt;a href=&quot;#web-29ctfshow-web入门&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
@@ -118,20 +368,19 @@ curl.exe “&lt;a href=&quot;http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.chal
 &lt;li&gt;先找注入点，示例说输入1，回显说“该书存在于书架之上”，那有5本书应该1~5都正常，输入6，发现6也回显存在，输入7则是“未查询到本书相关信息”，那注入点多半是6了。
 测试AND这些发现都没过滤，但AND’1’=‘1能回显存在，AND’1’=‘2不行，所以应该是单引号字符型注入：后端 SQL 形如 SELECT … FROM security WHERE id=‘&amp;lt;输入&amp;gt;‘，输入里的 ’ 可以闭合字符串。但是用---注释后段拼接不行，被过滤了，所以用#
 &lt;strong&gt;绕过规则&lt;/strong&gt; 裸写关键字会被 WAF 替换/删除导致 SQL 语法错误（返回 MISS）。MySQL 版本注释 /&lt;em&gt;!50000关键字&lt;/em&gt;/ 在版本 ≥ 5.00.00 时会被当作正常 SQL 执行，而普通 WAF 往往只匹配裸关键字，从而绕过。
-| 词 |	裸写	 | 绕过写法 |
+| 词 | 裸写 | 绕过写法 |
 | --- | --- | --- |
-| 连接/子句关键字 | and	| ✗ 被删  | /&lt;em&gt;!50000and&lt;/em&gt;/ |
-|       | select |	✗	 | /&lt;em&gt;!50000select&lt;/em&gt;/ |
-|       | from |	✗	| /&lt;em&gt;!50000from&lt;/em&gt;/ |
-|       | where |	✗	| /&lt;em&gt;!50000where&lt;/em&gt;/ |
-|       | limit |	✗	 | /&lt;em&gt;!50000limit&lt;/em&gt;/ |
-|       | between / in / order / by / having |	✗	 | /&lt;em&gt;!50000词&lt;/em&gt;/ |
+| 连接/子句关键字 | and	| ✗ 被删 | /&lt;em&gt;!50000and&lt;/em&gt;/ |
+|   | select | ✗ | /&lt;em&gt;!50000select&lt;/em&gt;/ |
+|   | from | ✗ | /&lt;em&gt;!50000from&lt;/em&gt;/ |
+|   | where |	✗	| /&lt;em&gt;!50000where&lt;/em&gt;/ |
+|   | limit |	✗ | /&lt;em&gt;!50000limit&lt;/em&gt;/ |
+|   | between / in / order / by / having | ✗ | /&lt;em&gt;!50000词&lt;/em&gt;/ |
 | 函数（不过滤） | substr / mid / ascii / length / count / database() / version()  | 	✓ 直接写 |	无需包裹 |
-| 其他	| like / exists	 | ✓ 直接写	| 无需包裹 |
-| 运算符 |	= &amp;gt; &amp;lt; 逗号 , 括号 () |	✓ |	直接写 |
-注意：函数名一旦用 /&lt;em&gt;!50000substr&lt;/em&gt;/ 包裹反而失效（WAF 对注释内内容也做了二次处理），所以只包裹被过滤的 SQL 关键字，函数保持裸写。
-通用请求骨架：&lt;/li&gt;
-&lt;/ol&gt;&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;id&lt;/span&gt;&lt;span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt;1&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&apos;/*!50000and*/&amp;lt;布尔表达式&amp;gt;#&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;ol&gt;
+| 其他 | like / exists | ✓ 直接写	| 无需包裹 |
+| 运算符 | = &amp;gt; &amp;lt; 逗号 , 括号 ()  | ✓ | 直接写 |&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;注意：函数名一旦用 /&lt;em&gt;!50000substr&lt;/em&gt;/ 包裹反而失效（WAF 对注释内内容也做了二次处理），所以只包裹被过滤的 SQL 关键字，函数保持裸写。
+通用请求骨架：&lt;/p&gt;&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;id&lt;/span&gt;&lt;span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt;1&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&apos;/*!50000and*/&amp;lt;布尔表达式&amp;gt;#&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;ol&gt;
 &lt;li&gt;先查数据库：&lt;/li&gt;
 &lt;/ol&gt;&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;1&lt;/span&gt;&lt;span&gt;&apos;/*!50000and*/length((/*!50000select*/database()))&amp;gt;0#&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;1&apos;&lt;/span&gt;&lt;span&gt;/*!50000and*/ascii(substr((/*!50000select*/database()),1,1))&amp;gt;...&lt;/span&gt;&lt;span&gt;#&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;结果：&lt;code&gt;syclover&lt;/code&gt;&lt;/p&gt;&lt;ol&gt;
 &lt;li&gt;再查表名：&lt;/li&gt;
@@ -157,7 +406,24 @@ curl.exe “&lt;a href=&quot;http://80-ba070d89-59b2-4cfd-b6d9-ddf7369ec478.chal
 &lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;624&quot; height=&quot;567&quot; src=&quot;/_astro/e19.ymfI7RaB_Z1Nh22I.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
 这道题的过滤又增加了，不能再出现system和php。
 &lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2559&quot; height=&quot;228&quot; src=&quot;/_astro/e20.D-unlKRU_WpW8N.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
-命令除system以外还有passthru可以使用，passthru() 会执行传入的系统命令，并且将命令的原始输出（Raw Output）直接输出到浏览器/页面上。&lt;em&gt;可以代替几个字节,不像?只能占一个字节,所以这里的flag点PHP可以直接用Fla&lt;/em&gt;代替。&lt;p&gt;&lt;/p&gt;&lt;/section&gt;</content:encoded></item><item><title>周报1</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/</guid><pubDate>Sun, 25 Oct 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;上周以及这周开周都在ctfplus和NSSCTF这两个靶场打题，题目都是Web方向的，但涉及的知识点还是比较杂，在这周周中开始只在ctfshow上打题（有会员了，就开始从头做“WEB入门”了）目前的进度是把这个板块的信息搜集和爆破做完了。&lt;/p&gt;&lt;p&gt;我首先是先去看了C语言的网课，快速过了一遍了解了个大概（都是些很基础的东西，变量、for循坏、while循环、数组、函数什么的，但是指针还是不太懂）。然后就一直是边打题边学习的状态了，所以在做题过程中还是比较依靠WP和对话式AI的。&lt;/p&gt;&lt;p&gt;我在ctfplus上主要是在打探姬的题，都是教学加题目式的，属于是现学现做的那种了，像这样：
+命令除system以外还有passthru可以使用，passthru() 会执行传入的系统命令，并且将命令的原始输出（Raw Output）直接输出到浏览器/页面上。星号&lt;em&gt;可以代替几个字节,不像?只能占一个字节,所以这里的flag.php可以直接用fla&lt;/em&gt;代替。&lt;p&gt;&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;Web 31&lt;a href=&quot;#web-31&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1039&quot; height=&quot;696&quot; src=&quot;/_astro/e21.D56iiu98_1Iaeps.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+这次又增加了过滤空格没办法用了但是passthru还仍然适用，所以这里可以用%09来代替空格进行绕过。
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2559&quot; height=&quot;217&quot; src=&quot;/_astro/e22.CUdGZ6WU_ZEVe1f.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;section&gt;&lt;h4&gt;Web 32&lt;a href=&quot;#web-32&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1060&quot; height=&quot;694&quot; src=&quot;/_astro/e23.CHyw38W3_17mypi.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+过滤掉了flag|system|php|cat|sort|shell|.| |’|`|echo|;|( 包括点，单引号，反引号，分号，括号
+再像前几关一样直接输入命令执行不大可能了，因为括号，分号，反引号都被过滤掉了，但是php中也有不需要括号的函数,比如：echo,print,die,require,include。
+这里用include构造payload，;被过滤了可以用?&amp;gt;代替
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2559&quot; height=&quot;175&quot; src=&quot;/_astro/image6.BiZk3yTA_ZieTKe.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+得到了base64编码,丢进CyberChef解码
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2559&quot; height=&quot;1353&quot; src=&quot;/_astro/image7.6vmoXqdY_Z1k8mx7.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+flag就出来了。&lt;p&gt;&lt;/p&gt;&lt;/section&gt;</content:encoded></item><item><title>周报1</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/</guid><pubDate>Sun, 25 Oct 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;上周以及这周开周都在ctfplus和NSSCTF这两个靶场打题，题目都是Web方向的，但涉及的知识点还是比较杂，在这周周中开始只在ctfshow上打题（有会员了，就开始从头做“WEB入门”了）目前的进度是把这个板块的信息搜集和爆破做完了。&lt;/p&gt;&lt;p&gt;我首先是先去看了C语言的网课，快速过了一遍了解了个大概（都是些很基础的东西，变量、for循坏、while循环、数组、函数什么的，但是指针还是不太懂）。然后就一直是边打题边学习的状态了，所以在做题过程中还是比较依靠WP和对话式AI的。&lt;/p&gt;&lt;p&gt;我在ctfplus上主要是在打探姬的题，都是教学加题目式的，属于是现学现做的那种了，像这样：
 &lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;8192&quot; height=&quot;3242&quot; src=&quot;/_astro/example1.CCjHf0Yb_vvyHc.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
 上周主要是在做PHP那一块，结果好像因为WP数量太少而且也没啥质量从而转战NSSCTF了。&lt;p&gt;&lt;/p&gt;&lt;p&gt;然后这周开周是在刷NSSCTF上的各种新生赛Web题。
 &lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1702&quot; height=&quot;1249&quot; src=&quot;/_astro/example2.acyGKLcm_m4dWt.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
