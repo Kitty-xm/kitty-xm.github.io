@@ -4,7 +4,7 @@
   <title type="text">kitty&apos;s blog</title>
   <subtitle type="text">喵喵喵</subtitle>
   <updated>2026-11-15T00:00:00.000Z</updated>
-  <author><name>kitty</name></author>
+  <author><name>枭</name></author>
   <link rel="alternate" href="https://kitty-xm.github.io/"/>
   <link rel="self" href="https://kitty-xm.github.io/atom.xml"/>
   <generator uri="https://github.com/CuteLeaf/Firefly">Firefly v6.16.8</generator>
@@ -13,7 +13,7 @@
       <title type="text">周报4</title>
       <published>2026-11-15T00:00:00.000Z</published>
       <updated>2026-11-15T00:00:00.000Z</updated>
-      <author><name>kitty</name></author>
+      <author><name>枭</name></author>
       <link rel="alternate" href="https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A54/"/>
       <summary type="text"></summary>
       <content type="html"><![CDATA[<section><h1>概述<a href="#概述"><span>#</span></a></h1><p>这周只打了极客，但是做题速度很慢，效率太低。</p></section>
@@ -198,7 +198,7 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
       <title type="text">周报3</title>
       <published>2026-11-08T00:00:00.000Z</published>
       <updated>2026-11-08T00:00:00.000Z</updated>
-      <author><name>kitty</name></author>
+      <author><name>枭</name></author>
       <link rel="alternate" href="https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/"/>
       <summary type="text"></summary>
       <content type="html"><![CDATA[<section><h1>概述<a href="#概述"><span>#</span></a></h1><p>这周依然是一边打极客比赛题一边在ctf.show打专题，先补一个上周打的ctf.show的题：
@@ -483,7 +483,7 @@ phar://
       <title type="text">周报2</title>
       <published>2026-10-31T00:00:00.000Z</published>
       <updated>2026-10-31T00:00:00.000Z</updated>
-      <author><name>kitty</name></author>
+      <author><name>枭</name></author>
       <link rel="alternate" href="https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A52/"/>
       <summary type="text"></summary>
       <content type="html"><![CDATA[<section><h1>概述<a href="#概述"><span>#</span></a></h1><p>这周开始再打极客的比赛题，后来极客的Web一直不更新题库就又去ctf.show打WEB入门了，这周主要是在打php、命令执行这方面，打了WWeb29-Web56。总体来说学会了理解比较简单的php代码和一点代码审计以及比较常见的绕过过滤。</p></section>
@@ -668,7 +668,7 @@ flag就出来了。<p></p></section>]]></content>
       <title type="text">周报1</title>
       <published>2026-10-25T00:00:00.000Z</published>
       <updated>2026-10-25T00:00:00.000Z</updated>
-      <author><name>kitty</name></author>
+      <author><name>枭</name></author>
       <link rel="alternate" href="https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A51/"/>
       <summary type="text"></summary>
       <content type="html"><![CDATA[<section><h1>概述<a href="#概述"><span>#</span></a></h1><p>上周以及这周开周都在ctfplus和NSSCTF这两个靶场打题，题目都是Web方向的，但涉及的知识点还是比较杂，在这周周中开始只在ctfshow上打题（有会员了，就开始从头做“WEB入门”了）目前的进度是把这个板块的信息搜集和爆破做完了。</p><p>我首先是先去看了C语言的网课，快速过了一遍了解了个大概（都是些很基础的东西，变量、for循坏、while循环、数组、函数什么的，但是指针还是不太懂）。然后就一直是边打题边学习的状态了，所以在做题过程中还是比较依靠WP和对话式AI的。</p><p>我在ctfplus上主要是在打探姬的题，都是教学加题目式的，属于是现学现做的那种了，像这样：
@@ -903,7 +903,7 @@ O:4:“wllm”:2:{s:5:“admin”;s:5:“admin”;s:6:“passwd”;s:3:“ctf”
       <title type="text">你好</title>
       <published>2026-10-21T00:00:00.000Z</published>
       <updated>2026-10-21T00:00:00.000Z</updated>
-      <author><name>kitty</name></author>
+      <author><name>枭</name></author>
       <link rel="alternate" href="https://kitty-xm.github.io/posts/hello/"/>
       <summary type="text"></summary>
       <content type="html"><![CDATA[<p>欢迎来到我的博客！</p>]]></content>
