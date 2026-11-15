@@ -1,4 +1,141 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>kitty&apos;s blog</title><description>喵喵喵</description><link>https://kitty-xm.github.io/</link><templateTheme>Firefly</templateTheme><templateThemeVersion>6.16.8</templateThemeVersion><templateThemeUrl>https://github.com/CuteLeaf/Firefly</templateThemeUrl><lastBuildDate>2026年11月8日 21:01:06</lastBuildDate><item><title>周报3</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</guid><pubDate>Sun, 08 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;这周依然是一边打极客比赛题一边在ctf.show打专题，先补一个上周打的ctf.show的题：
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>kitty&apos;s blog</title><description>喵喵喵</description><link>https://kitty-xm.github.io/</link><templateTheme>Firefly</templateTheme><templateThemeVersion>6.16.8</templateThemeVersion><templateThemeUrl>https://github.com/CuteLeaf/Firefly</templateThemeUrl><lastBuildDate>2026年11月15日 16:09:00</lastBuildDate><item><title>周报4</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A54/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A54/</guid><pubDate>Sun, 15 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;这周只打了极客，但是做题速度很慢，效率太低。&lt;/p&gt;&lt;/section&gt;
+&lt;section&gt;&lt;h1&gt;知识点&lt;a href=&quot;#知识点&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;section&gt;&lt;h4&gt;端口&lt;a href=&quot;#端口&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;在网络技术中，端口（Port）大致有两种意思：一是物理意义上的端口，比如，ADSL Modem、集线器、交换机、路由器用于连接其他网络设备的接口，如RJ-45端口、SC端口等等。二是逻辑意义上的端口，一般是指TCP/IP 协议中的端口，端口号的范围从0到65535，比如用于浏览网页服务的80端口，用于FTP服务的21端口等等。在ctf中一般指逻辑意义上的端口。
+端口（Port）是计算机网络中的一个逻辑概念，用于标识计算机上运行的不同网络应用程序或服务。它是一个16位的数字编号，范围是0 - 65535。
+端口的主要作用是让操作系统能够区分同一台计算机上运行的不同网络应用程序。例如，在浏览器中访问网页时，浏览器会通过网络与服务器通信，而端口就是用来区分这个通信是属于浏览器的，还是属于其他应用程序的。
+简单来说，端口就是“主机上某个服务的门牌号”。IP 定位到一台主机，端口定位到这台主机上的某个服务/进程。
+详细可看&lt;a href=&quot;https://blog.csdn.net/m0_67906358/article/details/147711743?ops_request_misc=&amp;amp;request_id=&amp;amp;biz_id=102&amp;amp;utm_term=%E7%AB%AF%E5%8F%A3&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-147711743.142%5Ev102%5Epc_search_result_base2&amp;amp;spm=1018.2226.3001.4187%E3%80%82&quot; target=&quot;_blank&quot;&gt;https://blog.csdn.net/m0_67906358/article/details/147711743?ops_request_misc=&amp;amp;request_id=&amp;amp;biz_id=102&amp;amp;utm_term=%E7%AB%AF%E5%8F%A3&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-147711743.142^v102^pc_search_result_base2&amp;amp;spm=1018.2226.3001.4187。&lt;/a&gt;
+在ctf中，端口一般有这些用途&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;信息收集/服务发现
+拿到目标 IP 后先扫端口，看开了什么服务。
+常见工具：nmap、masscan、nc。
+例：nmap -sV -p- target 看全端口和服务版本。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;根据端口猜题型/漏洞&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;80/443/8080：Web 题，看 HTTP 服务、目录、漏洞。&lt;/li&gt;
+&lt;li&gt;22：SSH，可能有弱口令、密钥泄露。&lt;/li&gt;
+&lt;li&gt;21：FTP，匿名登录、文件泄露。&lt;/li&gt;
+&lt;li&gt;445：SMB，共享泄露、永恒之蓝类漏洞。&lt;/li&gt;
+&lt;li&gt;3306：MySQL，弱口令、未授权。&lt;/li&gt;
+&lt;li&gt;6379：Redis，未授权访问、写文件、主从复制等。&lt;/li&gt;
+&lt;li&gt;27017：MongoDB，未授权。&lt;/li&gt;
+&lt;li&gt;2375：Docker API，未授权控制容器。&lt;/li&gt;
+&lt;li&gt;3389：RDP，弱口令/远程桌面。&lt;/li&gt;
+&lt;li&gt;高随机端口：可能是题目自定义服务、反弹 shell 监听、内网代理等。&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;端口扫描后做什么&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;看 banner：nc target port&lt;/li&gt;
+&lt;li&gt;看 HTTP：curl &lt;a href=&quot;http://target:port&quot; target=&quot;_blank&quot;&gt;http://target:port&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;看版本找 CVE/弱配置&lt;/li&gt;
+&lt;li&gt;看是否需要端口转发、隧道、代理&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;CTF 里的“端口”还常和这些操作有关&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;反弹shell：攻击机监听一个端口，目标连回来。&lt;/li&gt;
+&lt;li&gt;端口转发/隧道：把内网服务映射到本地，如 ssh -L、frp、chisel。&lt;/li&gt;
+&lt;li&gt;内网横向：扫内网其他主机的端口。&lt;/li&gt;
+&lt;li&gt;SSRF/代理：利用服务访问内网端口。&lt;/li&gt;
+&lt;li&gt;题目入口：很多CTF题会给&lt;code&gt;IP:端口&lt;/code&gt;，这个端口就是题目服务入口。&lt;/li&gt;
+&lt;/ul&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;gopher协议&lt;a href=&quot;#gopher协议&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。gopher协议支持发出GET 、POST请求：可以先截获get请求包和post请求包，在构成符合gopher协议的请求。gopher协议是ssrf利用中最强大的协议（万金油协议）。默认使用tcp70端口。
+Gopher协议格式为&lt;code&gt;URL:gopher://&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;/&amp;lt;gopher-path&amp;gt;_后接上TCP数据流&lt;/code&gt;
+&lt;strong&gt;注&lt;/strong&gt;：&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;gopher的默认端口是70&lt;/li&gt;
+&lt;li&gt;如果发起post请求,回车换行需要使用%0d%0,如果多个参数,参数之间的&amp;amp;也需要进行URL编码。&lt;/li&gt;
+&lt;li&gt;gopher-path后需要加一个字符，防止tcp数据流改变，默认使用下划线_
+详细见&lt;a href=&quot;https://blog.csdn.net/qq_60115503/article/details/124407499?ops_request_misc=elastic_search_misc&amp;amp;request_id=c6cbf48e2d2efc8ea3831834843e1cdc&amp;amp;biz_id=0&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-124407499-null-null.142%5Ev102%5Epc_search_result_base2&amp;amp;utm_term=gopher&amp;amp;spm=1018.2226.3001.4187%E3%80%82&quot; target=&quot;_blank&quot;&gt;https://blog.csdn.net/qq_60115503/article/details/124407499?ops_request_misc=elastic_search_misc&amp;amp;request_id=c6cbf48e2d2efc8ea3831834843e1cdc&amp;amp;biz_id=0&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-124407499-null-null.142^v102^pc_search_result_base2&amp;amp;utm_term=gopher&amp;amp;spm=1018.2226.3001.4187。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;SSRF&lt;a href=&quot;#ssrf&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;什么是SSRF&lt;/strong&gt;
+SSRF是Server Side Request  Forgery的缩写，是一种安全漏洞和攻击技术，指攻击者能够从易受攻击的Web应用程序发送精心设计的请求对其他网络进行攻击。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。把一个可以发起网络请求的服务当作跳板来攻击其他服务。
+它发生在Web应用程序中，攻击者通过欺骗服务器发起未经授权的请求，使服务器从受攻击者控制的外部资源中获取或操作数据。SSRF可以被用于访问和操作目标服务器内部的资源，如内部网络服务、数据库、文件系统。
+在一些场景中，Web应用程序可能需要从外部获取数据，如远程图片、API调用 等,SSRF可以被滥用以绕过安全控制，使应用程序发起对内部资源的请求。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;攻击者在目标Web应用程序的输入字段中注入恶意URL。&lt;/li&gt;
+&lt;li&gt;目标服务器收到请求并解析URL。&lt;/li&gt;
+&lt;li&gt;目标服务器发起请求到注入的URL。&lt;/li&gt;
+&lt;li&gt;攻击者通过构造特定的URL，利用目标服务器上的漏洞来访问内部网络、敏感文件或执行远程代码。
+其他相关内容详见&lt;a href=&quot;https://blog.csdn.net/qq_63594215/article/details/137275594?ops_request_misc=elastic_search_misc&amp;amp;request_id=70e0bf6af37e0b396d46757e5a0ab5e4&amp;amp;biz_id=0&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~ElasticCommercialInsert~search_v2-1-137275594-null-null.142%5Ev102%5Epc_search_result_base2&amp;amp;utm_term=SSRF&amp;amp;spm=1018.2226.3001.4187%E3%80%82&quot; target=&quot;_blank&quot;&gt;https://blog.csdn.net/qq_63594215/article/details/137275594?ops_request_misc=elastic_search_misc&amp;amp;request_id=70e0bf6af37e0b396d46757e5a0ab5e4&amp;amp;biz_id=0&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~ElasticCommercialInsert~search_v2-1-137275594-null-null.142^v102^pc_search_result_base2&amp;amp;utm_term=SSRF&amp;amp;spm=1018.2226.3001.4187。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;Redis 协议&lt;a href=&quot;#redis-协议&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;当我们谈论Redis时，一般来说，我们讨论的核心是它用来存储和检索数据的多种数据结构：字符串、列表（Lists）、集合（Sets）、有序集合（Sorted Sets）和散列表（Hashes）等。但是，这些操作必须通过一定的协议来执行，这个协议就是Redis协议 (RESP, Redis Serialization Protocol)。RESP 是一个简单而强大的协议，设计得非常易于理解和实现，几乎可以说是目前中间件中最简单的一种协议。
+Redis协议，也被称为 RESP (Redis Serialization Protocol)，它是一种简单的文本协议，用于在客户端和服务器之间操作和传输数据。可以说是最简单的一种传输协议。
+RESP 协议描述了不同类型的数据结构 ，并且定义了请求和响应之间如何以这些数据结构进行交互。&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;RESP 协议支持的数据类型 ：&lt;/li&gt;
+&lt;/ol&gt;&lt;ul&gt;
+&lt;li&gt;简单字符串（Simple Strings）: 以 “+” 开头，例如 “+OK\r\n” 表示一个成功的响应。&lt;/li&gt;
+&lt;li&gt;错误（Errors）: 以 “-” 开头，例如 “-ERR unknown command\r\n” 表示一个错误响应。&lt;/li&gt;
+&lt;li&gt;整数（Integers）: 以 “:” 开头，例如 “&amp;lt;1000&amp;gt;\r\n” 表示整数1000。&lt;/li&gt;
+&lt;li&gt;批量字符串（Bulk Strings）: 以 “&lt;span&gt;&lt;span&gt;”开头，例如“” 开头，例如 “&lt;/span&gt;&lt;span&gt;&lt;span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;”&lt;/span&gt;&lt;span&gt;开头，例如&lt;/span&gt;&lt;span&gt;“&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;6\r\nfoobar\r\n” 表示一个长度为6的字符串 “foobar”。&lt;/li&gt;
+&lt;li&gt;数组（Arrays）: 以 “*” 开头，例如 “*3\r\n&amp;lt;1&amp;gt;\r\n&amp;lt;2&amp;gt;\r\n&amp;lt;3&amp;gt;\r\n” 表示包含3个整数的数组 [1, 2, 3]。
+RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试。同时，RESP 也允许客户端和服务器以高效和低延迟的方式发送和接收数据。在RESP协议中，客户端向服务器发送命令请求，服务器接收并处理这些命令，然后返回一个响应。服务器能够一次处理多个命令，并且能够处理各种类型的数据，包括字符串 、列表、集合、散列表等。&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;数据传输
+请求和响应之间的交互模式
+&lt;strong&gt;RESP协议的数据传输采用简单的文本流，使用\r\n进行分隔符。&lt;/strong&gt;（&lt;code&gt;\r\n&lt;/code&gt;是回车换行，Redis必须用这个结尾）
+此外，RESP协议还定义了请求和响应之间的交互模式。在大多数情况下，交互模式是请求/响应模式，即客户端发送一个请求，然后服务器返回一个响应。然而，RESP协议也支持服务器推送模式（push messages），在这种模式下，服务器可以在没有接收到请求的情况下向客户端发送消息。这对于实现实时通信和事件驱动的应用场景非常有用。
+详细看这个：&lt;a href=&quot;https://blog.csdn.net/wangshuai6707/article/details/132742584?ops_request_misc=&amp;amp;request_id=&amp;amp;biz_id=102&amp;amp;utm_term=Redis%20%E5%8D%8F%E8%AE%AE&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-132742584.142%5Ev102%5Epc_search_result_base2&amp;amp;spm=1018.2226.3001.4187%E3%80%82&quot; target=&quot;_blank&quot;&gt;https://blog.csdn.net/wangshuai6707/article/details/132742584?ops_request_misc=&amp;amp;request_id=&amp;amp;biz_id=102&amp;amp;utm_term=Redis%20%E5%8D%8F%E8%AE%AE&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-132742584.142^v102^pc_search_result_base2&amp;amp;spm=1018.2226.3001.4187。&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;XXS（跨站脚本攻击）&lt;a href=&quot;#xxs跨站脚本攻击&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;XSS 攻击通常指的是通过利用网页开发时留下的漏洞，通过巧妙的方法注入恶意指令代码到网页，使用户加载并执行攻击者恶意制造的网页程序。这些恶意网页程序通常是JavaScript，但实际上也可以包括Java、 VBScript、ActiveX、 Flash 或者甚至是普通的HTML。攻击成功后，攻击者可能得到包括但不限于更高的权限（如执行一些操作）、私密网页内容、会话和cookie等各种内容&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;常见的xss分类&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;反射型&lt;/strong&gt;
+攻击者构造带有xss攻击参数URL，恶意URL被服务器处理后返回并在用户的浏览器 中执行。通过后端代码接收数据，然后将接收到的数据经处理后会把数据打印在浏览器上，浏览器根据自身的配置会对于接收到的数据进行处理，如果是脚本语言没有加以防护的话就会被浏览器当做脚本进行执行，触发跨站脚本。利用流程就是就是攻击者自己在网站发现有xss注入攻击的时候，攻击者自己构造网址具有xss的URL链接，诱导用户进行访问，从而构成反射性xss&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;DOM型&lt;/strong&gt;
+攻击者利用网页的 DOM（文档对象模型）结构漏洞，修改了网页的内容，使得恶意代码被执行。DOM型xss其实触发条件和反射型类似，不同的是反射型会将xss脚本通过后端代码进行传值处理，但是DOM型xss的执行均在前端执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;储存型&lt;/strong&gt;
+当攻击者发现有存储 型xss漏洞时，攻击者将恶意的跨站注入脚本写入网站的数据库中，当有人再次访问这个网页的时候就会触存储型xss，进而进行xss攻击。
+详细请看：&lt;a href=&quot;https://blog.csdn.net/m0_66458291/article/details/135127390%E3%80%82&quot; target=&quot;_blank&quot;&gt;https://blog.csdn.net/m0_66458291/article/details/135127390。&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;JWT&lt;a href=&quot;#jwt&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;JWT 就是一张&lt;strong&gt;服务器自己盖了章的通行证&lt;/strong&gt;，长这样：&lt;/p&gt;&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;eyJhbGciOiJ... . eyJzdWIiOiJhZG1pbi... . NDzn5ZtVagMF...&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;     &lt;/span&gt;&lt;/span&gt;&lt;span&gt;第一段              第二段                第三段&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;   &lt;/span&gt;&lt;/span&gt;&lt;span&gt;(用什么算法算的)    (通行证上写了谁)      (盖的章/签名)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;中间这段内容任何人都能解开看，也能随便改&lt;/strong&gt;。它不是加密的，只是 base64 编码，跟明牌没区别。
+签票的时候，服务器做的事是：章 = 用 secret 这把”钥匙”，对“第一段.第二段”这串内容算一个哈希。访问 &lt;code&gt;/admin&lt;/code&gt; 时先把输入的通行证拆开，拿第二段（role=xxx）
+然后&lt;strong&gt;用它手里的 secret 重新算一遍章&lt;/strong&gt;，跟你给的第三段对一下，对得上 → 这张证是服务器发的，里面写什么服务器就信什么 → 看 role 是不是 root。&lt;/p&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;拼包&lt;a href=&quot;#拼包&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;按 HTTP 协议格式把内容打出来，再通过 gopher 发出去。&lt;/p&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;Flask&lt;a href=&quot;#flask&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Flask 相当于是用 Python 写网站的一个 “工具箱”，作用有监听端口、解析浏览器发过来的请求、判断 “你要访问 /login 还是 /admin”、把结果返回给浏览器等。&lt;/p&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;unquote&lt;a href=&quot;#unquote&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;unquote = “解开 URL 编码”，是个反向翻译函数&lt;/strong&gt;。而&lt;strong&gt;URL 编码&lt;/strong&gt;是把不能直接写在 URL 里的字符（空格、回车、中文、% 本身）换成 &lt;code&gt;%&lt;/code&gt; 加两位十六进制数。 unquote就相当于把编码还原。&lt;/p&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;HMAC-SHA256&lt;a href=&quot;#hmac-sha256&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;输入一样的内容回显一样的东西&lt;/li&gt;
+&lt;li&gt;改一个字母回显出来的整个字符串就和原来的完全不一样&lt;/li&gt;
+&lt;li&gt;这些孩子至少JWT前两段拼起来相当于被盖章的字符串然后真章是最后一段，这个章要用secret算，中间的是内容&lt;/li&gt;
+&lt;/ul&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section&gt;&lt;h1&gt;WP&lt;a href=&quot;#wp&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;section&gt;&lt;h4&gt;过期文档&lt;a href=&quot;#过期文档&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;先看题目
+&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;934&quot; height=&quot;652&quot; src=&quot;/_astro/e38.BRkoV5gs_ZdEW7C.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+一个很简洁的登录页面。&lt;p&gt;&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;先看前端源码，没什么东西&lt;/li&gt;
+&lt;li&gt;注册一个账号抓登录行为的包，发现会给token，猜测需要换token得管理员身份。&lt;/li&gt;
+&lt;li&gt;扫描一下，发现有Git泄露。用git-dumper把源码下载到本地。&lt;/li&gt;
+&lt;li&gt;用VScode查看源码，发现身份验证用的是JWT。&lt;/li&gt;
+&lt;li&gt;在app.py里查找SECRET_KEY,发现一行这个：&lt;/li&gt;
+&lt;/ol&gt;&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;SECRET_KEY&lt;/span&gt;&lt;span&gt;&lt;span&gt; &lt;/span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt; os.getenv(&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&quot;JWT_SECRET&quot;&lt;/span&gt;&lt;span&gt;, &lt;/span&gt;&lt;span&gt;&quot;dev_default_change_me&quot;&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;根据得到的密钥生成token替换原来的token发包，结果是403。&lt;/li&gt;
+&lt;li&gt;重新审查题面，题目名叫过期文档，提示是追寻历史的脚步，猜测flag在历史提交记录中，&lt;code&gt;git log&lt;/code&gt;查看历史提交
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;922&quot; height=&quot;348&quot; src=&quot;/_astro/e39.BGy-pZB6_ZMK1Hz.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;带入给出的哈希值查看旧版本里的.env文件,拿到真正的密钥&lt;code&gt;JWT_SECRET=Syc_g1t_h1st0ry_2026&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;伪造root JWT然后带着token进admin&lt;/li&gt;
+&lt;li&gt;扫描端口发现6379端口是通的而且是未授权的redis，读源码可以发现这道题有go pher SSRF，输入 &lt;code&gt;gopher://host:port/xxxxx&lt;/code&gt;后会把 URL 解码&lt;code&gt;xxxxx&lt;/code&gt;后的内容当裸字节发给 &lt;code&gt;host:port&lt;/code&gt;，然后把回显到页面上。&lt;/li&gt;
+&lt;li&gt;构造gopher URL，读app.py源码可以知道会把输入的URL进行两次解码，第一次是flask自动解，第二次是标准URL解码。所以要把原本要发给服务器的gopher URL进行两次相应方式的编码，将payload发出去回显里就有flag。&lt;/li&gt;
+&lt;/ol&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;简历处理系统&lt;a href=&quot;#简历处理系统&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;CloudView&lt;a href=&quot;#cloudview&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;先看题目
+&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1356&quot; height=&quot;1020&quot; src=&quot;/_astro/e37.Do2YGPHz_ZimQWJ.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+是一个登录界面。&lt;p&gt;&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;先看源码，没发现什么东西。&lt;/li&gt;
+&lt;li&gt;注册一个账号抓包一下登录界面。发现有&lt;code&gt;C00kie: PHPSESSID=...&lt;/code&gt;猜测要改Cookie，但是不知道在哪里拿新Cookie，先搁置。&lt;/li&gt;
+&lt;li&gt;返回题目页面，发现进入了一个输URL的界面。看到Render History里有两个URL，顶栏有&lt;code&gt;Home&lt;/code&gt;、&lt;code&gt;Credential Exchange&lt;/code&gt;和&lt;code&gt;123 · Logout&lt;/code&gt;,点Home没反应，点Credential Exchange进入了一个新页面&lt;code&gt;Temporary Credentials&lt;/code&gt;,有三个输入框，分别是&lt;code&gt;AccessKeyId&lt;/code&gt;、&lt;code&gt;AccessKeySecret&lt;/code&gt;和&lt;code&gt;SecurityToken&lt;/code&gt;，不知道输什么返回Home先看一下历史URL的回显。（123 · Logout肯定是登出就不点了）&lt;/li&gt;
+&lt;li&gt;在Image URL框里输入&lt;code&gt;http://metadata:1338/latest/meta-data/ram/security-credentials/&lt;/code&gt;,Render,回显为&lt;code&gt;oss-flag-role&lt;/code&gt;,点也不能点，加到原来的URL后面试一下。回显里有&lt;code&gt;AccessKeyId&lt;/code&gt;、&lt;code&gt;AccessKeySecret&lt;/code&gt;和&lt;code&gt;SecurityToken&lt;/code&gt;，复制了输过去刚刚的框里，Redeem，回显flag Segment2，但明显能看出来给的flag只有后半段。&lt;/li&gt;
+&lt;li&gt;还差前半段，猜测为flag Segment1，要通过第二个历史URL那个IP拿，返回输入&lt;code&gt;http://127.0.0.1:80&lt;/code&gt;，回显&lt;code&gt;Forbidden host.&lt;/code&gt;看不了。&lt;/li&gt;
+&lt;li&gt;问AI试了很多接口都不行，试了9000的接口依然不行后把IP换成十进制&lt;code&gt;2130706433&lt;/code&gt;之后，回显变成了&lt;code&gt;Failed to connect to 127.0.0.1 port 9000&lt;/code&gt;。说明&lt;code&gt;127.0.0.1&lt;/code&gt; 被&lt;strong&gt;字符串&lt;/strong&gt;拦截了，但程序只做字面比较，并没有真正解析 IP 地址。&lt;/li&gt;
+&lt;li&gt;根据历史URL可以猜测flag的前半段就在80接口，但是&lt;code&gt;http://&lt;/code&gt; 只能发 GET，塞不了 body；Host 头是客户端自己填的，代理不对就查不到后端，依然会 &lt;code&gt;Forbidden host.&lt;/code&gt;；Header也没法自己控制。光换IP写法过不去。&lt;/li&gt;
+&lt;li&gt;因为页面提供“服务端抓取 URL”的功能。内部用外网访问不了，而且元数据服务会返回实例角色名和临时凭据，尝试用SSRF用使用回环地址变体绕过。&lt;/li&gt;
+&lt;li&gt;读取源码发现include 了 &lt;code&gt;flag.php&lt;/code&gt;，要POST取一个cmd参数，且cmd要等于bigx，这样能出flag。&lt;/li&gt;
+&lt;li&gt;普通 SSRF 只发 GET，因此需要利用 gopher:// 构造任意 TCP 数据。 用 127.1 绕 localhost 过滤通过 gopher:// 向内部 80 端口发送 POST cmd=bigx，第一次直接把明文塞进输入框，回显 &lt;code&gt;Load failed: URL rejected: Malformed input to a URL function&lt;/code&gt;，发现空格被过滤了。&lt;/li&gt;
+&lt;li&gt;把空格全换成 &lt;code&gt;%20&lt;/code&gt;，换行全换成 &lt;code&gt;%0d%0a&lt;/code&gt;再发包：&lt;/li&gt;
+&lt;/ol&gt;&lt;div&gt;&lt;figure&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;pre&gt;&lt;code&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;gopher://127.1:80/_POST%20/%20HTTP/1.1%0d%0aHost:%208080-8d3ee7ed-6225-48ae-aa64-28db47c419d2.challenge.ctfplus.cn%0d%0aContent-Type:%20application/x-www-form-urlencoded%0d%0aContent-Length:%208%0d%0aConnection:%20close%0d%0a%0d%&lt;/span&gt;&lt;span&gt;0acmd&lt;/span&gt;&lt;span&gt;&lt;span&gt;=&lt;/span&gt;&lt;span&gt;bigx&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;Render，Response里就有flag前半段。&lt;/li&gt;
+&lt;li&gt;拼接前后两端就是完整flag了。&lt;/li&gt;
+&lt;/ol&gt;&lt;/section&gt;&lt;section&gt;&lt;h4&gt;三真借法宝&lt;a href=&quot;#三真借法宝&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;先看题目,一个留言框和四张图
+&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2559&quot; height=&quot;1350&quot; src=&quot;/_astro/e35.2j5YsPGT_Z19FQ1G.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;
+先看源码，没发现什么东西。返回发现页面下方有一个可以展开查看的原帖。
+&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;1585&quot; height=&quot;1335&quot; src=&quot;/_astro/e36.Cd9_wHw8_ZQr6wf.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;</content:encoded></item><item><title>周报3</title><link>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</link><guid isPermaLink="true">https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</guid><pubDate>Sun, 08 Nov 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section&gt;&lt;h1&gt;概述&lt;a href=&quot;#概述&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;这周依然是一边打极客比赛题一边在ctf.show打专题，先补一个上周打的ctf.show的题：
 &lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&amp;gt;.&amp;lt;&quot; loading=&quot;lazy&quot; width=&quot;2538&quot; height=&quot;1348&quot; src=&quot;/_astro/e24.C98bpBX-_Z2oSb84.webp&quot; /&gt;&lt;figcaption&gt;&amp;gt;.&amp;lt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;&lt;/section&gt;
 &lt;section&gt;&lt;h1&gt;知识点（上周ctf.show的）&lt;a href=&quot;#知识点上周ctfshow的&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h1&gt;&lt;section&gt;&lt;h4&gt;过滤绕过&lt;a href=&quot;#过滤绕过&quot;&gt;&lt;span&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;过滤了&lt;strong&gt;空格&lt;/strong&gt;：可以使用 &lt;code&gt;${IFS}&lt;/code&gt;、&lt;code&gt;%09&lt;/code&gt; (Tab)、&lt;code&gt;&amp;lt;&lt;/code&gt; 或 &lt;code&gt;$IFS$9&lt;/code&gt; 等代替空格。&lt;/li&gt;
