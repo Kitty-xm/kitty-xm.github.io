@@ -17,7 +17,8 @@
       <link rel="alternate" href="https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A54/"/>
       <summary type="text"></summary>
       <content type="html"><![CDATA[<section><h1>概述<a href="#概述"><span>#</span></a></h1><p>这周只打了极客，但是做题速度很慢，效率太低。</p></section>
-<section><h1>知识点<a href="#知识点"><span>#</span></a></h1><section><h4>端口<a href="#端口"><span>#</span></a></h4><p>在网络技术中，端口（Port）大致有两种意思：一是物理意义上的端口，比如，ADSL Modem、集线器、交换机、路由器用于连接其他网络设备的接口，如RJ-45端口、SC端口等等。二是逻辑意义上的端口，一般是指TCP/IP 协议中的端口，端口号的范围从0到65535，比如用于浏览网页服务的80端口，用于FTP服务的21端口等等。在ctf中一般指逻辑意义上的端口。
+<section><h1>知识点<a href="#知识点"><span>#</span></a></h1><p>###端口
+在网络技术中，端口（Port）大致有两种意思：一是物理意义上的端口，比如，ADSL Modem、集线器、交换机、路由器用于连接其他网络设备的接口，如RJ-45端口、SC端口等等。二是逻辑意义上的端口，一般是指TCP/IP 协议中的端口，端口号的范围从0到65535，比如用于浏览网页服务的80端口，用于FTP服务的21端口等等。在ctf中一般指逻辑意义上的端口。
 端口（Port）是计算机网络中的一个逻辑概念，用于标识计算机上运行的不同网络应用程序或服务。它是一个16位的数字编号，范围是0 - 65535。
 端口的主要作用是让操作系统能够区分同一台计算机上运行的不同网络应用程序。例如，在浏览器中访问网页时，浏览器会通过网络与服务器通信，而端口就是用来区分这个通信是属于浏览器的，还是属于其他应用程序的。
 简单来说，端口就是“主机上某个服务的门牌号”。IP 定位到一台主机，端口定位到这台主机上的某个服务/进程。
@@ -58,18 +59,18 @@
 <li>内网横向：扫内网其他主机的端口。</li>
 <li>SSRF/代理：利用服务访问内网端口。</li>
 <li>题目入口：很多CTF题会给<code>IP:端口</code>，这个端口就是题目服务入口。</li>
-</ul></section><section><h4>docx 的元数据<a href="#docx-的元数据"><span>#</span></a></h4><p>.docx 本质上就是一个 zip 压缩包，里面装了一堆 XML 文件。其中：
+</ul><section><h2>docx 的元数据<a href="#docx-的元数据"><span>#</span></a></h2><p>.docx 本质上就是一个 zip 压缩包，里面装了一堆 XML 文件。其中：
 docProps/core.xml 就是文档的 “属性卡”，作者名（dc）、标题、修改时间等都写在这里。
-解压任意一个 docx 就能看到：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>[Content_Types]</span><span>.xml</span></div></div><div><div><div>2</div></div><div><span>_rels/.rels</span></div></div><div><div><div>3</div></div><div><span>docProps/core.xml      ← 作者等元数据在这</span></div></div><div><div><div>4</div></div><div><span>docProps/app.xml</span></div></div><div><div><div>5</div></div><div><span>word/document.xml       ← 正文在这（</span></div></div><div><div><div>6</div></div><div><span>...</span></div></div></code></pre><div><div></div><div></div></div></figure></div></section><section><h4>XXE<a href="#xxe"><span>#</span></a></h4><p>XXE = XML External Entity（XML 外部实体注入）。
+解压任意一个 docx 就能看到：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>[Content_Types]</span><span>.xml</span></div></div><div><div><div>2</div></div><div><span>_rels/.rels</span></div></div><div><div><div>3</div></div><div><span>docProps/core.xml      ← 作者等元数据在这</span></div></div><div><div><div>4</div></div><div><span>docProps/app.xml</span></div></div><div><div><div>5</div></div><div><span>word/document.xml       ← 正文在这</span></div></div><div><div><div>6</div></div><div><span>...</span></div></div></code></pre><div><div></div><div></div></div></figure></div></section><section><h2>XXE<a href="#xxe"><span>#</span></a></h2><p>XXE = XML External Entity（XML 外部实体注入）。
 XML 里可以定义 “实体”，可以理解成一个变量 / 占位符
-如果服务器解析 XML 时开启了 “允许解析外部实体”，又把实体替换后的结果回显出来，就能通过控制这个实体，让服务器把它自己电脑上的文件读出来。</p></section><section><h4>gopher协议<a href="#gopher协议"><span>#</span></a></h4><p>Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。gopher协议支持发出GET 、POST请求：可以先截获get请求包和post请求包，在构成符合gopher协议的请求。gopher协议是ssrf利用中最强大的协议（万金油协议）。默认使用tcp70端口。
+如果服务器解析 XML 时开启了 “允许解析外部实体”，又把实体替换后的结果回显出来，就能通过控制这个实体，让服务器把它自己电脑上的文件读出来。</p></section><section><h2>gopher协议<a href="#gopher协议"><span>#</span></a></h2><p>Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。gopher协议支持发出GET 、POST请求：可以先截获get请求包和post请求包，在构成符合gopher协议的请求。gopher协议是ssrf利用中最强大的协议（万金油协议）。默认使用tcp70端口。
 Gopher协议格式为<code>URL:gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_后接上TCP数据流</code>
 <strong>注</strong>：</p><ul>
 <li>gopher的默认端口是70</li>
 <li>如果发起post请求,回车换行需要使用%0d%0,如果多个参数,参数之间的&amp;也需要进行URL编码。</li>
 <li>gopher-path后需要加一个字符，防止tcp数据流改变，默认使用下划线_
 详细见<a href="https://blog.csdn.net/qq_60115503/article/details/124407499?ops_request_misc=elastic_search_misc&amp;request_id=c6cbf48e2d2efc8ea3831834843e1cdc&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-124407499-null-null.142%5Ev102%5Epc_search_result_base2&amp;utm_term=gopher&amp;spm=1018.2226.3001.4187%E3%80%82" target="_blank">https://blog.csdn.net/qq_60115503/article/details/124407499?ops_request_misc=elastic_search_misc&amp;request_id=c6cbf48e2d2efc8ea3831834843e1cdc&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-124407499-null-null.142^v102^pc_search_result_base2&amp;utm_term=gopher&amp;spm=1018.2226.3001.4187。</a></li>
-</ul></section><section><h4>SSRF<a href="#ssrf"><span>#</span></a></h4><ol>
+</ul></section><section><h2>SSRF<a href="#ssrf"><span>#</span></a></h2><ol>
 <li><strong>什么是SSRF</strong>
 SSRF是Server Side Request  Forgery的缩写，是一种安全漏洞和攻击技术，指攻击者能够从易受攻击的Web应用程序发送精心设计的请求对其他网络进行攻击。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。把一个可以发起网络请求的服务当作跳板来攻击其他服务。
 它发生在Web应用程序中，攻击者通过欺骗服务器发起未经授权的请求，使服务器从受攻击者控制的外部资源中获取或操作数据。SSRF可以被用于访问和操作目标服务器内部的资源，如内部网络服务、数据库、文件系统。
@@ -81,7 +82,7 @@ SSRF是Server Side Request  Forgery的缩写，是一种安全漏洞和攻击技
 <li>目标服务器发起请求到注入的URL。</li>
 <li>攻击者通过构造特定的URL，利用目标服务器上的漏洞来访问内部网络、敏感文件或执行远程代码。
 其他相关内容详见<a href="https://blog.csdn.net/qq_63594215/article/details/137275594?ops_request_misc=elastic_search_misc&amp;request_id=70e0bf6af37e0b396d46757e5a0ab5e4&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~ElasticCommercialInsert~search_v2-1-137275594-null-null.142%5Ev102%5Epc_search_result_base2&amp;utm_term=SSRF&amp;spm=1018.2226.3001.4187%E3%80%82" target="_blank">https://blog.csdn.net/qq_63594215/article/details/137275594?ops_request_misc=elastic_search_misc&amp;request_id=70e0bf6af37e0b396d46757e5a0ab5e4&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~ElasticCommercialInsert~search_v2-1-137275594-null-null.142^v102^pc_search_result_base2&amp;utm_term=SSRF&amp;spm=1018.2226.3001.4187。</a></li>
-</ul></section><section><h4>Redis 协议<a href="#redis-协议"><span>#</span></a></h4><p>当我们谈论Redis时，一般来说，我们讨论的核心是它用来存储和检索数据的多种数据结构：字符串、列表（Lists）、集合（Sets）、有序集合（Sorted Sets）和散列表（Hashes）等。但是，这些操作必须通过一定的协议来执行，这个协议就是Redis协议 (RESP, Redis Serialization Protocol)。RESP 是一个简单而强大的协议，设计得非常易于理解和实现，几乎可以说是目前中间件中最简单的一种协议。
+</ul></section><section><h2>Redis 协议<a href="#redis-协议"><span>#</span></a></h2><p>当我们谈论Redis时，一般来说，我们讨论的核心是它用来存储和检索数据的多种数据结构：字符串、列表（Lists）、集合（Sets）、有序集合（Sorted Sets）和散列表（Hashes）等。但是，这些操作必须通过一定的协议来执行，这个协议就是Redis协议 (RESP, Redis Serialization Protocol)。RESP 是一个简单而强大的协议，设计得非常易于理解和实现，几乎可以说是目前中间件中最简单的一种协议。
 Redis协议，也被称为 RESP (Redis Serialization Protocol)，它是一种简单的文本协议，用于在客户端和服务器之间操作和传输数据。可以说是最简单的一种传输协议。
 RESP 协议描述了不同类型的数据结构 ，并且定义了请求和响应之间如何以这些数据结构进行交互。</p><ol>
 <li>RESP 协议支持的数据类型 ：</li>
@@ -98,7 +99,7 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 <strong>RESP协议的数据传输采用简单的文本流，使用\r\n进行分隔符。</strong>（<code>\r\n</code>是回车换行，Redis必须用这个结尾）
 此外，RESP协议还定义了请求和响应之间的交互模式。在大多数情况下，交互模式是请求/响应模式，即客户端发送一个请求，然后服务器返回一个响应。然而，RESP协议也支持服务器推送模式（push messages），在这种模式下，服务器可以在没有接收到请求的情况下向客户端发送消息。这对于实现实时通信和事件驱动的应用场景非常有用。
 详细看这个：<a href="https://blog.csdn.net/wangshuai6707/article/details/132742584?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=Redis%20%E5%8D%8F%E8%AE%AE&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-132742584.142%5Ev102%5Epc_search_result_base2&amp;spm=1018.2226.3001.4187%E3%80%82" target="_blank">https://blog.csdn.net/wangshuai6707/article/details/132742584?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=Redis%20%E5%8D%8F%E8%AE%AE&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-132742584.142^v102^pc_search_result_base2&amp;spm=1018.2226.3001.4187。</a></li>
-</ol></section><section><h4>XXS（跨站脚本攻击）<a href="#xxs跨站脚本攻击"><span>#</span></a></h4><p>XSS 攻击通常指的是通过利用网页开发时留下的漏洞，通过巧妙的方法注入恶意指令代码到网页，使用户加载并执行攻击者恶意制造的网页程序。这些恶意网页程序通常是JavaScript，但实际上也可以包括Java、 VBScript、ActiveX、 Flash 或者甚至是普通的HTML。攻击成功后，攻击者可能得到包括但不限于更高的权限（如执行一些操作）、私密网页内容、会话和cookie等各种内容</p><ul>
+</ol></section><section><h2>XXS（跨站脚本攻击）<a href="#xxs跨站脚本攻击"><span>#</span></a></h2><p>XSS 攻击通常指的是通过利用网页开发时留下的漏洞，通过巧妙的方法注入恶意指令代码到网页，使用户加载并执行攻击者恶意制造的网页程序。这些恶意网页程序通常是JavaScript，但实际上也可以包括Java、 VBScript、ActiveX、 Flash 或者甚至是普通的HTML。攻击成功后，攻击者可能得到包括但不限于更高的权限（如执行一些操作）、私密网页内容、会话和cookie等各种内容</p><ul>
 <li><strong>常见的xss分类</strong></li>
 </ul><ol>
 <li>
@@ -114,14 +115,14 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 当攻击者发现有存储 型xss漏洞时，攻击者将恶意的跨站注入脚本写入网站的数据库中，当有人再次访问这个网页的时候就会触存储型xss，进而进行xss攻击。
 详细请看：<a href="https://blog.csdn.net/m0_66458291/article/details/135127390?ops_request_misc=elastic_search_misc&amp;request_id=5411d4d552f5206ba8e98102cef654af&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-135127390-null-null.142%5Ev102%5Epc_search_result_base2&amp;utm_term=xxs&amp;spm=1018.2226.3001.4187%E3%80%82" target="_blank">https://blog.csdn.net/m0_66458291/article/details/135127390?ops_request_misc=elastic_search_misc&amp;request_id=5411d4d552f5206ba8e98102cef654af&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-135127390-null-null.142^v102^pc_search_result_base2&amp;utm_term=xxs&amp;spm=1018.2226.3001.4187。</a></p>
 </li>
-</ol></section><section><h4>JWT<a href="#jwt"><span>#</span></a></h4><p>JWT 就是一张<strong>服务器自己盖了章的通行证</strong>，长这样：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>eyJhbGciOiJ... . eyJzdWIiOiJhZG1pbi... . NDzn5ZtVagMF...</span></div></div><div><div><div>2</div></div><div><span><span>    </span></span><span>第一段              第二段                第三段</span></div></div><div><div><div>3</div></div><div><span><span> </span></span><span>(用什么算法算的)    (通行证上写了谁)      (盖的章/签名)</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p><strong>中间这段内容任何人都能解开看，也能随便改</strong>。它不是加密的，只是 base64 编码，跟明牌没区别。
+</ol></section><section><h2>JWT<a href="#jwt"><span>#</span></a></h2><p>JWT 就是一张<strong>服务器自己盖了章的通行证</strong>，长这样：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>eyJhbGciOiJ... . eyJzdWIiOiJhZG1pbi... . NDzn5ZtVagMF...</span></div></div><div><div><div>2</div></div><div><span><span>    </span></span><span>第一段              第二段                第三段</span></div></div><div><div><div>3</div></div><div><span><span> </span></span><span>(用什么算法算的)    (通行证上写了谁)      (盖的章/签名)</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p><strong>中间这段内容任何人都能解开看，也能随便改</strong>。它不是加密的，只是 base64 编码，跟明牌没区别。
 签票的时候，服务器做的事是：章 = 用 secret 这把”钥匙”，对“第一段.第二段”这串内容算一个哈希。访问 <code>/admin</code> 时先把输入的通行证拆开，拿第二段（role=xxx）
-然后<strong>用它手里的 secret 重新算一遍章</strong>，跟你给的第三段对一下，对得上 → 这张证是服务器发的，里面写什么服务器就信什么 → 看 role 是不是 root。</p></section><section><h4>拼包<a href="#拼包"><span>#</span></a></h4><p>按 HTTP 协议格式把内容打出来，再通过 gopher 发出去。</p></section><section><h3>Flask<a href="#flask"><span>#</span></a></h3><p>Flask 相当于是用 Python 写网站的一个 “工具箱”，作用有监听端口、解析浏览器发过来的请求、判断 “你要访问 /login 还是 /admin”、把结果返回给浏览器等。</p><section><h4>unquote<a href="#unquote"><span>#</span></a></h4><p><strong>unquote = “解开 URL 编码”，是个反向翻译函数</strong>。而<strong>URL 编码</strong>是把不能直接写在 URL 里的字符（空格、回车、中文、% 本身）换成 <code>%</code> 加两位十六进制数。 unquote就相当于把编码还原。</p></section><section><h4>HMAC-SHA256<a href="#hmac-sha256"><span>#</span></a></h4><ul>
+然后<strong>用它手里的 secret 重新算一遍章</strong>，跟你给的第三段对一下，对得上 → 这张证是服务器发的，里面写什么服务器就信什么 → 看 role 是不是 root。</p></section><section><h2>拼包<a href="#拼包"><span>#</span></a></h2><p>按 HTTP 协议格式把内容打出来，再通过 gopher 发出去。</p></section><section><h2>Flask<a href="#flask"><span>#</span></a></h2><p>Flask 相当于是用 Python 写网站的一个 “工具箱”，作用有监听端口、解析浏览器发过来的请求、判断 “你要访问 /login 还是 /admin”、把结果返回给浏览器等。</p></section><section><h2>unquote<a href="#unquote"><span>#</span></a></h2><p><strong>unquote = “解开 URL 编码”，是个反向翻译函数</strong>。而<strong>URL 编码</strong>是把不能直接写在 URL 里的字符（空格、回车、中文、% 本身）换成 <code>%</code> 加两位十六进制数。 unquote就相当于把编码还原。</p></section><section><h2>HMAC-SHA256<a href="#hmac-sha256"><span>#</span></a></h2><ul>
 <li>输入一样的内容回显一样的东西</li>
 <li>改一个字母回显出来的整个字符串就和原来的完全不一样</li>
 <li>这些孩子至少JWT前两段拼起来相当于被盖章的字符串然后真章是最后一段，这个章要用secret算，中间的是内容</li>
-</ul></section></section></section>
-<section><h1>WP<a href="#wp"><span>#</span></a></h1><section><h4>过期文档<a href="#过期文档"><span>#</span></a></h4><p>先看题目
+</ul></section></section>
+<section><h1>WP<a href="#wp"><span>#</span></a></h1><section><h2>过期文档<a href="#过期文档"><span>#</span></a></h2><p>先看题目
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="934" height="652" src="/_astro/e38.BRkoV5gs_ZdEW7C.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 一个很简洁的登录页面。<p></p><ol>
 <li>先看前端源码，没什么东西</li>
@@ -137,7 +138,7 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 <li>伪造root JWT然后带着token进admin</li>
 <li>扫描端口发现6379端口是通的而且是未授权的redis，读源码可以发现这道题有go pher SSRF，输入 <code>gopher://host:port/xxxxx</code>后会把 URL 解码<code>xxxxx</code>后的内容当裸字节发给 <code>host:port</code>，然后把回显到页面上。</li>
 <li>构造gopher URL，读app.py源码可以知道会把输入的URL进行两次解码，第一次是flask自动解，第二次是标准URL解码。所以要把原本要发给服务器的gopher URL进行两次相应方式的编码，将payload发出去回显里就有flag。</li>
-</ol></section><section><h4>简历处理系统<a href="#简历处理系统"><span>#</span></a></h4><p>先看题目
+</ol></section><section><h2>简历处理系统<a href="#简历处理系统"><span>#</span></a></h2><p>先看题目
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="1525" height="964" src="/_astro/e40.yYq9_UVa_Z1eTuwf.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
 <li>先新建一个文本文档写入一句话木马然后改后缀为.docx，上传后发现不行，新建一个真正的docx文件写入一句话木马上传发现也不行。</li>
 <li>抓包上传行为以及扫描题目页面都没有什么东西。</li>
@@ -147,7 +148,7 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 但是docx 必须仍是合法 zip，把改好的 core.xml 放到原包对应的位置。</li>
 <li>先读 /etc/passwd验证漏洞，把xxe.docx上传，页面回显：</li>
 </ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>成功提取简历作者信息：root:x:0:0:root:/root:/bin/bash</span></div></div><div><div><div>2</div></div><div><span>daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span></div></div><div><div><div>3</div></div><div><span>...</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>/etc/passwd 内容被成功读出来说明XXE 成立，本地文件读取可用。
-7. 访问/flag路径就有了，页面显示“成功提取简历作者信息：SYC{…}”。</p><blockquote><p>lxml 危险配置：resolve_entities=True + load_dtd=True 即构成 XXE；no_network=True 只禁网络实体，不禁本地 file://。</p></blockquote></section><section><h4>CloudView<a href="#cloudview"><span>#</span></a></h4><p>先看题目
+7. 访问/flag路径就有了，页面显示“成功提取简历作者信息：SYC{…}”。</p><blockquote><p>lxml 危险配置：resolve_entities=True + load_dtd=True 即构成 XXE；no_network=True 只禁网络实体，不禁本地 file://。</p></blockquote></section><section><h2>CloudView<a href="#cloudview"><span>#</span></a></h2><p>先看题目
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="1356" height="1020" src="/_astro/e37.Do2YGPHz_ZimQWJ.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 是一个登录界面。<p></p><ol>
 <li>先看源码，没发现什么东西。</li>
@@ -164,7 +165,7 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 </ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>gopher://127.1:80/_POST%20/%20HTTP/1.1%0d%0aHost:%208080-8d3ee7ed-6225-48ae-aa64-28db47c419d2.challenge.ctfplus.cn%0d%0aContent-Type:%20application/x-www-form-urlencoded%0d%0aContent-Length:%208%0d%0aConnection:%20close%0d%0a%0d%</span><span>0acmd</span><span><span>=</span><span>bigx</span></span></div></div></code></pre><div><div></div><div></div></div></figure></div><ol>
 <li>Render，Response里就有flag前半段。</li>
 <li>拼接前后两端就是完整flag了。</li>
-</ol></section><section><h4>三真借法宝<a href="#三真借法宝"><span>#</span></a></h4><p>先看题目,一个留言框和四张图
+</ol></section><section><h2>三真借法宝<a href="#三真借法宝"><span>#</span></a></h2><p>先看题目,一个留言框和四张图
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1350" src="/_astro/e35.2j5YsPGT_Z19FQ1G.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 先看源码，没发现什么东西。返回发现页面下方有一个可以展开查看的原帖。
 <figure><img alt="&gt;.&lt;" loading="lazy" width="1585" height="1335" src="/_astro/e36.Cd9_wHw8_ZQr6wf.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
