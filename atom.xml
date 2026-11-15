@@ -58,7 +58,11 @@
 <li>内网横向：扫内网其他主机的端口。</li>
 <li>SSRF/代理：利用服务访问内网端口。</li>
 <li>题目入口：很多CTF题会给<code>IP:端口</code>，这个端口就是题目服务入口。</li>
-</ul></section><section><h4>gopher协议<a href="#gopher协议"><span>#</span></a></h4><p>Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。gopher协议支持发出GET 、POST请求：可以先截获get请求包和post请求包，在构成符合gopher协议的请求。gopher协议是ssrf利用中最强大的协议（万金油协议）。默认使用tcp70端口。
+</ul></section><section><h4>docx 的元数据<a href="#docx-的元数据"><span>#</span></a></h4><p>.docx 本质上就是一个 zip 压缩包，里面装了一堆 XML 文件。其中：
+docProps/core.xml 就是文档的 “属性卡”，作者名（dc）、标题、修改时间等都写在这里。
+解压任意一个 docx 就能看到：</p><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>[Content_Types]</span><span>.xml</span></div></div><div><div><div>2</div></div><div><span>_rels/.rels</span></div></div><div><div><div>3</div></div><div><span>docProps/core.xml      ← 作者等元数据在这</span></div></div><div><div><div>4</div></div><div><span>docProps/app.xml</span></div></div><div><div><div>5</div></div><div><span>word/document.xml       ← 正文在这（但这题不读）</span></div></div><div><div><div>6</div></div><div><span>...</span></div></div></code></pre><div><div></div><div></div></div></figure></div></section><section><h4>XXE<a href="#xxe"><span>#</span></a></h4><p>XXE = XML External Entity（XML 外部实体注入）。
+XML 里可以定义 “实体”，可以理解成一个变量 / 占位符
+如果服务器解析 XML 时开启了 “允许解析外部实体”，又把实体替换后的结果回显出来，就能通过控制这个实体，让服务器把它自己电脑上的文件读出来。</p></section><section><h4>gopher协议<a href="#gopher协议"><span>#</span></a></h4><p>Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。gopher协议支持发出GET 、POST请求：可以先截获get请求包和post请求包，在构成符合gopher协议的请求。gopher协议是ssrf利用中最强大的协议（万金油协议）。默认使用tcp70端口。
 Gopher协议格式为<code>URL:gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_后接上TCP数据流</code>
 <strong>注</strong>：</p><ul>
 <li>gopher的默认端口是70</li>
@@ -133,7 +137,17 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 <li>伪造root JWT然后带着token进admin</li>
 <li>扫描端口发现6379端口是通的而且是未授权的redis，读源码可以发现这道题有go pher SSRF，输入 <code>gopher://host:port/xxxxx</code>后会把 URL 解码<code>xxxxx</code>后的内容当裸字节发给 <code>host:port</code>，然后把回显到页面上。</li>
 <li>构造gopher URL，读app.py源码可以知道会把输入的URL进行两次解码，第一次是flask自动解，第二次是标准URL解码。所以要把原本要发给服务器的gopher URL进行两次相应方式的编码，将payload发出去回显里就有flag。</li>
-</ol></section><section><h4>简历处理系统<a href="#简历处理系统"><span>#</span></a></h4></section><section><h4>CloudView<a href="#cloudview"><span>#</span></a></h4><p>先看题目
+</ol></section><section><h4>简历处理系统<a href="#简历处理系统"><span>#</span></a></h4><p>先看题目
+</p><figure><img alt="&gt;.&lt;" loading="lazy" width="1525" height="964" src="/_astro/e40.yYq9_UVa_Z1eTuwf.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
+<li>先新建一个文本文档写入一句话木马然后改后缀为.docx，上传后发现不行，新建一个真正的docx文件写入一句话木马上传发现也不行。</li>
+<li>抓包上传行为以及扫描题目页面都没有什么东西。</li>
+<li>上传一个正常的.docx文件，内容被原样显示在页面上，猜测是XXE。</li>
+<li>读取app.py源码，发现允许解析外部实体，允许读取 DTD以及禁止走网络拉取外部实体。</li>
+<li>手动构造一个XXE的payload，打开docProps/core.xml，在文件最顶部加入 DOCTYPE 定义外部实体，然后把 <a>dc:creator</a> 的内容改成引用该实体 &amp;xxe。
+但是docx 必须仍是合法 zip，把改好的 core.xml 放到原包对应的位置。</li>
+<li>先读 /etc/passwd验证漏洞，把xxe.docx上传，页面回显：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>成功提取简历作者信息：root:x:0:0:root:/root:/bin/bash</span></div></div><div><div><div>2</div></div><div><span>daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span></div></div><div><div><div>3</div></div><div><span>...</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>/etc/passwd 内容被成功读出来说明XXE 成立，本地文件读取可用。
+6. 访问/flag路径就有了，页面显示“成功提取简历作者信息：SYC{…}”。</p><blockquote><p>lxml 危险配置：resolve_entities=True + load_dtd=True 即构成 XXE；no_network=True 只禁网络实体，不禁本地 file://。</p></blockquote></section><section><h4>CloudView<a href="#cloudview"><span>#</span></a></h4><p>先看题目
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="1356" height="1020" src="/_astro/e37.Do2YGPHz_ZimQWJ.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 是一个登录界面。<p></p><ol>
 <li>先看源码，没发现什么东西。</li>
@@ -153,7 +167,31 @@ RESP 非常简单且人类可读，这使得 Redis 能够易于使用和调试�
 </ol></section><section><h4>三真借法宝<a href="#三真借法宝"><span>#</span></a></h4><p>先看题目,一个留言框和四张图
 </p><figure><img alt="&gt;.&lt;" loading="lazy" width="2559" height="1350" src="/_astro/e35.2j5YsPGT_Z19FQ1G.webp" /><figcaption>&gt;.&lt;</figcaption></figure>
 先看源码，没发现什么东西。返回发现页面下方有一个可以展开查看的原帖。
-<figure><img alt="&gt;.&lt;" loading="lazy" width="1585" height="1335" src="/_astro/e36.Cd9_wHw8_ZQr6wf.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p></section></section>]]></content>
+<figure><img alt="&gt;.&lt;" loading="lazy" width="1585" height="1335" src="/_astro/e36.Cd9_wHw8_ZQr6wf.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p><ol>
+<li>发一个帖查看后发现内容是原样输出显示的，尝试发一个一句话木马</li>
+<li>借宝帖被封存了，看不到正文。</li>
+<li>不知道干什么了扫一下，没有发现泄露啥的</li>
+<li>直接在URL后面加/flag访问，结果403，提示需要先辈月令。所以得借机器人身份读。</li>
+<li>探接口看到 /submit、/view/、/report和/flag。</li>
+<li>正文写 <b>加粗</b><span>x</span>　探是否转义。详情页真渲染，content 不转义；title 转义。</li>
+<li>写 　看script能不能用。发现被改成 [blocked-script…。script 前缀被拦截了。
+8.写 <img src="x" />　探 img 通道。&lt;img 同样被 [blocked-img… 替换。</li>
+<li>尝试 
+</li><li>尝试 &lt;scriptx&gt;、&lt;script/ src=…&gt;&lt;/script/&gt;　探黑名单边界。后接空格 / 换行 /&gt; 才拦；斜杠 /、其他字母放行。锁定 &lt;script/ …&gt;&lt;/script/&gt;。</li>
+<li>只写开标签 &lt;script/ src=x/&gt;　探闭合必要性。后续页面被脚本吞掉，外部脚本没有跑。所以必须成对闭合。</li>
+<li>看 HTML 响应头发现只能加载同源脚本、只许连本站。写 、onclick=　探内联事件。Console 报违反 script-src ‘self’。内联事件被拦。枚举同源 JS 端点找可控脚本源。发现 /jsonp，返回 application/javascript。应该可以用。</li>
+<li>直接访问 /jsonp　探默认结构。返回 callback({…})，结果是标准 JSONP。</li>
+<li>/jsonp?callback=alert123探回调名是否反射。返回 alert123({…})，原样拼入。回调名可控。</li>
+<li>/jsonp?callback=alert(1)//　探特殊字符/代码注入。括号、引号、分号、// 全放行；// 注释掉追加 JSON。回调位可以塞任意的 JS。</li>
+<li>扫其他回显端点　找备选脚本源。除 /jsonp 外没有第二个。那就只能用 /jsonp了。</li>
+<li>注入一段只 fetch(‘/submit’) 发帖的 JS　验回写通道。自动建出新帖，通道可用。回写出口用 /submit。</li>
+<li>&lt;script/ src=“/jsonp?callback=window.__probe=7//”&gt;&lt;/script/&gt;　验标签绕过 + 同源加载 + JS 执行。Console 读 window.__probe 返回 7。</li>
+<li></li>
+<li>整合一下再发个帖，正文写：</li>
+</ol><div><figure><figcaption></figcaption><pre><code><div><div><div>1</div></div><div><span>&lt;script/ </span><span>src</span><span>=</span><span>"/jsonp?callback=fetch%28%27/flag%27%29.then%28r%3D%3Er.text%28%29%29.then%28t%3D%3Efetch%28%27/submit%27%2C%7Bmethod%3A%27POST%27%2Cheaders%3A%7B%27Content-Type%27%3A%27application/x-www-form-urlencoded%27%7D%2Cbody%3A%27title%3Dflag-leak%26content%3D%27%2BencodeURIComponent%28t%29%7D%29%29.catch%28e%3D%3Efetch%28%27/submit%27%2C%7Bmethod%3A%27POST%27%2Cheaders%3A%7B%27Content-Type%27%3A%27application/x-www-form-urlencoded%27%7D%2Cbody%3A%27title%3Dflag-err%26content%3D%27%2BencodeURIComponent%28String%28e%29%29%7D%29%29//"</span><span>&gt;&lt;/script/&gt;</span></div></div></code></pre><div><div></div><div></div></div></figure></div><p>封帖。
+21.  返回原题目页面首页去查看刚刚发的帖子的原帖.
+22. 回写帖正文里读到 flag。
+</p><figure><img alt="&gt;.&lt;" loading="lazy" width="1156" height="247" src="/_astro/e41.BcYEIH82_Z2aJqvN.webp" /><figcaption>&gt;.&lt;</figcaption></figure><p></p></section></section>]]></content>
     </entry>
     <entry>
       <id>https://kitty-xm.github.io/posts/%E5%91%A8%E6%8A%A53/</id>
